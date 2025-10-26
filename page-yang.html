@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yang Page</title>
+  <link rel="stylesheet" href="shared-global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="shared-nav.css">
+  <link rel="stylesheet" href="shared-graph.css">
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+</head>
+<body>
+  <!-- Sidebar navigation -->
+  <div id="navigation-container"></div>
+
+  <main class="content-with-sidebar">
+    <h2>Yang Page</h2>
+    <img src="images/WEB_a_yang.svg" alt="a_yang" class="shared-icon yang">
+    
+    <!-- Mini graph container -->
+    <div class="mini-graph-container">
+      <h3>Navigation Graph</h3>
+      <div id="cy-mini"></div>
+    </div>
+    
+    <p>This is the content for yang.</p>
+  </main>
+
+  <script src="shared-theme.js"></script>
+  <script src="shared-nav.js"></script>
+  <script src="shared-graph.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM loaded, initializing...');
+      
+      initNavigation('navigation-container', 'sidebar');
+      
+      // Add a small delay to ensure everything is loaded
+      setTimeout(() => {
+        console.log('Initializing mini graph...');
+        try {
+          new GraphComponent('cy-mini', {
+            size: 'mini',
+            currentPage: 'a_yang',
+            show3D: true
+          });
+        } catch (error) {
+          console.error('Error creating GraphComponent:', error);
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>

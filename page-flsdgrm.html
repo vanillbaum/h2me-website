@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mermaid Git Diagram — Example</title>
+  <link rel="stylesheet" href="page-flsdgrm.css">
+  <!-- Mermaid UMD build (works without bundler) -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <h1>Mermaid Git diagram example</h1>
+      <div class="controls">
+        <label class="switch">
+          <input id="themeToggle" type="checkbox">
+          <span class="slider"></span>
+        </label>
+        <small id="themeLabel">Light</small>
+      </div>
+    </header>
+
+    <section class="content">
+      <p class="lead">A tiny example site showing a <code>gitGraph</code> rendered by Mermaid.</p>
+
+      <div class="diagram-wrapper">
+        <!-- Mermaid diagram: edit the content between the tags to change the graph -->
+        <div class="mermaid" id="gitDiagram">
+
+stateDiagram
+   direction TB
+
+   accTitle: This is the accessible title
+   accDescr: This is an accessible description
+
+   classDef notMoving fill:white
+   classDef movement font-style:italic;
+   classDef badBadEvent fill:#f00,color:white,font-weight:bold,stroke-width:2px,stroke:yellow
+
+   [*] --> Still:::notMoving
+   Still --> [*]
+   Still --> Moving:::movement
+   Moving --> Still
+   Moving --> Crash:::movement
+   Crash:::badBadEvent --> [*]
+
+
+        </div>
+      </div>
+
+      <details class="notes">
+        <summary>How this works</summary>
+        <ol>
+          <li>Mermaid is loaded from the CDN.</li>
+          <li>The page initializes Mermaid and asks it to render any elements with <code>.mermaid</code>.</li>
+          <li>Edit the code inside the <code>.mermaid</code> block and reload to see changes.</li>
+        </ol>
+      </details>
+
+    </section>
+
+    <footer class="footer">Made with ❤️ — Mermaid &amp; plain HTML/CSS/JS</footer>
+  </main>
+
+  <script src="shared-theme.js"></script>
+  <script src="page-flsdgrm.js"></script>
+</body>
+</html>

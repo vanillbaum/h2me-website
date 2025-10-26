@@ -1,0 +1,327 @@
+/* ========================================
+   CSS VARIABLES - ZENTRALE FARBDEFINITION
+   ========================================
+   Alle Farben hier ändern, wirkt sich auf gesamte Website aus.
+   Format: HSL empfohlen für einfache Anpassungen
+   - H (Hue): Farbton 0-360°
+   - S (Saturation): Sättigung 0-100%
+   - L (Lightness): Helligkeit 0-100%
+*/
+
+/* CSS Variables für Theme-System */
+:root {
+    /* Light Mode (default) */
+    
+    /* === HINTERGRUND & TEXT === */
+    --bg-primary: hsla(0, 0%, 100%, 1);       /* Haupthintergrund - Weiß */
+    --text-primary: hsla(50,50%,5%, 0.7);     /* Haupt-Textfarbe */
+    --text-secondary: hsla(50,25%,5%, 0.5);   /* Neben-Text / weniger wichtig */
+    
+    /* === UI COLORS - Buttons, Links, Cards === */
+    --color-primary: hsla(60, 12%, 5%, 0.4);      /* Haupt-Buttons / wichtige UI-Elemente - Mittelgrau */
+    --color-secondary: hsla(60, 12%, 15%, 0.1);    /* Neben-Buttons / Links - Pink/Magenta */
+    --color-primary-hover: #f356cc; /* Hover-State für Primary - Dunkelgrau */
+    
+    /* === BEREICHS-SPEZIFISCHE AKZENTE === */
+    /* Yang = Aktiv/Extern/Handeln */
+    --accent-yang: hsla(45,100%,50%, 0.7);           /* Yang Normal - Gelb */
+    --accent-yang-secondary: hsla(45,100%,60%, 0.4); /* Yang Hover */
+    
+    /* Bian = Neutral/Wandel/Balance */
+    --accent-bian: hsla(225,100%,50%, 0.7);          /* Bian Normal - Blau */
+    --accent-bian-secondary: hsla(225,100%,60%, 0.4); /* Bian Hover */
+    
+    /* Yin = Passiv/Intern/Sammeln */
+    --accent-yin: hsla(285,100%,50%, 0.7);           /* Yin Normal - Lila */
+    --accent-yin-secondary: hsla(285,100%,60%, 0.2); /* Yin Hover */
+}
+
+[data-theme="dark"] {
+    /* Dark Mode */
+    
+    /* === HINTERGRUND & TEXT === */
+    --bg-primary: #282730;       /* Haupthintergrund - Dunkel */
+    --text-primary: #f8f5f1;     /* Haupt-Textfarbe - Hell */
+    --text-secondary: #f8f5f1a1; /* Neben-Text - Hell mit Transparenz */
+    
+    /* === UI COLORS - Buttons, Links, Cards === */
+    --color-primary: #b8b8b8;      /* Haupt-Buttons - Hellgrau */
+    --color-secondary: #8a8a8a;    /* Neben-Buttons / Links - Mittelgrau */
+    --color-primary-hover: #d0d0d0; /* Hover-State - Fast Weiß */
+    
+    /* === BEREICHS-SPEZIFISCHE AKZENTE === */
+    /* Im Dark Mode intensiver (höhere Opacity) */
+    --accent-yang: rgba(255, 193, 7, 0.6);           /* Yang Normal - Gelb */
+    --accent-yang-secondary: rgba(255, 193, 7, 0.8); /* Yang Hover - Sehr intensiv */
+    
+    --accent-bian: rgba(33, 150, 243, 0.6);           /* Bian Normal - Blau */
+    --accent-bian-secondary: rgba(33, 150, 243, 0.8); /* Bian Hover - Sehr intensiv */
+    
+    --accent-yin: rgba(156, 39, 176, 0.6);           /* Yin Normal - Lila */
+    --accent-yin-secondary: rgba(156, 39, 176, 0.8); /* Yin Hover - Sehr intensiv */
+}
+
+/* ========================================
+   BODY - GRUNDLEGENDES LAYOUT
+   ========================================
+   Betrifft: Gesamte Seite
+   - Schriftart
+   - Textfarbe
+   - Hintergrundfarbe
+*/
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-primary);      /* Textfarbe aus CSS Variables */
+    background-color: var(--bg-primary); /* Hintergrund aus CSS Variables */
+    margin: 0;                       /* Kein Rand */
+    padding: 0;                      /* Kein Padding */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth Theme-Wechsel */
+}
+
+/* ========================================
+   SHARED ICONS - Yang/Bian/Yin SVG-Icons
+   ========================================
+   Betrifft: Die drei Haupt-Icons auf index.html
+   - Größe responsiv
+   - Animations (slideRotateIn)
+   - Filter-Effekte (Farbänderung)
+*/
+.shared-icon {
+    width: 12vw;           /* 12% der Viewport-Breite */
+    height: auto;
+    max-width: 80px;       /* Maximal 80px auf großen Screens */
+    min-width: 32px;       /* Minimal 32px auf kleinen Screens */
+    transition: all 0.3s ease;
+    opacity: 0;            /* Startet unsichtbar */
+    animation: slideRotateIn 1.2s ease-out forwards; /* Erscheint mit Animation */
+}
+
+/* === YANG ICON (Aktiv/Extern) === */
+.yang {
+    filter: sepia(0.5) hue-rotate(120deg) saturate(5); /* Grün-Gelblich */
+    transform: translateX(-100px) translateY(-50px) rotate(-60deg) scale(0.3); /* Start-Position */
+    animation-delay: 0s;   /* Erscheint als Erstes */
+}
+
+/* === BIAN ICON (Neutral/Wandel) === */
+.bian {
+    filter: sepia(0.5) hue-rotate(180deg) saturate(5); /* Blaulich */
+    transform: translateX(0px) translateY(-100px) rotate(-180deg) scale(0.3); /* Start-Position */
+    animation-delay: 0.3s; /* Erscheint 0.3s später */
+}
+
+/* === YIN ICON (Passiv/Intern) === */
+.yin {
+    filter: sepia(0.5) hue-rotate(240deg) saturate(5); /* Lila */
+    transform: translateX(100px) translateY(-50px) rotate(-300deg) scale(0.3); /* Start-Position */
+    animation-delay: 0.6s; /* Erscheint 0.6s später */
+}
+
+/* === ANIMATION - Icons gleiten und rotieren rein === */
+@keyframes slideRotateIn {
+    to {
+        transform: translateX(0) translateY(0) rotate(0deg) scale(1); /* End-Position: Zentriert */
+        opacity: 1; /* Voll sichtbar */
+    }
+}
+
+/* ========================================
+   HOVER-EFFEKTE - Icons werden größer/heller
+   ========================================
+   Betrifft: Yang/Bian/Yin Icons bei Hover
+   Nutzt Accent-Farben aus CSS Variables
+*/
+.yang:hover {
+    transform: scale(1.15) rotate(10deg); /* Vergrößert + leicht gedreht */
+    filter: hue-rotate(45deg) saturate(2.5) brightness(2.4) drop-shadow(0 5px 15px var(--accent-yang));
+}
+
+.bian:hover {
+    transform: scale(1.15) rotate(10deg);
+    filter: hue-rotate(200deg) saturate(2.5) contrast(2.4) drop-shadow(0 5px 15px var(--accent-bian));
+}
+
+.yin:hover {
+    transform: scale(1.15) rotate(10deg);
+    filter: sepia(0.5) hue-rotate(290deg) saturate(2.2) brightness(1.4) drop-shadow(0 5px 15px var(--accent-yin));
+}
+
+/* ========================================
+   THEME TOGGLE BUTTON - Dark/Light Mode Wechsel
+   ========================================
+   Betrifft: Floating Button rechts unten
+   - Position: Fixed rechts unten
+   - Icons: ☀️ (Sonne) und 🌙 (Mond)
+   - JavaScript steuert welches Icon sichtbar ist
+*/
+.theme-toggle {
+    position: fixed;       /* Bleibt an Position beim Scrollen */
+    bottom: 20px;          /* 20px vom unteren Rand */
+    right: 20px;           /* 20px vom rechten Rand */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;    /* Rund */
+    background-color: var(--text-primary); /* Button-Hintergrund */
+    border: 2px solid var(--bg-primary);   /* Rand in Seiten-Hintergrundfarbe */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    z-index: 1000;         /* Über allen anderen Elementen */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* === HOVER & ACTIVE STATES === */
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);  /* Leicht größer + gedreht */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);  /* Etwas kleiner beim Klick (Feedback) */
+}
+
+/* === ICON STYLING === */
+.theme-toggle .icon {
+    color: var(--color-secondary);  /* Icon-Farbe */
+    transition: opacity 0.3s ease;  /* Smooth Icon-Wechsel */
+}
+
+.theme-toggle .sun-icon,
+.theme-toggle .moon-icon {
+    position: absolute;  /* Übereinander positioniert */
+}
+
+/* === ICON VISIBILITY - Gesteuert durch Theme === */
+/* Light Mode: Mond zeigen (zum Dark wechseln) */
+:root .theme-toggle .sun-icon {
+    opacity: 0;  /* Sonne versteckt */
+}
+
+:root .theme-toggle .moon-icon {
+    opacity: 1;  /* Mond sichtbar */
+}
+
+/* Dark Mode: Sonne zeigen (zum Light wechseln) */
+[data-theme="dark"] .theme-toggle .sun-icon {
+    opacity: 1;  /* Sonne sichtbar */
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+    opacity: 0;  /* Mond versteckt */
+}
+
+/* ========================================
+   BUTTON BASE CLASS - Shared Button Styling
+   ========================================
+   Basis-Styling für alle Buttons auf der Website
+   Wird von nav-links, representation-controls etc. genutzt
+*/
+.btn-base {
+    padding: 0.75rem 1rem;
+    margin: 0.25rem;
+    border-radius: 28px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: transparent;
+}
+
+/* === HOVER STATE === */
+.btn-base:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* === ACTIVE STATE === */
+.btn-base:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   YANG/BIAN/YIN BUTTON COLORS - Zentrale Steuerung
+   ========================================
+   Diese Klassen funktionieren für ALLE Buttons:
+   - Navigation (sidebar)
+   - Representation Controls
+   - Weitere Buttons
+*/
+
+/* === YANG (Aktiv/Extern/Handeln) === */
+.yang-color {
+    color: var(--accent-yang);
+}
+
+.yang-color .nav-icon,
+.yang-color i {
+    color: var(--accent-yang);
+}
+
+.yang-color:hover {
+    color: var(--accent-yang) !important;
+    background-color: var(--accent-yang-secondary) !important;
+}
+
+.yang-color:hover .nav-icon,
+.yang-color:hover i {
+    color: var(--accent-yang) !important;
+    text-shadow: 0 0 10px var(--accent-yang-secondary-secondary) !important;
+}
+
+.yang-color:hover .nav-text {
+    text-shadow: 0 0 8px var(--accent-yang-secondary);
+}
+
+/* === BIAN (Neutral/Wandel/Balance) === */
+.bian-color {
+    color: var(--accent-bian);
+}
+
+.bian-color .nav-icon,
+.bian-color i {
+    color: var(--accent-bian);
+}
+
+.bian-color:hover {
+    color: var(--accent-bian) !important;
+    background-color: var(--accent-bian-secondary) !important;
+}
+
+.bian-color:hover .nav-icon,
+.bian-color:hover i {
+    color: var(--accent-bian) !important;
+    text-shadow: 0 0 10px var(--accent-bian-secondary) !important;
+}
+
+.bian-color:hover .nav-text {
+    text-shadow: 0 0 8px var(--accent-bian-secondary);
+}
+
+/* === YIN (Passiv/Intern/Sammeln) === */
+.yin-color {
+    color: var(--accent-yin);
+}
+
+.yin-color .nav-icon,
+.yin-color i {
+    color: var(--accent-yin);
+}
+
+.yin-color:hover {
+    color: var(--accent-yin) !important;
+    background-color: var(--accent-yin-secondary) !important;
+}
+
+.yin-color:hover .nav-icon,
+.yin-color:hover i {
+    color: var(--accent-yin-secondary) !important;
+    text-shadow: 0 0 10px var(--accent-yin-secondary) !important;
+}
+
+.yin-color:hover .nav-text {
+    text-shadow: 0 0 8px var(--accent-yin-secondary);
+}

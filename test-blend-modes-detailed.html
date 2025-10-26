@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blend Mode Test - H2me Dashboard (mit technischen Details)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .blend-mode-section {
+            margin-bottom: 50px;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .blend-mode-section h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .blend-info {
+            background: #f5f5f5;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin: 10px auto 15px auto;
+            max-width: 800px;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+        
+        .blend-info strong {
+            color: #555;
+        }
+        
+        .blend-info .affects {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .blend-info .preserves {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .blend-info .modifies {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .test-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            height: 400px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Hauptfeld-Farben */
+        .area {
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .area-yang {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+        }
+        
+        .area-bian {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+        }
+        
+        .area-yin {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+        }
+        
+        .area-fluur {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+        }
+        
+        .area h3 {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Widget Grid */
+        .widget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .widget {
+            border-radius: 8px;
+            padding: 10px;
+            border-left: 4px solid;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Widget Farben */
+        .widget:nth-child(1) {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(2) {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(3) {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(4) {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+        }
+        
+        /* Blend Mode wird dynamisch gesetzt */
+        .blend-normal .widget { mix-blend-mode: normal; }
+        .blend-multiply .widget { mix-blend-mode: multiply; }
+        .blend-screen .widget { mix-blend-mode: screen; }
+        .blend-overlay .widget { mix-blend-mode: overlay; }
+        .blend-darken .widget { mix-blend-mode: darken; }
+        .blend-lighten .widget { mix-blend-mode: lighten; }
+        .blend-color-dodge .widget { mix-blend-mode: color-dodge; }
+        .blend-color-burn .widget { mix-blend-mode: color-burn; }
+        .blend-hard-light .widget { mix-blend-mode: hard-light; }
+        .blend-soft-light .widget { mix-blend-mode: soft-light; }
+        .blend-difference .widget { mix-blend-mode: difference; }
+        .blend-exclusion .widget { mix-blend-mode: exclusion; }
+        .blend-hue .widget { mix-blend-mode: hue; }
+        .blend-saturation .widget { mix-blend-mode: saturation; }
+        .blend-color .widget { mix-blend-mode: color; }
+        .blend-luminosity .widget { mix-blend-mode: luminosity; }
+    </style>
+</head>
+<body>
+    <h1>🎨 Blend Mode Test für H2me Dashboard</h1>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 30px auto; color: #666;">
+        Legende: <span class="affects" style="color: #e74c3c; font-weight: bold;">Rot = Beeinflusst</span> | 
+        <span class="preserves" style="color: #27ae60; font-weight: bold;">Grün = Erhalten</span> | 
+        <span class="modifies" style="color: #f39c12; font-weight: bold;">Orange = Modifiziert</span>
+    </p>
+    
+    <!-- Normal (kein Blend) -->
+    <div class="blend-mode-section">
+        <h2>normal (Standard - kein Blending)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Keine Verschmelzung. Widget-Farbe überschreibt Hauptfeld-Farbe komplett.<br>
+            <span class="affects">Beeinflusst:</span> Nichts<br>
+            <span class="preserves">Erhalten:</span> Hue, Saturation, Lightness, Alpha - alle original<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha-Wert funktioniert normal (0.3 = 30% sichtbar)
+        </div>
+        <div class="test-container blend-normal">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Multiply -->
+    <div class="blend-mode-section">
+        <h2>multiply (Dunkler, Farben multiplizieren)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Multipliziert Farbwerte (RGB) der beiden Ebenen → immer dunkler.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (↓ wird dunkler), Hue & Saturation werden gemischt<br>
+            <span class="preserves">Erhalten:</span> Nichts vollständig - alle Werte interagieren<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha verstärkt Effekt - höhere Opacity = dunklere Mischung<br>
+            <strong>Gut für:</strong> Schatten, tiefe Farben, realistische Überlagerungen
+        </div>
+        <div class="test-container blend-multiply">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Screen -->
+    <div class="blend-mode-section">
+        <h2>screen (Heller, wie Licht übereinander)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Invertiert Farben, multipliziert, invertiert zurück → immer heller.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (↑ wird heller), Hue & Saturation gemischt<br>
+            <span class="preserves">Erhalten:</span> Nichts vollständig<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Helligkeit - höhere Opacity = hellere Mischung<br>
+            <strong>Gut für:</strong> Lichteffekte, Glows, aufhellende Overlays
+        </div>
+        <div class="test-container blend-screen">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="blend-mode-section">
+        <h2>overlay (Kombination multiply & screen)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Multiply für dunkle Bereiche, Screen für helle → erhöht Kontrast.<br>
+            <span class="affects">Beeinflusst:</span> Alle Werte (Hue, Saturation, Lightness)<br>
+            <span class="modifies">Modifiziert:</span> Kontrast stark erhöht<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Stärke des Kontrast-Effekts<br>
+            <strong>Gut für:</strong> Dramatische Effekte, lebendige Farbmischungen
+        </div>
+        <div class="test-container blend-overlay">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Darken -->
+    <div class="blend-mode-section">
+        <h2>darken (Dunklere Farbe gewinnt)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Vergleicht RGB-Werte, wählt dunklere Farbe pro Kanal.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (wählt dunkleren Wert)<br>
+            <span class="preserves">Erhalten:</span> Hue & Saturation der dunkleren Farbe<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha beeinflusst Vergleich - niedrigere Opacity = weniger Einfluss<br>
+            <strong>Gut für:</strong> Subtile Abdunkelungen ohne Farbmischung
+        </div>
+        <div class="test-container blend-darken">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lighten -->
+    <div class="blend-mode-section">
+        <h2>lighten (Hellere Farbe gewinnt)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Vergleicht RGB-Werte, wählt hellere Farbe pro Kanal.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (wählt helleren Wert)<br>
+            <span class="preserves">Erhalten:</span> Hue & Saturation der helleren Farbe<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha beeinflusst Vergleich<br>
+            <strong>Gut für:</strong> Subtile Aufhellungen ohne Farbmischung
+        </div>
+        <div class="test-container blend-lighten">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color Dodge -->
+    <div class="blend-mode-section">
+        <h2>color-dodge (Sehr hell & intensiv)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Dividiert Grundfarbe durch invertierte Deckfarbe → extrem hell.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (↑↑ sehr hell), Saturation (↑ intensiver)<br>
+            <span class="modifies">Modifiziert:</span> Kann zu reinem Weiß führen<br>
+            <strong>Interaktion mit Transparenz:</strong> STARK! Selbst niedrige Opacity erzeugt starken Effekt<br>
+            <strong>Gut für:</strong> Glühende Effekte, starke Highlights (oft zu intensiv für UI)
+        </div>
+        <div class="test-container blend-color-dodge">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color Burn -->
+    <div class="blend-mode-section">
+        <h2>color-burn (Sehr dunkel & intensiv)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Dividiert invertierte Grundfarbe durch Deckfarbe, invertiert zurück → extrem dunkel.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (↓↓ sehr dunkel), Saturation (↑ intensiver)<br>
+            <span class="modifies">Modifiziert:</span> Kann zu reinem Schwarz führen<br>
+            <strong>Interaktion mit Transparenz:</strong> STARK! Selbst niedrige Opacity erzeugt starken Effekt<br>
+            <strong>Gut für:</strong> Tiefe Schatten, dramatische Verdunkelungen (oft zu intensiv für UI)
+        </div>
+        <div class="test-container blend-color-burn">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hard Light -->
+    <div class="blend-mode-section">
+        <h2>hard-light (Starke Kontraste)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Wie Overlay, aber Deckfarbe bestimmt Multiply/Screen (statt Grundfarbe).<br>
+            <span class="affects">Beeinflusst:</span> Alle Werte stark<br>
+            <span class="modifies">Modifiziert:</span> Kontrast SEHR stark erhöht<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Intensität des Kontrasts<br>
+            <strong>Gut für:</strong> Sehr dramatische Effekte (oft zu hart für subtile UI)
+        </div>
+        <div class="test-container blend-hard-light">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Soft Light -->
+    <div class="blend-mode-section">
+        <h2>soft-light (Sanfte Mischung) ⭐ EMPFOHLEN für Dashboard</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Ähnlich wie Overlay, aber sanfter - nutzt kubische Funktion statt linearer.<br>
+            <span class="affects">Beeinflusst:</span> Lightness (sanft), Hue & Saturation (gemischt)<br>
+            <span class="modifies">Modifiziert:</span> Kontrast leicht erhöht, natürliche Mischung<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Mischungsintensität sanft<br>
+            <strong>Gut für:</strong> ⭐ IDEAL für UI! Natürliche Farbverschmelzung ohne extreme Effekte<br>
+            <strong>Dashboard-Tipp:</strong> Mit Alpha 0.3 perfekt für sanfte Widget-Integration
+        </div>
+        <div class="test-container blend-soft-light">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Difference -->
+    <div class="blend-mode-section">
+        <h2>difference (Invertierte Differenz)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Subtrahiert Farben voneinander, nimmt Absolutwert → invertierte Effekte.<br>
+            <span class="affects">Beeinflusst:</span> Alle Werte radikal - Hue kann komplett umkehren<br>
+            <span class="modifies">Modifiziert:</span> Erzeugt unvorhersehbare Komplementärfarben<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert wie stark Farben invertiert werden<br>
+            <strong>Gut für:</strong> Künstlerische Effekte, Animationen (NICHT für UI - zu wild)
+        </div>
+        <div class="test-container blend-difference">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exclusion -->
+    <div class="blend-mode-section">
+        <h2>exclusion (Ähnlich wie difference, weicher)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Wie Difference, aber mit Screen statt Subtract → weniger extreme Kontraste.<br>
+            <span class="affects">Beeinflusst:</span> Alle Werte, aber sanfter als Difference<br>
+            <span class="modifies">Modifiziert:</span> Grauwerte entstehen bei gleichen Farben<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Intensität der Inversion<br>
+            <strong>Gut für:</strong> Künstlerische Effekte (besser als Difference, aber immer noch wild für UI)
+        </div>
+        <div class="test-container blend-exclusion">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hue -->
+    <div class="blend-mode-section">
+        <h2>hue (Nur Farbton mischen)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Nimmt Hue von Deckfarbe, behält Saturation & Lightness von Grundfarbe.<br>
+            <span class="affects">Beeinflusst:</span> Nur Hue (Farbton) wird übertragen<br>
+            <span class="preserves">Erhalten:</span> Saturation & Lightness vom Hauptfeld<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert wie stark Hue übertragen wird<br>
+            <strong>Gut für:</strong> Farbton-Anpassungen ohne Helligkeit/Sättigung zu ändern (interessant für Themes!)
+        </div>
+        <div class="test-container blend-hue">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Saturation -->
+    <div class="blend-mode-section">
+        <h2>saturation (Nur Sättigung mischen)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Nimmt Saturation von Deckfarbe, behält Hue & Lightness von Grundfarbe.<br>
+            <span class="affects">Beeinflusst:</span> Nur Saturation (Farbintensität)<br>
+            <span class="preserves">Erhalten:</span> Hue & Lightness vom Hauptfeld<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Sättigungsübertragung<br>
+            <strong>Gut für:</strong> Sättigung angleichen ohne Farbton/Helligkeit zu ändern (subtil)
+        </div>
+        <div class="test-container blend-saturation">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color -->
+    <div class="blend-mode-section">
+        <h2>color (Nur Farbe übertragen, Helligkeit beibehalten) ⭐ EMPFOHLEN</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Nimmt Hue & Saturation von Deckfarbe, behält Lightness von Grundfarbe.<br>
+            <span class="affects">Beeinflusst:</span> Hue & Saturation (komplette Farbe)<br>
+            <span class="preserves">Erhalten:</span> Lightness (Helligkeit) vom Hauptfeld bleibt!<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Farbübertragung sanft<br>
+            <strong>Gut für:</strong> ⭐ IDEAL für UI! Färbt ohne Helligkeit zu ändern - behält Kontrast & Lesbarkeit<br>
+            <strong>Dashboard-Tipp:</strong> Perfekt für konsistente Helligkeit bei verschiedenen Farben
+        </div>
+        <div class="test-container blend-color">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Luminosity -->
+    <div class="blend-mode-section">
+        <h2>luminosity (Nur Helligkeit übertragen)</h2>
+        <div class="blend-info">
+            <strong>Technisch:</strong> Nimmt Lightness von Deckfarbe, behält Hue & Saturation von Grundfarbe.<br>
+            <span class="affects">Beeinflusst:</span> Nur Lightness (Helligkeit)<br>
+            <span class="preserves">Erhalten:</span> Hue & Saturation vom Hauptfeld<br>
+            <strong>Interaktion mit Transparenz:</strong> Alpha steuert Helligkeitsübertragung<br>
+            <strong>Gut für:</strong> Helligkeit angleichen ohne Farbe zu ändern (sehr subtil, selten für UI)
+        </div>
+        <div class="test-container blend-luminosity">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="background: #e8f5e9; padding: 20px; border-radius: 12px; max-width: 800px; margin: 40px auto; border: 2px solid #4caf50;">
+        <h2 style="margin-top: 0; color: #2e7d32;">🎯 Empfehlung für H2me Dashboard:</h2>
+        <p><strong style="color: #27ae60;">Top 2 Blend-Modes für UI:</strong></p>
+        <ol>
+            <li><strong>soft-light</strong> - Natürliche Verschmelzung, sanfter Kontrast, perfekt für subtile Integration</li>
+            <li><strong>color</strong> - Behält Helligkeit, färbt nur - ideal für konsistente Lesbarkeit</li>
+        </ol>
+        <p><strong>Für dein Dashboard mit Alpha 0.3:</strong><br>
+        <code>mix-blend-mode: soft-light;</code> gibt die harmonischste Mischung zwischen Hauptfeldern und Widgets!</p>
+    </div>
+    
+</body>
+</html>

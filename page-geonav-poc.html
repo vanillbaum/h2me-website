@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoNav PoC - Geometrische Navigation</title>
+    <style>
+        /* Reset & Fullscreen Canvas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Info-Overlay */
+        .info-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-overlay h2 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .info-overlay p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+        }
+
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Info Overlay -->
+    <div class="info-overlay">
+        <h2>🎲 GeoNav PoC - Häppchen 6</h2>
+        <p><strong>Status:</strong> Navigation aktiv!</p>
+        <p><strong>Steuerung:</strong> Klick auf Fläche = Navigate</p>
+        <p><strong>PoC:</strong> KOMPLETT ✅</p>
+    </div>
+
+    <!-- Home Button -->
+    <a href="index.html" class="home-button" title="Zurück zur Startseite">🏠</a>
+
+    <!-- Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        console.log('🎲 GeoNav PoC - Start Loading...');
+
+        // ========================================
+        // SCENE SETUP
+        // ========================================
+        
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e);
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(
+            75, // Field of View
+            window.innerWidth / window.innerHeight, // Aspect Ratio
+            0.1, // Near Clipping
+            1000 // Far Clipping
+        );
+        camera.position.z = 5;
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        console.log('✓ Scene & Renderer setup complete');
+
+        // ========================================
+        // WÜRFEL MIT BESCHRIFTETEN FLÄCHEN
+        // ========================================
+        
+        // Mapping: Seite → Fläche
+        // Würfel-Flächen: +X, -X, +Y, -Y, +Z, -Z
+        const faceMapping = [
+            { name: 'yang', color: 0xffc107, label: 'Yang', url: 'page-yang.html' },      // +X (rechts)
+            { name: 'bian', color: 0x2196f3, label: 'Bian', url: 'page-bian.html' },      // -X (links)
+            { name: 'yin', color: 0x9c27b0, label: 'Yin', url: 'page-yin.html' },        // +Y (oben)
+            { name: 'graph', color: 0x4caf50, label: 'Graph', url: 'page-graph.html' },    // -Y (unten)
+            { name: 'cytoscape', color: 0xff5722, label: 'Cytoscape', url: 'page-cytoscape.html' }, // +Z (vorne)
+            { name: '3dmodel', color: 0x00bcd4, label: '3D Model', url: 'page-3dmodel.html' }     // -Z (hinten)
+        ];
+
+        // Funktion: Text auf Canvas zeichnen und als Texture zurückgeben
+        function createTextTexture(text, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Hintergrund (Farbe)
+            ctx.fillStyle = '#' + color.toString(16).padStart(6, '0');
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Text (Weiß, zentriert)
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 80px Helvetica, Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            // Texture aus Canvas erstellen
+            const texture = new THREE.CanvasTexture(canvas);
+            return texture;
+        }
+
+        // Geometrie & Material
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        
+        // Array von Materials (eins pro Fläche) - MIT TEXTURES
+        const materials = faceMapping.map(face => 
+            new THREE.MeshPhongMaterial({ 
+                map: createTextTexture(face.label, face.color),
+                shininess: 30,
+                flatShading: false
+            })
+        );
+
+        // Würfel mit multi-material
+        const cube = new THREE.Mesh(geometry, materials);
+        scene.add(cube);
+
+        console.log('✓ Cube created with textures');
+
+        // ========================================
+        // BELEUCHTUNG
+        // ========================================
+        
+        // Ambient Light (allgemeine Helligkeit)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        // Directional Light (Scheinwerfer von oben)
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        // Point Light (bewegliches Licht)
+        const pointLight = new THREE.PointLight(0xffffff, 0.6, 50);
+        pointLight.position.set(-5, 3, 2);
+        scene.add(pointLight);
+
+        console.log('✓ Lighting setup complete');
+
+        // ========================================
+        // DRAG & CLICK - VARIABLEN
+        // ========================================
+        
+        let isDragging = false;
+        let previousMouseX = 0;
+        let previousMouseY = 0;
+        let autoRotate = true;
+        let clickStartPos = { x: 0, y: 0 };
+        let hasDragged = false;
+        
+        // Snap-Mechanik Variablen
+        let isSnapping = false;
+        let snapStartRotation = { x: 0, y: 0, z: 0 };
+        let snapTargetRotation = { x: 0, y: 0, z: 0 };
+        let snapProgress = 0;
+        const snapSpeed = 0.12; // Wie schnell wird gesnappt (0-1)
+
+        // ========================================
+        // RAYCASTING - KLICK-ERKENNUNG
+        // ========================================
+        
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Maus-Position bei mousedown speichern
+        renderer.domElement.addEventListener('mousedown', (e) => {
+            clickStartPos.x = e.clientX;
+            clickStartPos.y = e.clientY;
+            hasDragged = false;
+            isDragging = true;
+            autoRotate = false;
+            previousMouseX = e.clientX;
+            previousMouseY = e.clientY;
+            renderer.domElement.style.cursor = 'grabbing';
+        });
+
+        // Tracken ob Maus bewegt wurde
+        renderer.domElement.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const moveDistance = Math.abs(e.clientX - clickStartPos.x) + Math.abs(e.clientY - clickStartPos.y);
+                if (moveDistance > 5) { // Mehr als 5px = Drag, nicht Click
+                    hasDragged = true;
+                }
+                
+                const deltaX = e.clientX - previousMouseX;
+                const deltaY = e.clientY - previousMouseY;
+                
+                cube.rotation.x += deltaY * 0.01;
+                cube.rotation.y += deltaX * 0.01;
+                
+                previousMouseX = e.clientX;
+                previousMouseY = e.clientY;
+            }
+        });
+
+        // Bei mouseup: Wenn nicht bewegt wurde → Click-Erkennung, sonst Snap
+        renderer.domElement.addEventListener('mouseup', (e) => {
+            isDragging = false;
+            renderer.domElement.style.cursor = 'grab';
+            
+            // War es ein Drag oder ein Click?
+            if (!hasDragged) {
+                // CLICK: Raycasting für Flächen-Erkennung & Navigation
+                const rect = renderer.domElement.getBoundingClientRect();
+                mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+                
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObject(cube);
+                
+                if (intersects.length > 0) {
+                    const faceIndex = Math.floor(intersects[0].faceIndex / 2);
+                    const clickedFace = faceMapping[faceIndex];
+                    
+                    console.log('🎯 Clicked Face:', clickedFace.label);
+                    console.log('   → Navigating to:', clickedFace.url);
+                    
+                    // Sofortige Navigation (kein visueller Delay nötig)
+                    window.location.href = clickedFace.url;
+                }
+            } else {
+                // DRAG: Snap-Animation starten
+                startSnapAnimation();
+            }
+        });
+
+        // Mouse Leave - Drag abbrechen falls Maus Canvas verlässt
+        renderer.domElement.addEventListener('mouseleave', () => {
+            isDragging = false;
+            renderer.domElement.style.cursor = 'grab';
+        });
+
+        // Cursor-Style setzen
+        renderer.domElement.style.cursor = 'grab';
+
+        console.log('✓ Event listeners attached');
+
+        // ========================================
+        // SNAP-MECHANIK
+        // ========================================
+        
+        // Hilfsfunktion: Normalisiert Winkel auf -PI bis +PI
+        function normalizeAngle(angle) {
+            while (angle > Math.PI) angle -= Math.PI * 2;
+            while (angle < -Math.PI) angle += Math.PI * 2;
+            return angle;
+        }
+        
+        // Hilfsfunktion: Findet nächstes Vielfaches von PI/2 (90°)
+        function snapToNearest90(angle) {
+            const snapValue = Math.PI / 2; // 90°
+            return Math.round(angle / snapValue) * snapValue;
+        }
+        
+        // Hilfsfunktion: Linear Interpolation (Lerp)
+        function lerp(start, end, progress) {
+            return start + (end - start) * progress;
+        }
+        
+        // Snap-Animation starten
+        function startSnapAnimation() {
+            // Aktuelle Rotation speichern
+            snapStartRotation.x = cube.rotation.x;
+            snapStartRotation.y = cube.rotation.y;
+            snapStartRotation.z = cube.rotation.z;
+            
+            // Nächste "gerade" Rotation berechnen
+            snapTargetRotation.x = snapToNearest90(normalizeAngle(cube.rotation.x));
+            snapTargetRotation.y = snapToNearest90(normalizeAngle(cube.rotation.y));
+            snapTargetRotation.z = snapToNearest90(normalizeAngle(cube.rotation.z));
+            
+            // Animation-State
+            isSnapping = true;
+            snapProgress = 0;
+            
+            console.log('🧭 Snap started:');
+            console.log('  From:', {
+                x: (snapStartRotation.x * 180 / Math.PI).toFixed(1) + '°',
+                y: (snapStartRotation.y * 180 / Math.PI).toFixed(1) + '°',
+                z: (snapStartRotation.z * 180 / Math.PI).toFixed(1) + '°'
+            });
+            console.log('  To:', {
+                x: (snapTargetRotation.x * 180 / Math.PI).toFixed(1) + '°',
+                y: (snapTargetRotation.y * 180 / Math.PI).toFixed(1) + '°',
+                z: (snapTargetRotation.z * 180 / Math.PI).toFixed(1) + '°'
+            });
+        }
+
+        // ========================================
+        // ANIMATION LOOP
+        // ========================================
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Snap-Animation (höchste Priorität)
+            if (isSnapping) {
+                snapProgress += snapSpeed;
+                
+                // Smooth Interpolation zu Ziel-Rotation
+                cube.rotation.x = lerp(snapStartRotation.x, snapTargetRotation.x, snapProgress);
+                cube.rotation.y = lerp(snapStartRotation.y, snapTargetRotation.y, snapProgress);
+                cube.rotation.z = lerp(snapStartRotation.z, snapTargetRotation.z, snapProgress);
+                
+                // Animation beenden wenn Ziel erreicht
+                if (snapProgress >= 1) {
+                    cube.rotation.x = snapTargetRotation.x;
+                    cube.rotation.y = snapTargetRotation.y;
+                    cube.rotation.z = snapTargetRotation.z;
+                    isSnapping = false;
+                    console.log('✓ Snap complete');
+                }
+            }
+            // Auto-Rotation nur wenn nicht gedragged wird UND nicht snappt
+            else if (autoRotate && !isDragging) {
+                cube.rotation.x += 0.005;
+                cube.rotation.y += 0.008;
+            }
+            
+            // Point Light bewegt sich im Kreis (für dynamische Beleuchtung)
+            const time = Date.now() * 0.001;
+            pointLight.position.x = Math.sin(time) * 5;
+            pointLight.position.z = Math.cos(time) * 5;
+            
+            renderer.render(scene, camera);
+        }
+
+        // Ersten Frame rendern BEVOR Animation-Loop startet
+        renderer.render(scene, camera);
+        console.log('✓ Initial render complete');
+
+        // Animation-Loop starten
+        animate();
+        console.log('✓ Animation loop started');
+
+        // ========================================
+        // RESPONSIVE - Bei Fenster-Resize anpassen
+        // ========================================
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ========================================
+        // FINAL LOG
+        // ========================================
+        
+        console.log('---');
+        console.log('✅ GeoNav PoC - Häppchen 6 vollständig geladen');
+        console.log('✓ Auto-Rotation aktiv');
+        console.log('✓ Drag-Interaktion aktiv');
+        console.log('✓ Flächen-Beschriftung aktiv');
+        console.log('✓ Klick-Erkennung aktiv (Raycasting)');
+        console.log('✓ Snap-Mechanik aktiv');
+        console.log('✓ Navigation aktiv (neu!)');
+        console.log('Würfel-Flächen:', faceMapping.map(f => f.label + ' → ' + f.url));
+        console.log('---');
+        console.log('👆 Drag = Drehen | Loslassen = Snap | Klick = Navigate!');
+    </script>
+</body>
+</html>

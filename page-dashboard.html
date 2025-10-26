@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2me Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Dancing+Script:wght@400;700&family=Josefin+Slab:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="shared-global.css">
+    <link rel="stylesheet" href="page-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- yang Bereich (Oben Links) -->
+        <section class="area area-yang">
+            <h2>yang</h2>
+            <div class="widget-grid">
+                <div class="widget" data-widget="tasks-akut">
+                    <h3><i class="fas fa-fire"></i> akut</h3>
+                    <div class="widget-content" id="tasks-akut"></div>
+                </div>
+                <div class="widget" data-widget="tasks-heute">
+                    <h3><i class="fas fa-calendar-day"></i> heute</h3>
+                    <div class="widget-content" id="tasks-heute"></div>
+                </div>
+                <div class="widget" data-widget="tasks-woche">
+                    <h3><i class="fas fa-calendar-week"></i> diese woche</h3>
+                    <div class="widget-content" id="tasks-woche"></div>
+                </div>
+                <div class="widget" data-widget="projekte">
+                    <h3><i class="fas fa-rocket"></i> projekte</h3>
+                    <div class="widget-content" id="projekte"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- bian Bereich (Oben Rechts) -->
+        <section class="area area-bian">
+            <h2>bian</h2>
+            <div class="widget-grid">
+                <div class="widget" data-widget="kalender">
+                    <h3><i class="fas fa-calendar"></i> kalender</h3>
+                    <div class="widget-content" id="kalender">
+                        <p>nextcloud integration kommt</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="termine">
+                    <h3><i class="fas fa-clock"></i> termine</h3>
+                    <div class="widget-content" id="termine">
+                        <p>nächste termine werden geladen...</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="zyklus">
+                    <h3><i class="fas fa-moon"></i> zyklus</h3>
+                    <div class="widget-content" id="zyklus">
+                        <p>tracking kommt</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="wetter">
+                    <h3><i class="fas fa-cloud-sun"></i> wetter</h3>
+                    <div class="widget-content" id="wetter">
+                        <p>api integration kommt</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- yin Bereich (Unten Links) -->
+        <section class="area area-yin">
+            <h2>yin</h2>
+            <div class="widget-grid">
+                <div class="widget" data-widget="notizen">
+                    <h3><i class="fas fa-note-sticky"></i> notizen</h3>
+                    <div class="widget-content" id="notizen">
+                        <p>letzte obsidian notes</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="leseliste">
+                    <h3><i class="fas fa-book"></i> leseliste</h3>
+                    <div class="widget-content" id="leseliste">
+                        <p>aktuelle leseliste</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="wiki">
+                    <h3><i class="fas fa-brain"></i> wiki einträge</h3>
+                    <div class="widget-content" id="wiki">
+                        <p>neue wiki-einträge</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="referenzen">
+                    <h3><i class="fas fa-link"></i> referenzen</h3>
+                    <div class="widget-content" id="referenzen">
+                        <p>wichtige links</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- fluur Bereich (Unten Rechts) -->
+        <section class="area area-fluur">
+            <h2>fluur</h2>
+            <div class="widget-grid">
+                <div class="widget" data-widget="fluur-1">
+                    <h3><i class="fas fa-square"></i> fl1</h3>
+                    <div class="widget-content" id="fluur-1">
+                        <p>placeholder</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="fluur-2">
+                    <h3><i class="fas fa-square"></i> fl2</h3>
+                    <div class="widget-content" id="fluur-2">
+                        <p>placeholder</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="fluur-3">
+                    <h3><i class="fas fa-square"></i> fl3</h3>
+                    <div class="widget-content" id="fluur-3">
+                        <p>placeholder</p>
+                    </div>
+                </div>
+                <div class="widget" data-widget="fluur-4">
+                    <h3><i class="fas fa-square"></i> fl4</h3>
+                    <div class="widget-content" id="fluur-4">
+                        <p>placeholder</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="page-dashboard.js"></script>
+</body>
+</html>

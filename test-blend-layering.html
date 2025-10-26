@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blend Mode Layering Test - H2me Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .info-box strong {
+            color: #1565C0;
+        }
+
+        /* Background Selection */
+        .background-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .background-selector h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .bg-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .bg-option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .bg-option:hover {
+            border-color: #2196F3;
+            transform: translateY(-2px);
+        }
+
+        .bg-option.active {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .bg-preview {
+            height: 60px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .bg-solid-white { background: white; }
+        .bg-solid-gray { background: #808080; }
+        .bg-solid-dark { background: #2c3e50; }
+        .bg-solid-yang { background: hsla(50, 90%, 65%, 0.3); }
+        .bg-solid-bian { background: hsla(210, 90%, 65%, 0.3); }
+        .bg-solid-yin { background: hsla(330, 90%, 65%, 0.3); }
+        .bg-solid-fluur { background: hsla(0, 0%, 85%, 0.3); }
+        .bg-gradient-warm { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .bg-gradient-cool { background: linear-gradient(135deg, #48dbfb, #00d2d3); }
+        .bg-gradient-purple { background: linear-gradient(135deg, #a29bfe, #fd79a8); }
+        .bg-image-pattern { 
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px),
+                linear-gradient(to bottom, #e0e0e0, #f5f5f5);
+        }
+
+        /* Methoden-Container */
+        .method-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .method-section h2 {
+            margin-bottom: 15px;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .method-description {
+            background: #fff9e6;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border-left: 3px solid #ffc107;
+        }
+
+        /* Controls */
+        .controls {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .value-display {
+            font-family: monospace;
+            color: #2196F3;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+            border: none;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Test Container mit Background */
+        .test-container {
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 20px;
+            min-height: 400px;
+            transition: background 0.3s ease;
+        }
+
+        /* Test Grid */
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Widget Styles */
+        .widget-demo {
+            position: relative;
+            height: 150px;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-left: 4px solid;
+            overflow: hidden;
+        }
+
+        /* Base Colors */
+        .yang-base {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+            color: #333;
+        }
+
+        .bian-base {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+            color: #333;
+        }
+
+        .yin-base {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+            color: #333;
+        }
+
+        .fluur-base {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+            color: #333;
+        }
+
+        /* Method 1: Pseudo-Element */
+        .method1 .widget-demo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        /* Method 2: Nested Div */
+        .blend-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .widget-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Method 3: Multiple Backgrounds */
+        .method3 .widget-demo {
+            background-image: 
+                linear-gradient(hsla(50, 90%, 65%, 0.3), hsla(50, 90%, 65%, 0.3)),
+                linear-gradient(hsla(50, 90%, 65%, 0.3), hsla(50, 90%, 65%, 0.3));
+        }
+
+        .method3 .yang-base {
+            background-image: 
+                linear-gradient(hsla(50, 90%, 65%, 0.3), hsla(50, 90%, 65%, 0.3)),
+                linear-gradient(hsla(50, 90%, 65%, 0.3), hsla(50, 90%, 65%, 0.3));
+        }
+
+        .method3 .bian-base {
+            background-image: 
+                linear-gradient(hsla(210, 90%, 65%, 0.3), hsla(210, 90%, 65%, 0.3)),
+                linear-gradient(hsla(210, 90%, 65%, 0.3), hsla(210, 90%, 65%, 0.3));
+        }
+
+        .method3 .yin-base {
+            background-image: 
+                linear-gradient(hsla(330, 90%, 65%, 0.3), hsla(330, 90%, 65%, 0.3)),
+                linear-gradient(hsla(330, 90%, 65%, 0.3), hsla(330, 90%, 65%, 0.3));
+        }
+
+        .method3 .fluur-base {
+            background-image: 
+                linear-gradient(hsla(0, 0%, 85%, 0.3), hsla(0, 0%, 85%, 0.3)),
+                linear-gradient(hsla(0, 0%, 85%, 0.3), hsla(0, 0%, 85%, 0.3));
+        }
+
+        /* Labels */
+        .widget-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.8);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: normal;
+        }
+
+        /* Reset Button */
+        .reset-btn {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #e64a19;
+        }
+
+        /* Code Display */
+        .code-display {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .code-display .keyword {
+            color: #82aaff;
+        }
+
+        .code-display .property {
+            color: #c792ea;
+        }
+
+        .code-display .value {
+            color: #f78c6c;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Blend Mode Layering Test</h1>
+    <p class="subtitle">Normale Farbe + Blend-Effekt darüber kombinieren</p>
+
+    <div class="info-box">
+        <strong>⚠️ Wichtig:</strong> Blend Modes brauchen einen Hintergrund zum Mischen! Wähle unten verschiedene Hintergründe aus um den Effekt zu sehen.<br>
+        <strong>Tipp:</strong> Dunkle/farbige Hintergründe zeigen den Effekt am besten!
+    </div>
+
+    <!-- Background Selector -->
+    <div class="background-selector">
+        <h3>🖼️ Hintergrund wählen (WICHTIG für Blend-Effekt!)</h3>
+        <div class="bg-options">
+            <div class="bg-option" onclick="setBackground('solid-white')">
+                <div class="bg-preview bg-solid-white"></div>
+                <div>Weiß</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('solid-gray')">
+                <div class="bg-preview bg-solid-gray"></div>
+                <div>Grau</div>
+            </div>
+            <div class="bg-option active" onclick="setBackground('solid-dark')">
+                <div class="bg-preview bg-solid-dark"></div>
+                <div>Dunkel ⭐</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('solid-yang')">
+                <div class="bg-preview bg-solid-yang"></div>
+                <div>Yang</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('solid-bian')">
+                <div class="bg-preview bg-solid-bian"></div>
+                <div>Bian</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('solid-yin')">
+                <div class="bg-preview bg-solid-yin"></div>
+                <div>Yin</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('solid-fluur')">
+                <div class="bg-preview bg-solid-fluur"></div>
+                <div>Fluur</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('gradient-warm')">
+                <div class="bg-preview bg-gradient-warm"></div>
+                <div>Warm Gradient</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('gradient-cool')">
+                <div class="bg-preview bg-gradient-cool"></div>
+                <div>Cool Gradient</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('gradient-purple')">
+                <div class="bg-preview bg-gradient-purple"></div>
+                <div>Purple Gradient</div>
+            </div>
+            <div class="bg-option" onclick="setBackground('image-pattern')">
+                <div class="bg-preview bg-image-pattern"></div>
+                <div>Muster</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- METHOD 1: Pseudo-Element -->
+    <div class="method-section method1">
+        <h2>Methode 1: Pseudo-Element (::after) ⭐ Empfohlen</h2>
+        <div class="method-description">
+            <strong>Wie es funktioniert:</strong> Das Widget hat seine normale Farbe. Ein <code>::after</code> Pseudo-Element liegt darüber mit dem Blend Mode. Sauberste Lösung, kein extra HTML nötig.
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Blend Mode
+                    <span class="value-display" id="m1-mode-val">multiply</span>
+                </label>
+                <select id="m1-mode">
+                    <option value="normal">normal</option>
+                    <option value="multiply" selected>multiply</option>
+                    <option value="screen">screen</option>
+                    <option value="overlay">overlay</option>
+                    <option value="darken">darken</option>
+                    <option value="lighten">lighten</option>
+                    <option value="color-dodge">color-dodge</option>
+                    <option value="color-burn">color-burn</option>
+                    <option value="hard-light">hard-light</option>
+                    <option value="soft-light">soft-light</option>
+                    <option value="difference">difference</option>
+                    <option value="exclusion">exclusion</option>
+                    <option value="hue">hue</option>
+                    <option value="saturation">saturation</option>
+                    <option value="color">color</option>
+                    <option value="luminosity">luminosity</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>
+                    Effekt-Stärke (Opacity)
+                    <span class="value-display" id="m1-opacity-val">50%</span>
+                </label>
+                <input type="range" min="0" max="100" value="50" id="m1-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetMethod1()">Reset</button>
+        </div>
+
+        <div class="test-container bg-solid-dark" id="m1-container">
+            <div class="test-grid">
+                <div class="widget-demo yang-base">
+                    <span class="widget-label">yang</span>
+                    <span class="widget-content">Yang Widget</span>
+                </div>
+                <div class="widget-demo bian-base">
+                    <span class="widget-label">bian</span>
+                    <span class="widget-content">Bian Widget</span>
+                </div>
+                <div class="widget-demo yin-base">
+                    <span class="widget-label">yin</span>
+                    <span class="widget-content">Yin Widget</span>
+                </div>
+                <div class="widget-demo fluur-base">
+                    <span class="widget-label">fluur</span>
+                    <span class="widget-content">Fluur Widget</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-display">
+<span class="keyword">.widget</span> {
+    <span class="property">position</span>: <span class="value">relative</span>;
+    <span class="property">background</span>: <span class="value">hsla(50, 90%, 65%, 0.3)</span>; <span style="color: #546e7a">/* Normale Farbe */</span>
+}
+
+<span class="keyword">.widget::after</span> {
+    <span class="property">content</span>: <span class="value">''</span>;
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property">inset</span>: <span class="value">0</span>; <span style="color: #546e7a">/* top/right/bottom/left: 0 */</span>
+    <span class="property">background</span>: <span class="value">inherit</span>; <span style="color: #546e7a">/* Kopiert Widget-Farbe */</span>
+    <span class="property">mix-blend-mode</span>: <span class="value" id="code-m1-mode">multiply</span>;
+    <span class="property">opacity</span>: <span class="value" id="code-m1-opacity">0.5</span>;
+    <span class="property">pointer-events</span>: <span class="value">none</span>;
+    <span class="property">border-radius</span>: <span class="value">inherit</span>;
+}
+
+<span style="color: #546e7a">/* Container braucht Hintergrund für Blend-Effekt! */</span>
+<span class="keyword">.dashboard-container</span> {
+    <span class="property">background</span>: <span class="value">#2c3e50</span>; <span style="color: #546e7a">/* Oder Gradient, Bild, etc. */</span>
+}
+        </div>
+    </div>
+
+    <!-- METHOD 2: Nested Div -->
+    <div class="method-section method2">
+        <h2>Methode 2: Verschachteltes Div</h2>
+        <div class="method-description">
+            <strong>Wie es funktioniert:</strong> Zwei separate <code>&lt;div&gt;</code> Elemente - eins für die Basis-Farbe, eins für den Blend-Layer. Mehr Kontrolle, aber mehr HTML.
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Blend Mode
+                    <span class="value-display" id="m2-mode-val">overlay</span>
+                </label>
+                <select id="m2-mode">
+                    <option value="normal">normal</option>
+                    <option value="multiply">multiply</option>
+                    <option value="screen">screen</option>
+                    <option value="overlay" selected>overlay</option>
+                    <option value="darken">darken</option>
+                    <option value="lighten">lighten</option>
+                    <option value="color-dodge">color-dodge</option>
+                    <option value="color-burn">color-burn</option>
+                    <option value="hard-light">hard-light</option>
+                    <option value="soft-light">soft-light</option>
+                    <option value="difference">difference</option>
+                    <option value="exclusion">exclusion</option>
+                    <option value="hue">hue</option>
+                    <option value="saturation">saturation</option>
+                    <option value="color">color</option>
+                    <option value="luminosity">luminosity</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>
+                    Effekt-Stärke (Opacity)
+                    <span class="value-display" id="m2-opacity-val">40%</span>
+                </label>
+                <input type="range" min="0" max="100" value="40" id="m2-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetMethod2()">Reset</button>
+        </div>
+
+        <div class="test-container bg-solid-dark" id="m2-container">
+            <div class="test-grid">
+                <div class="widget-demo yang-base">
+                    <span class="widget-label">yang</span>
+                    <div class="blend-layer yang-base"></div>
+                    <span class="widget-content">Yang Widget</span>
+                </div>
+                <div class="widget-demo bian-base">
+                    <span class="widget-label">bian</span>
+                    <div class="blend-layer bian-base"></div>
+                    <span class="widget-content">Bian Widget</span>
+                </div>
+                <div class="widget-demo yin-base">
+                    <span class="widget-label">yin</span>
+                    <div class="blend-layer yin-base"></div>
+                    <span class="widget-content">Yin Widget</span>
+                </div>
+                <div class="widget-demo fluur-base">
+                    <span class="widget-label">fluur</span>
+                    <div class="blend-layer fluur-base"></div>
+                    <span class="widget-content">Fluur Widget</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-display">
+<span style="color: #546e7a">&lt;!-- HTML --&gt;</span>
+<span class="keyword">&lt;div class="widget-container"&gt;</span>
+    <span class="keyword">&lt;div class="widget-base"&gt;</span>Inhalt<span class="keyword">&lt;/div&gt;</span>
+    <span class="keyword">&lt;div class="blend-layer"&gt;&lt;/div&gt;</span>
+<span class="keyword">&lt;/div&gt;</span>
+
+<span style="color: #546e7a">/* CSS */</span>
+<span class="keyword">.widget-base</span> {
+    <span class="property">background</span>: <span class="value">hsla(50, 90%, 65%, 0.3)</span>;
+}
+
+<span class="keyword">.blend-layer</span> {
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property">inset</span>: <span class="value">0</span>;
+    <span class="property">background</span>: <span class="value">inherit</span>;
+    <span class="property">mix-blend-mode</span>: <span class="value" id="code-m2-mode">overlay</span>;
+    <span class="property">opacity</span>: <span class="value" id="code-m2-opacity">0.4</span>;
+    <span class="property">pointer-events</span>: <span class="value">none</span>;
+}
+        </div>
+    </div>
+
+    <!-- METHOD 3: Multiple Backgrounds -->
+    <div class="method-section method3">
+        <h2>Methode 3: Background-Blend-Mode</h2>
+        <div class="method-description">
+            <strong>Wie es funktioniert:</strong> Zwei Background-Gradients übereinander mit <code>background-blend-mode</code>. Funktioniert nur für Hintergründe, nicht für Content.
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Blend Mode
+                    <span class="value-display" id="m3-mode-val">soft-light</span>
+                </label>
+                <select id="m3-mode">
+                    <option value="normal">normal</option>
+                    <option value="multiply">multiply</option>
+                    <option value="screen">screen</option>
+                    <option value="overlay">overlay</option>
+                    <option value="darken">darken</option>
+                    <option value="lighten">lighten</option>
+                    <option value="color-dodge">color-dodge</option>
+                    <option value="color-burn">color-burn</option>
+                    <option value="hard-light">hard-light</option>
+                    <option value="soft-light" selected>soft-light</option>
+                    <option value="difference">difference</option>
+                    <option value="exclusion">exclusion</option>
+                    <option value="hue">hue</option>
+                    <option value="saturation">saturation</option>
+                    <option value="color">color</option>
+                    <option value="luminosity">luminosity</option>
+                </select>
+            </div>
+            <button class="reset-btn" onclick="resetMethod3()">Reset</button>
+        </div>
+
+        <div class="test-container bg-solid-dark" id="m3-container">
+            <div class="test-grid">
+                <div class="widget-demo yang-base">
+                    <span class="widget-label">yang</span>
+                    <span class="widget-content">Yang Widget</span>
+                </div>
+                <div class="widget-demo bian-base">
+                    <span class="widget-label">bian</span>
+                    <span class="widget-content">Bian Widget</span>
+                </div>
+                <div class="widget-demo yin-base">
+                    <span class="widget-label">yin</span>
+                    <span class="widget-content">Yin Widget</span>
+                </div>
+                <div class="widget-demo fluur-base">
+                    <span class="widget-label">fluur</span>
+                    <span class="widget-content">Fluur Widget</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-display">
+<span class="keyword">.widget</span> {
+    <span class="property">background-image</span>: 
+        <span class="value">linear-gradient(...)</span>, <span style="color: #546e7a">/* Layer 1 */</span>
+        <span class="value">linear-gradient(...)</span>; <span style="color: #546e7a">/* Layer 2 */</span>
+    <span class="property">background-blend-mode</span>: <span class="value" id="code-m3-mode">soft-light</span>, <span class="value">normal</span>;
+}
+        </div>
+    </div>
+
+    <script>
+        // Background Selector
+        function setBackground(bgClass) {
+            const allContainers = document.querySelectorAll('.test-container');
+            const allOptions = document.querySelectorAll('.bg-option');
+            
+            // Remove active class from all options
+            allOptions.forEach(opt => opt.classList.remove('active'));
+            
+            // Add active class to clicked option
+            event.target.closest('.bg-option').classList.add('active');
+            
+            // Remove all bg classes
+            allContainers.forEach(container => {
+                container.className = container.className.replace(/bg-[a-z-]+/g, '');
+                container.classList.add('test-container');
+                container.classList.add('bg-' + bgClass);
+            });
+        }
+
+        // METHOD 1: Pseudo-Element
+        const m1Mode = document.getElementById('m1-mode');
+        const m1Opacity = document.getElementById('m1-opacity');
+        const m1ModeVal = document.getElementById('m1-mode-val');
+        const m1OpacityVal = document.getElementById('m1-opacity-val');
+        
+        function updateMethod1() {
+            const mode = m1Mode.value;
+            const opacity = m1Opacity.value / 100;
+            
+            m1ModeVal.textContent = mode;
+            m1OpacityVal.textContent = m1Opacity.value + '%';
+            
+            // Update Code Display
+            document.getElementById('code-m1-mode').textContent = mode;
+            document.getElementById('code-m1-opacity').textContent = opacity.toFixed(2);
+            
+            // Apply to widgets
+            const styleId = 'method1-style';
+            let style = document.getElementById(styleId);
+            if (!style) {
+                style = document.createElement('style');
+                style.id = styleId;
+                document.head.appendChild(style);
+            }
+            style.textContent = `
+                .method1 .widget-demo::after {
+                    mix-blend-mode: ${mode};
+                    opacity: ${opacity};
+                }
+            `;
+        }
+        
+        m1Mode.addEventListener('change', updateMethod1);
+        m1Opacity.addEventListener('input', updateMethod1);
+        
+        function resetMethod1() {
+            m1Mode.value = 'multiply';
+            m1Opacity.value = 50;
+            updateMethod1();
+        }
+        
+        // METHOD 2: Nested Div
+        const m2Mode = document.getElementById('m2-mode');
+        const m2Opacity = document.getElementById('m2-opacity');
+        const m2ModeVal = document.getElementById('m2-mode-val');
+        const m2OpacityVal = document.getElementById('m2-opacity-val');
+        
+        function updateMethod2() {
+            const mode = m2Mode.value;
+            const opacity = m2Opacity.value / 100;
+            
+            m2ModeVal.textContent = mode;
+            m2OpacityVal.textContent = m2Opacity.value + '%';
+            
+            // Update Code Display
+            document.getElementById('code-m2-mode').textContent = mode;
+            document.getElementById('code-m2-opacity').textContent = opacity.toFixed(2);
+            
+            // Apply to blend layers
+            const layers = document.querySelectorAll('.method2 .blend-layer');
+            layers.forEach(layer => {
+                layer.style.mixBlendMode = mode;
+                layer.style.opacity = opacity;
+            });
+        }
+        
+        m2Mode.addEventListener('change', updateMethod2);
+        m2Opacity.addEventListener('input', updateMethod2);
+        
+        function resetMethod2() {
+            m2Mode.value = 'overlay';
+            m2Opacity.value = 40;
+            updateMethod2();
+        }
+        
+        // METHOD 3: Background Blend Mode
+        const m3Mode = document.getElementById('m3-mode');
+        const m3ModeVal = document.getElementById('m3-mode-val');
+        
+        function updateMethod3() {
+            const mode = m3Mode.value;
+            
+            m3ModeVal.textContent = mode;
+            
+            // Update Code Display
+            document.getElementById('code-m3-mode').textContent = mode;
+            
+            // Apply to widgets
+            const widgets = document.querySelectorAll('.method3 .widget-demo');
+            widgets.forEach(widget => {
+                widget.style.backgroundBlendMode = `${mode}, normal`;
+            });
+        }
+        
+        m3Mode.addEventListener('change', updateMethod3);
+        
+        function resetMethod3() {
+            m3Mode.value = 'soft-light';
+            updateMethod3();
+        }
+        
+        // Initialize all methods
+        updateMethod1();
+        updateMethod2();
+        updateMethod3();
+    </script>
+</body>
+</html>

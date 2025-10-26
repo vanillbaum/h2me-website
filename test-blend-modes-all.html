@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alle Blend Modes - H2me Dashboard Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .blend-mode-section {
+            margin-bottom: 60px;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .blend-mode-section h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .controls {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px auto;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .control-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .value-display {
+            font-family: monospace;
+            color: #2196F3;
+            font-weight: bold;
+        }
+        
+        .reset-btn {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .reset-btn:hover {
+            background: #e64a19;
+        }
+        
+        .test-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            height: 400px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Hauptfeld-Farben */
+        .area {
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .area-yang {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+        }
+        
+        .area-bian {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+        }
+        
+        .area-yin {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+        }
+        
+        .area-fluur {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+        }
+        
+        .area h3 {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Widget Grid */
+        .widget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .widget {
+            border-radius: 8px;
+            padding: 10px;
+            border-left: 4px solid;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: filter 0.1s ease;
+        }
+        
+        /* Widget Farben */
+        .widget:nth-child(1) {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(2) {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(3) {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(4) {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px auto;
+            max-width: 800px;
+            font-size: 0.85rem;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .info-box strong {
+            color: #1565C0;
+        }
+
+        .toc {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .toc-link {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #2196F3;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .toc-link:hover {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .toc-link.recommended {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Alle 16 CSS Blend Modes - Interaktiv</h1>
+    
+    <div class="info-box">
+        <strong>Anleitung:</strong> Spiele mit den Slidern um die Effekte live zu sehen!<br>
+        • <strong>Saturation:</strong> 0% = grau, 100% = normal, 200% = super gesättigt<br>
+        • <strong>Brightness:</strong> 0% = schwarz, 100% = normal, 200% = doppelt hell<br>
+        • <strong>Hue Rotate:</strong> 0-360° verschiebt den Farbton im Farbrad<br>
+        • <strong>Contrast:</strong> 0% = grau, 100% = normal, 200% = starke Kontraste<br>
+        • <strong>Blur:</strong> 0-20px weiche Ränder<br>
+        • <strong>Opacity:</strong> Zusätzliche Transparenz (0-100%)
+    </div>
+
+    <div class="toc">
+        <h3>📑 Schnellnavigation</h3>
+        <div class="toc-grid">
+            <a href="#normal" class="toc-link">normal</a>
+            <a href="#multiply" class="toc-link">multiply</a>
+            <a href="#screen" class="toc-link">screen</a>
+            <a href="#overlay" class="toc-link">overlay</a>
+            <a href="#darken" class="toc-link">darken</a>
+            <a href="#lighten" class="toc-link">lighten</a>
+            <a href="#color-dodge" class="toc-link">color-dodge</a>
+            <a href="#color-burn" class="toc-link">color-burn</a>
+            <a href="#hard-light" class="toc-link">hard-light</a>
+            <a href="#soft-light" class="toc-link recommended">soft-light ⭐</a>
+            <a href="#difference" class="toc-link">difference</a>
+            <a href="#exclusion" class="toc-link">exclusion</a>
+            <a href="#hue" class="toc-link">hue</a>
+            <a href="#saturation" class="toc-link">saturation</a>
+            <a href="#color" class="toc-link recommended">color ⭐</a>
+            <a href="#luminosity" class="toc-link">luminosity</a>
+        </div>
+    </div>
+    
+    <!-- Normal -->
+    <div id="normal" class="blend-mode-section">
+        <h2>normal</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="normal-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="normal-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="normal-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="normal-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="normal-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="normal-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="normal-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="normal-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="normal-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="normal-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="normal-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="normal-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('normal')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="normal">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Multiply -->
+    <div id="multiply" class="blend-mode-section">
+        <h2>multiply</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="multiply-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="multiply-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="multiply-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="multiply-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="multiply-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="multiply-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="multiply-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="multiply-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="multiply-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="multiply-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="multiply-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="multiply-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('multiply')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="multiply">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Screen -->
+    <div id="screen" class="blend-mode-section">
+        <h2>screen</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="screen-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="screen-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="screen-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="screen-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="screen-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="screen-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="screen-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="screen-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="screen-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="screen-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="screen-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="screen-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('screen')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="screen">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay -->
+    <div id="overlay" class="blend-mode-section">
+        <h2>overlay</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="overlay-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="overlay-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="overlay-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="overlay-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="overlay-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="overlay-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="overlay-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="overlay-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="overlay-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="overlay-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="overlay-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="overlay-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('overlay')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="overlay">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Darken -->
+    <div id="darken" class="blend-mode-section">
+        <h2>darken</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="darken-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="darken-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="darken-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="darken-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="darken-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="darken-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="darken-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="darken-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="darken-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="darken-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="darken-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="darken-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('darken')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="darken">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lighten -->
+    <div id="lighten" class="blend-mode-section">
+        <h2>lighten</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="lighten-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="lighten-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="lighten-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="lighten-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="lighten-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="lighten-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="lighten-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="lighten-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="lighten-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="lighten-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="lighten-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="lighten-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('lighten')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="lighten">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Color Dodge -->
+    <div id="color-dodge" class="blend-mode-section">
+        <h2>color-dodge</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="color-dodge-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-dodge-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="color-dodge-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-dodge-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="color-dodge-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="color-dodge-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="color-dodge-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-dodge-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="color-dodge-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="color-dodge-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="color-dodge-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="color-dodge-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('color-dodge')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="color-dodge">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Color Burn -->
+    <div id="color-burn" class="blend-mode-section">
+        <h2>color-burn</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="color-burn-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-burn-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="color-burn-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-burn-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="color-burn-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="color-burn-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="color-burn-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-burn-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="color-burn-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="color-burn-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="color-burn-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="color-burn-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('color-burn')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="color-burn">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hard Light -->
+    <div id="hard-light" class="blend-mode-section">
+        <h2>hard-light</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="hard-light-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="hard-light-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="hard-light-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="hard-light-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="hard-light-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="hard-light-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="hard-light-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="hard-light-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="hard-light-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="hard-light-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="hard-light-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="hard-light-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('hard-light')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="hard-light">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Soft Light -->
+    <div id="soft-light" class="blend-mode-section">
+        <h2>soft-light ⭐ Empfohlen</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="soft-light-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="soft-light-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="soft-light-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="soft-light-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="soft-light-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="soft-light-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="soft-light-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="soft-light-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="soft-light-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="soft-light-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="soft-light-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="soft-light-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('soft-light')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="soft-light">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Difference -->
+    <div id="difference" class="blend-mode-section">
+        <h2>difference</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="difference-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="difference-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="difference-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="difference-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="difference-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="difference-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="difference-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="difference-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="difference-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="difference-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="difference-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="difference-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('difference')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="difference">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exclusion -->
+    <div id="exclusion" class="blend-mode-section">
+        <h2>exclusion</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="exclusion-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="exclusion-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="exclusion-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="exclusion-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="exclusion-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="exclusion-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="exclusion-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="exclusion-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="exclusion-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="exclusion-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="exclusion-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="exclusion-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('exclusion')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="exclusion">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hue -->
+    <div id="hue" class="blend-mode-section">
+        <h2>hue</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="hue-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="hue-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="hue-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="hue-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="hue-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="hue-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="hue-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="hue-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="hue-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="hue-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="hue-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="hue-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('hue')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="hue">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saturation -->
+    <div id="saturation" class="blend-mode-section">
+        <h2>saturation</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="saturation-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="saturation-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="saturation-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="saturation-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="saturation-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="saturation-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="saturation-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="saturation-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="saturation-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="saturation-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="saturation-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="saturation-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('saturation')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="saturation">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color -->
+    <div id="color" class="blend-mode-section">
+        <h2>color ⭐ Empfohlen</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="color-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="color-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="color-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="color-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="color-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="color-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="color-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="color-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="color-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="color-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('color')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="color">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Luminosity -->
+    <div id="luminosity" class="blend-mode-section">
+        <h2>luminosity</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Saturation
+                    <span class="value-display" id="luminosity-sat-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="luminosity-sat">
+            </div>
+            <div class="control-group">
+                <label>
+                    Brightness
+                    <span class="value-display" id="luminosity-bright-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="luminosity-bright">
+            </div>
+            <div class="control-group">
+                <label>
+                    Hue Rotate
+                    <span class="value-display" id="luminosity-hue-val">0°</span>
+                </label>
+                <input type="range" min="0" max="360" value="0" id="luminosity-hue">
+            </div>
+            <div class="control-group">
+                <label>
+                    Contrast
+                    <span class="value-display" id="luminosity-contrast-val">100%</span>
+                </label>
+                <input type="range" min="0" max="200" value="100" id="luminosity-contrast">
+            </div>
+            <div class="control-group">
+                <label>
+                    Blur
+                    <span class="value-display" id="luminosity-blur-val">0px</span>
+                </label>
+                <input type="range" min="0" max="20" value="0" id="luminosity-blur">
+            </div>
+            <div class="control-group">
+                <label>
+                    Opacity
+                    <span class="value-display" id="luminosity-opacity-val">100%</span>
+                </label>
+                <input type="range" min="0" max="100" value="100" id="luminosity-opacity">
+            </div>
+            <button class="reset-btn" onclick="resetBlend('luminosity')">Reset</button>
+        </div>
+        <div class="test-container" data-blend="luminosity">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialisiere alle Blend-Modes
+        const blendModes = [
+            'normal', 'multiply', 'screen', 'overlay', 
+            'darken', 'lighten', 'color-dodge', 'color-burn',
+            'hard-light', 'soft-light', 'difference', 'exclusion',
+            'hue', 'saturation', 'color', 'luminosity'
+        ];
+        
+        // Setup für jeden Blend-Mode
+        blendModes.forEach(mode => {
+            const container = document.querySelector(`[data-blend="${mode}"]`);
+            const widgets = container.querySelectorAll('.widget');
+            
+            // Setze Blend-Mode
+            widgets.forEach(widget => {
+                widget.style.mixBlendMode = mode;
+            });
+            
+            // Setup Slider
+            setupSliders(mode, widgets);
+        });
+        
+        function setupSliders(mode, widgets) {
+            // Saturation
+            const satSlider = document.getElementById(`${mode}-sat`);
+            const satVal = document.getElementById(`${mode}-sat-val`);
+            satSlider.addEventListener('input', (e) => {
+                satVal.textContent = e.target.value + '%';
+                updateFilters(mode, widgets);
+            });
+            
+            // Brightness
+            const brightSlider = document.getElementById(`${mode}-bright`);
+            const brightVal = document.getElementById(`${mode}-bright-val`);
+            brightSlider.addEventListener('input', (e) => {
+                brightVal.textContent = e.target.value + '%';
+                updateFilters(mode, widgets);
+            });
+            
+            // Hue Rotate
+            const hueSlider = document.getElementById(`${mode}-hue`);
+            const hueVal = document.getElementById(`${mode}-hue-val`);
+            hueSlider.addEventListener('input', (e) => {
+                hueVal.textContent = e.target.value + '°';
+                updateFilters(mode, widgets);
+            });
+            
+            // Contrast
+            const contrastSlider = document.getElementById(`${mode}-contrast`);
+            const contrastVal = document.getElementById(`${mode}-contrast-val`);
+            contrastSlider.addEventListener('input', (e) => {
+                contrastVal.textContent = e.target.value + '%';
+                updateFilters(mode, widgets);
+            });
+            
+            // Blur
+            const blurSlider = document.getElementById(`${mode}-blur`);
+            const blurVal = document.getElementById(`${mode}-blur-val`);
+            blurSlider.addEventListener('input', (e) => {
+                blurVal.textContent = e.target.value + 'px';
+                updateFilters(mode, widgets);
+            });
+            
+            // Opacity
+            const opacitySlider = document.getElementById(`${mode}-opacity`);
+            const opacityVal = document.getElementById(`${mode}-opacity-val`);
+            opacitySlider.addEventListener('input', (e) => {
+                opacityVal.textContent = e.target.value + '%';
+                updateFilters(mode, widgets);
+            });
+        }
+        
+        function updateFilters(mode, widgets) {
+            const sat = document.getElementById(`${mode}-sat`).value / 100;
+            const bright = document.getElementById(`${mode}-bright`).value / 100;
+            const hue = document.getElementById(`${mode}-hue`).value;
+            const contrast = document.getElementById(`${mode}-contrast`).value / 100;
+            const blur = document.getElementById(`${mode}-blur`).value;
+            const opacity = document.getElementById(`${mode}-opacity`).value / 100;
+            
+            const filterString = `saturate(${sat}) brightness(${bright}) hue-rotate(${hue}deg) contrast(${contrast}) blur(${blur}px) opacity(${opacity})`;
+            
+            widgets.forEach(widget => {
+                widget.style.filter = filterString;
+            });
+        }
+        
+        function resetBlend(mode) {
+            // Reset alle Slider auf Default
+            document.getElementById(`${mode}-sat`).value = 100;
+            document.getElementById(`${mode}-sat-val`).textContent = '100%';
+            
+            document.getElementById(`${mode}-bright`).value = 100;
+            document.getElementById(`${mode}-bright-val`).textContent = '100%';
+            
+            document.getElementById(`${mode}-hue`).value = 0;
+            document.getElementById(`${mode}-hue-val`).textContent = '0°';
+            
+            document.getElementById(`${mode}-contrast`).value = 100;
+            document.getElementById(`${mode}-contrast-val`).textContent = '100%';
+            
+            document.getElementById(`${mode}-blur`).value = 0;
+            document.getElementById(`${mode}-blur-val`).textContent = '0px';
+            
+            document.getElementById(`${mode}-opacity`).value = 100;
+            document.getElementById(`${mode}-opacity-val`).textContent = '100%';
+            
+            // Update Filter
+            const container = document.querySelector(`[data-blend="${mode}"]`);
+            const widgets = container.querySelectorAll('.widget');
+            updateFilters(mode, widgets);
+        }
+    </script>
+</body>
+</html>

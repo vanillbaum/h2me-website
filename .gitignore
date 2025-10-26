@@ -1,0 +1,38 @@
+# H2me .gitignore
+# Definiert welche Files NICHT in Git kommen
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archives (zu groß für Git, sind Backups)
+archives/
+old_*/
+
+# Logs (ändern sich zu oft, sind lokal)
+logs/doc_log_*.md
+
+# Temporäre Files
+*.tmp
+*.bak
+*~
+*.swp
+
+# Node modules (falls später genutzt)
+node_modules/
+package-lock.json
+
+# Persönliche Notizen (falls du welche erstellst)
+PRIVATE_*.md
+TODO_persoenlich.md
+
+# Editor-spezifisch
+.vscode/
+.idea/
+*.sublime-*
+
+# Build/Output (falls später genutzt)
+dist/
+build/
+.cache/

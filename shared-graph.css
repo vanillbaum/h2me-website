@@ -1,0 +1,128 @@
+/* Fully responsive containers */
+.graph-container {
+  perspective: 1200px;
+  perspective-origin: center center;
+  width: 100%;
+  height: 100%;
+}
+
+/* OVERRIDE the content-with-sidebar from navigation */
+.content-with-sidebar {
+  margin-left: 136px !important;  /* ← Sidebar-Breite (120px + 16px) */
+  padding: 2rem !important;       /* ← Symmetrisches Padding */
+  width: calc(100vw - 136px) !important;  /* ← Breite minus Sidebar */
+  max-width: 800px !important;    /* ← MAX Breite für Content */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  height: 100vh !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;  /* ← Vertikal zentriert */
+  align-items: center !important;      /* ← Horizontal zentriert */
+  text-align: center !important;
+}
+
+/* Main graph */
+#cy-main {
+  width: 700px !important;
+  height: 500px !important;
+  position: relative !important;
+  margin: 2vh auto !important;
+  display: block !important;
+}
+
+/* Mini graph container - Accordion Style */
+.mini-graph-container {
+  width: 350px !important;
+  padding: 0 !important;
+  border-radius: 28px !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+  position: fixed !important;
+  bottom: 70px !important;  /* ← Direkt ÜBER den Buttons (70px = Button-Höhe + spacing) */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: block !important;
+  transition: all 0.3s ease !important;
+  cursor: default !important;
+  z-index: 98 !important;
+  background-color: var(--bg-primary) !important;
+  overflow: hidden !important;
+  max-height: 0 !important;  /* ← START: Komplett zu */
+  opacity: 0 !important;
+}
+
+.mini-graph-container.expanded {
+  max-height: 300px !important;  /* ← END: Voll ausgeklappt */
+  padding: 20px !important;
+  opacity: 1 !important;
+}
+
+/* Mini graph - center within container and fix Cytoscape positioning */
+#cy-mini {
+  width: 300px !important;
+  height: 200px !important;
+  margin: 0 auto !important;
+  display: block !important;
+  position: relative !important;
+  
+  /* This is the key fix - ensure Cytoscape centers properly */
+  overflow: hidden !important;
+}
+
+/* Force Cytoscape canvas to center - this targets the internal canvas */
+#cy-mini canvas {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+#cy-main canvas {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.mini-graph-container h3 {
+  font-size: 1.2rem !important;
+  text-align: center !important;
+  margin: 0 0 15px 0 !important;
+  color: var(--text-primary) !important;
+  padding: 0.5rem 1rem !important;
+  background-color: transparent !important;
+  border-radius: 28px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.content-with-sidebar h2 {
+  text-align: center !important;
+  margin-bottom: 2vh !important;
+  font-size: 2rem !important;
+  color: var(--text-primary) !important;  /* ← Nutzt CSS Variable statt hardcoded */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .content-with-sidebar {
+    margin-left: 0 !important;
+    width: 100vw !important;
+    padding: 1rem !important;
+  }
+  
+  #cy-main {
+    width: 350px !important;
+    height: 250px !important;
+  }
+  
+  #cy-mini {
+    width: 250px !important;
+    height: 150px !important;
+  }
+  
+  .mini-graph-container {
+    width: 300px !important;
+  }
+}

@@ -1,0 +1,143 @@
+/* ========================================
+   NAVIGATION - BASIS-STYLES
+   ========================================
+   Betrifft: Sidebar-Navigation (links)
+   Farben werden durch JavaScript gesetzt (shared-nav.js)
+   via inline styles mit CSS Variables
+*/
+
+/* === NAV LIST === */
+.nav-list {
+    list-style: none;  /* Keine Bullets */
+    padding: 0;
+    margin: 0;
+}
+
+/* === NAV LINKS - Grundlegendes Styling ===
+   WICHTIG: Farbe wird durch JavaScript gesetzt!
+   JavaScript nutzt CSS Variables aus shared-global.css
+   Nutzt .btn-base aus shared-global.css für einheitliches Button-Styling
+*/
+.nav-link {
+    text-decoration: none;  /* Keine Unterstreichung */
+    color: var(--text-secondary);  /* Fallback-Farbe (wird durch JS überschrieben) */
+    display: flex;
+    align-items: center;
+    /* Button-Basis-Styles kommen von .btn-base */
+}
+
+/* === HOVER-EFFEKTE - Normal ===
+   Betrifft: Nav-Links bei Hover (außer Sidebar)
+   Basis-Hover kommt von .btn-base, hier nur Nav-spezifisches
+*/
+.nav-link:hover {
+    background-color: var(--color-primary);  /* Hintergrund bei Hover */
+    /* box-shadow und transform kommen von .btn-base */
+}
+
+/* === HOVER-EFFEKTE - Sidebar (rotiert) ===
+   Betrifft: Sidebar-Links (bereits -60° rotiert)
+   Bei Hover: Rotation auf -45° + Vergrößerung
+*/
+.nav-sidebar .nav-link:hover {
+    transform: rotate(-45deg) scale(1.2);  /* Weniger rotiert + größer */
+    background-color: var(--color-secondary);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10;  /* Über anderen Links */
+    transition: all 0.3s ease;
+}
+
+.nav-sidebar .nav-link {
+    transition: all 0.3s ease;  /* Smooth Transitions */
+}
+
+/* === ACTIVE STATE - Aktuell besuchte Seite ===
+   Wird durch JavaScript gesetzt
+*/
+.nav-link.active {
+    background-color: var(--color-primary);  /* Hintergrund für aktive Seite */
+    color: var(--bg-primary);  /* Text in Hintergrundfarbe (invertiert) */
+    box-shadow: 0 4px 12px var(--color-primary);
+}
+
+/* ========================================
+   YANG/BIAN/YIN FARBEN
+   ========================================
+   HINWEIS: Die Farb-Styles sind jetzt zentral in shared-global.css
+   Diese Klassen (yang-color, bian-color, yin-color) werden durch
+   JavaScript gesetzt und nutzen die globalen Styles
+*/
+
+/* ========================================
+   SIDEBAR NAVIGATION - Layout & Positionierung
+   ========================================
+   Betrifft: Navigation links am Bildschirmrand
+   - Fixed positioniert (bleibt beim Scrollen)
+   - Vertikal zentriert
+   - Links sind -60° rotiert
+*/
+.nav-sidebar {
+    width: 120px;          /* Sidebar-Breite */
+    height: auto;
+    position: fixed;       /* Bleibt beim Scrollen */
+    left: 1rem;            /* 1rem vom linken Rand */
+    top: 50%;              /* 50% von oben */
+    transform: translateY(-50%);  /* Zentriert vertikal */
+    overflow: visible;     /* Hover-Effekte können über Grenzen gehen */
+    padding: 2rem 0;
+}
+
+/* === SIDEBAR NAV-LIST ===
+   Links in Spalte mit Abständen
+*/
+.nav-sidebar .nav-list {
+    display: flex;
+    flex-direction: column;  /* Vertikal */
+    padding: 0 0.5rem;
+    gap: 3.5rem;  /* Abstand zwischen Links */
+}
+
+/* === SIDEBAR NAV-LINKS ===
+   Jeder Link ist -60° rotiert
+*/
+.nav-sidebar .nav-link {
+    padding: 0.5rem 1rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transform: rotate(-60deg);  /* Rotiert gegen Uhrzeigersinn */
+    transform-origin: 25px 25px;  /* Rotationspunkt */
+    width: 120px;
+    height: 30px;
+    white-space: nowrap;  /* Text bricht nicht um */
+}
+
+/* === SIDEBAR NAV-ICONS ===
+   Icons links vom Text
+*/
+.nav-sidebar .nav-icon {
+    margin-right: 0.75rem;  /* Abstand zum Text */
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;  /* Icon wird nicht kleiner */
+}
+
+/* ========================================
+   CONTENT MIT SIDEBAR - Layout-Anpassung
+   ========================================
+   Betrifft: Haupt-Content-Bereich
+   - Verschoben nach rechts (wegen Sidebar)
+   - Vertikal & horizontal zentriert
+   - Volle Viewporthöhe
+*/
+.content-with-sidebar {
+    margin-left: 130px;  /* Sidebar-Breite + Padding */
+    padding: 2rem;
+    height: 100vh;       /* Volle Viewporthöhe */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Vertikal zentriert */
+    align-items: center;      /* Horizontal zentriert */
+    box-sizing: border-box;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Navigation Graph</title>
+  <link rel="stylesheet" href="shared-global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="shared-nav.css">
+  <link rel="stylesheet" href="shared-graph.css">
+  <!-- Cytoscape.js library -->
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+</head>
+<body>
+  <!-- Sidebar navigation -->
+  <div id="navigation-container"></div>
+
+  <main class="content-with-sidebar">
+    <h2>Site Navigation Graph</h2>
+    <!-- Main graph container -->
+    <div id="cy-main"></div>
+  </main>
+
+  <script src="shared-theme.js"></script>
+  <script src="shared-nav.js"></script>
+  <script src="shared-graph.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavigation('navigation-container', 'sidebar');
+      
+      // Initialize main graph
+      new GraphComponent('cy-main', {
+        size: 'main',
+        currentPage: 'page-graph',
+        show3D: true
+      });
+    });
+  </script>
+</body>
+</html>

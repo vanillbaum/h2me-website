@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startseite - H2me</title>
+  <link rel="stylesheet" href="shared-global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="shared-nav.css">
+</head>
+<body>
+  <!-- sidebar nav-->
+  <div id="navigation-container"></div>
+
+  <main class="content-with-sidebar">
+    <h1>...guete morge...</h1>
+
+    <a href="page-yang.html">
+      <img src="images/WEB_a_yang.svg" alt="a_yang" class="shared-icon yang">
+    </a>
+    <a href="page-bian.html">
+      <img src="images/WEB_b_bian.svg" alt="b_bian" class="shared-icon bian">
+    </a>
+    <a href="page-yin.html">
+      <img src="images/WEB_i_yin.svg" alt="i_yin" class="shared-icon yin">
+    </a>
+  </main>
+
+  <script src="shared-theme.js"></script>
+  <script src="shared-nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavigation('navigation-container', 'sidebar');
+      // No graph on homepage - just the three main icons
+    });
+  </script>
+</body>
+</html>

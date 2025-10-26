@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>i_yin</title>
+  <link rel="stylesheet" href="shared-global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="shared-nav.css">
+  <link rel="stylesheet" href="shared-graph.css">
+  <link rel="stylesheet" href="shared-representation-switcher.css">
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- sidebar nav-->
+  <div id="navigation-container"></div>
+
+  <main class="content-with-sidebar">
+    <h2>i_yin - Passiv / Intern / Sammeln</h2>
+    
+    <!-- Representation Switcher Container -->
+    <div id="rep-container-yin" class="representation-container">
+      
+      <!-- SVG Representation -->
+      <div class="representation svg-rep" data-type="svg">
+        <img src="images/WEB_i_yin.svg" alt="i_yin" class="shared-icon yin">
+      </div>
+      
+      <!-- 3D Representation -->
+      <div class="representation threed-rep" data-type="3d">
+        <div class="threed-container"></div>
+      </div>
+      
+      <!-- Text Representation -->
+      <div class="representation text-rep yin" data-type="text">
+        <h1 class="text-icon">YIN</h1>
+        <p class="text-description">
+          Passiv - das Innere wahrnehmen<br>
+          Intern - in sich selbst eintauchen<br>
+          Sammeln - Eindrücke aufnehmen und verarbeiten
+        </p>
+      </div>
+    </div>
+    
+    <!-- Control Buttons - Außerhalb des Representation Containers -->
+    <div class="representation-controls">
+      <button class="btn-base" id="toggle-mini-graph" data-color-var="--color-secondary" data-color-var-hover="--color-secondary"><i class="fa-solid fa-network-wired"></i> Navigation</button>
+      <button class="btn-base yang-color" data-switch="3d"><i class="fa-solid fa-cube"></i> 3D</button>
+      <button class="btn-base bian-color" data-switch="svg"><i class="fa-solid fa-image"></i> SVG</button>
+      <button class="btn-base yin-color" data-switch="text"><i class="fa-solid fa-font"></i> Text</button>
+      <button class="btn-base" data-switch="random" data-color-var="--color-secondary" data-color-var-hover="--color-secondary"><i class="fa-solid fa-shuffle"></i> Zufall</button>
+    </div>
+    
+    <!-- Mini Graph -->
+    <div class="mini-graph-container">
+      <h3>site navigation</h3>
+      <div id="cy-mini"></div>
+    </div>
+  </main>
+
+  <script src="shared-theme.js"></script>
+  <script src="shared-nav.js"></script>
+  <script src="shared-graph.js"></script>
+  <script src="shared-representation-switcher.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM loaded, initializing...');
+      
+      // Navigation
+      initNavigation('navigation-container', 'sidebar');
+      
+      // Representation Switcher
+      new RepresentationSwitcher('rep-container-yin', {
+        page: 'i_yin',
+        threeConfig: {
+          geometry: 'sphere',  // Yin = Kugel (in sich ruhend)
+          color: 0x1a1a1a,     // Dunkel
+          animation: 'pulse'   // Pulsieren (Sammeln/Aufnehmen)
+        }
+      });
+      
+      // Mini Graph
+      setTimeout(() => {
+        console.log('Initializing mini graph...');
+        try {
+          new GraphComponent('cy-mini', {
+            size: 'mini',
+            currentPage: 'i_yin',
+            show3D: true
+          });
+        } catch (error) {
+          console.error('Error creating GraphComponent:', error);
+        }
+      }, 100);
+      
+      // Toggle Mini Graph Button
+      const toggleBtn = document.getElementById('toggle-mini-graph');
+      const miniGraph = document.querySelector('.mini-graph-container');
+      
+      if (toggleBtn && miniGraph) {
+        toggleBtn.addEventListener('click', () => {
+          miniGraph.classList.toggle('expanded');
+        });
+      }
+      
+      // Apply color styles to bottom buttons (Navigation + Zufall)
+      const bottomButtons = document.querySelectorAll('.representation-controls button[data-color-var]');
+      bottomButtons.forEach(btn => {
+        const colorVar = btn.getAttribute('data-color-var');
+        const colorVarHover = btn.getAttribute('data-color-var-hover');
+        const icon = btn.querySelector('i');
+        
+        if (colorVar) {
+          // Setze normale Farbe
+          btn.style.color = `var(${colorVar})`;
+          if (icon) {
+            icon.style.color = `var(${colorVar})`;
+          }
+          
+          // Hover-Effekt
+          btn.addEventListener('mouseenter', () => {
+            btn.style.color = `var(${colorVarHover})`;
+            btn.style.backgroundColor = `var(${colorVarHover})`;
+            if (icon) {
+              icon.style.color = `var(${colorVarHover})`;
+              icon.style.textShadow = `0 0 10px var(${colorVarHover})`;
+            }
+          });
+          
+          // Hover zurücksetzen
+          btn.addEventListener('mouseleave', () => {
+            btn.style.color = `var(${colorVar})`;
+            btn.style.backgroundColor = '';
+            if (icon) {
+              icon.style.color = `var(${colorVar})`;
+              icon.style.textShadow = '';
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

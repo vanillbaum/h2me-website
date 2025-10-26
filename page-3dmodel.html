@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First 3D Scene</title>
+    <style>
+        /* ===== CSS STYLING ===== */
+        body {
+            margin: 0;              
+            padding: 0;             
+            overflow: hidden;       
+            background-color: #111; 
+            font-family: Arial, sans-serif;
+        }
+        
+        #loading {
+            position: absolute;     
+            top: 50%;              
+            left: 50%;             
+            transform: translate(-50%, -50%); 
+            color: white;
+            font-size: 20px;
+            z-index: 100;          
+        }
+        
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Loading Three.js libraries...</div>
+    <div id="info">
+        <strong>Controls:</strong><br>
+        • Mouse drag: Rotate<br>
+        • Mouse wheel: Zoom<br>
+        • Right drag: Pan
+    </div>
+
+    <!-- ===== FIXED THREE.JS CDN LINKS ===== -->
+    <script src="https://unpkg.com/three@0.150.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.150.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://unpkg.com/three@0.150.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="shared-theme.js"></script>
+
+    <script>
+        // ===== WAIT FOR ALL LIBRARIES TO LOAD =====
+        let librariesLoaded = false;
+        
+        function checkLibraries() {
+            // Check if THREE.js is loaded
+            if (typeof THREE === 'undefined') {
+                console.error("❌ THREE.js not loaded");
+                document.getElementById('loading').innerHTML = "❌ Failed to load THREE.js";
+                return false;
+            }
+            
+            // Check if GLTFLoader is loaded
+            if (typeof THREE.GLTFLoader === 'undefined') {
+                console.error("❌ GLTFLoader not loaded");
+                document.getElementById('loading').innerHTML = "❌ Failed to load GLTFLoader";
+                return false;
+            }
+            
+            // Check if OrbitControls is loaded
+            if (typeof THREE.OrbitControls === 'undefined') {
+                console.error("❌ OrbitControls not loaded");
+                document.getElementById('loading').innerHTML = "❌ Failed to load OrbitControls";
+                return false;
+            }
+            
+            console.log("✅ All THREE.js libraries loaded successfully!");
+            return true;
+        }
+        
+        // ===== GLOBAL VARIABLES =====
+        let scene, camera, renderer, controls;
+        let loadedModel = null;
+        
+        // ===== INITIALIZATION FUNCTION =====
+        function init() {
+            // First check if libraries are loaded
+            if (!checkLibraries()) {
+                return; // Stop if libraries aren't loaded
+            }
+            
+            console.log("🚀 Starting 3D scene initialization...");
+            document.getElementById('loading').innerHTML = "Initializing 3D scene...";
+            
+            try {
+                // ===== 1. CREATE THE SCENE =====
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x333333);
+                
+                // ===== 2. CREATE THE CAMERA =====
+                camera = new THREE.PerspectiveCamera(
+                    75,                                    
+                    window.innerWidth / window.innerHeight, 
+                    0.1,                                   
+                    1000                                   
+                );
+                
+                // ===== 3. CREATE THE RENDERER =====
+                renderer = new THREE.WebGLRenderer({ 
+                    antialias: true,        
+                    alpha: true            
+                });
+                
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                
+                // Add the renderer to the webpage
+                document.body.appendChild(renderer.domElement);
+                
+                // ===== 4. ADD LIGHTING =====
+                setupLighting();
+                
+                // ===== 5. SETUP CAMERA CONTROLS =====
+                setupControls();
+                
+                // ===== 6. POSITION THE CAMERA =====
+                camera.position.set(0, 2, 5);
+                camera.lookAt(0, 0, 0);
+                
+                // ===== 7. ADD A TEST CUBE (while we wait for your model) =====
+                addTestCube();
+                
+                // ===== 8. TRY TO LOAD YOUR MODEL =====
+                loadModel();
+                
+                // ===== 9. START THE ANIMATION LOOP =====
+                animate();
+                
+                console.log("✅ 3D scene initialized successfully!");
+                
+            } catch (error) {
+                console.error("❌ Error during initialization:", error);
+                document.getElementById('loading').innerHTML = "❌ Initialization error: " + error.message;
+            }
+        }
+        
+        // ===== ADD TEST CUBE (so you see something immediately) =====
+        function addTestCube() {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
+            const cube = new THREE.Mesh(geometry, material);
+            
+            cube.position.set(2, 0, 0); // Position it to the right
+            cube.castShadow = true;
+            cube.receiveShadow = true;
+            
+            scene.add(cube);
+            console.log("✅ Test cube added");
+        }
+        
+        // ===== LIGHTING SETUP FUNCTION =====
+        function setupLighting() {
+            // Ambient Light
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+            scene.add(ambientLight);
+            
+            // Directional Light
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 5, 5);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+            
+            console.log("💡 Lighting setup complete");
+        }
+        
+        // ===== CONTROLS SETUP FUNCTION =====
+        function setupControls() {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;    
+            controls.dampingFactor = 0.05;    
+            controls.minDistance = 1;   
+            controls.maxDistance = 20;  
+            
+            console.log("🎮 Camera controls setup complete");
+        }
+        
+        // ===== MODEL LOADING FUNCTION =====
+        function loadModel() {
+            const loader = new THREE.GLTFLoader();
+            const modelPath = 'images/Horse.glb';
+            
+            console.log("📦 Attempting to load model from:", modelPath);
+            
+            loader.load(
+                modelPath,
+                
+                // SUCCESS
+                function(gltf) {
+                    console.log("✅ Model loaded successfully!");
+                    
+                    loadedModel = gltf.scene;
+                    scene.add(loadedModel);
+                    
+                    // Enable shadows
+                    loadedModel.traverse(function(child) {
+                        if (child.isMesh) {
+                            child.castShadow = true;    
+                            child.receiveShadow = true; 
+                        }
+                    });
+                    
+                    document.getElementById('loading').style.display = 'none';
+                    centerCameraOnModel(loadedModel);
+                },
+                
+                // PROGRESS
+                function(progress) {
+                    if (progress.lengthComputable) {
+                        const percentComplete = Math.round((progress.loaded / progress.total) * 100);
+                        console.log(`Loading progress: ${percentComplete}%`);
+                        document.getElementById('loading').innerHTML = `Loading model... ${percentComplete}%`;
+                    }
+                },
+                
+                // ERROR
+                function(error) {
+                    console.error("❌ Error loading model:", error);
+                    document.getElementById('loading').innerHTML = 
+                        '❌ Could not load model.<br>Make sure "images/Horse.glb" exists.<br>You should still see a green test cube!';
+                }
+            );
+        }
+        
+        // ===== HELPER FUNCTION: CENTER CAMERA ON MODEL =====
+        function centerCameraOnModel(model) {
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const cameraDistance = maxDim * 2;
+            
+            camera.position.set(
+                center.x + cameraDistance,
+                center.y + cameraDistance,
+                center.z + cameraDistance
+            );
+            
+            camera.lookAt(center);
+            controls.target.copy(center);
+            
+            console.log("📸 Camera centered on model");
+        }
+        
+        // ===== ANIMATION LOOP =====
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (controls) controls.update();
+            if (renderer && scene && camera) {
+                renderer.render(scene, camera);
+            }
+        }
+        
+        // ===== WINDOW RESIZE HANDLER =====
+        function handleWindowResize() {
+            // Only resize if everything is initialized
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                console.log("📱 Window resized");
+            }
+        }
+        
+        // ===== EVENT LISTENERS =====
+        window.addEventListener('resize', handleWindowResize);
+        
+        // ===== START EVERYTHING =====
+        // Wait a moment for all scripts to load, then initialize
+        setTimeout(function() {
+            init();
+        }, 100);
+        
+        console.log("🎯 Script loaded, initializing in 100ms...");
+    </script>
+</body>
+</html>

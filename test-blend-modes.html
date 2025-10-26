@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blend Mode Test - H2me Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .blend-mode-section {
+            margin-bottom: 40px;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .blend-mode-section h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .test-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            height: 400px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Hauptfeld-Farben */
+        .area {
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .area-yang {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+        }
+        
+        .area-bian {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+        }
+        
+        .area-yin {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+        }
+        
+        .area-fluur {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+        }
+        
+        .area h3 {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Widget Grid */
+        .widget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .widget {
+            border-radius: 8px;
+            padding: 10px;
+            border-left: 4px solid;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Widget Farben */
+        .widget:nth-child(1) {
+            background: hsla(50, 90%, 65%, 0.3);
+            border-left-color: hsla(50, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(2) {
+            background: hsla(210, 90%, 65%, 0.3);
+            border-left-color: hsla(210, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(3) {
+            background: hsla(330, 90%, 65%, 0.3);
+            border-left-color: hsla(330, 90%, 65%, 0.8);
+        }
+        
+        .widget:nth-child(4) {
+            background: hsla(0, 0%, 85%, 0.3);
+            border-left-color: hsla(0, 0%, 85%, 0.8);
+        }
+        
+        /* Blend Mode wird dynamisch gesetzt */
+        .blend-normal .widget { mix-blend-mode: normal; }
+        .blend-multiply .widget { mix-blend-mode: multiply; }
+        .blend-screen .widget { mix-blend-mode: screen; }
+        .blend-overlay .widget { mix-blend-mode: overlay; }
+        .blend-darken .widget { mix-blend-mode: darken; }
+        .blend-lighten .widget { mix-blend-mode: lighten; }
+        .blend-color-dodge .widget { mix-blend-mode: color-dodge; }
+        .blend-color-burn .widget { mix-blend-mode: color-burn; }
+        .blend-hard-light .widget { mix-blend-mode: hard-light; }
+        .blend-soft-light .widget { mix-blend-mode: soft-light; }
+        .blend-difference .widget { mix-blend-mode: difference; }
+        .blend-exclusion .widget { mix-blend-mode: exclusion; }
+        .blend-hue .widget { mix-blend-mode: hue; }
+        .blend-saturation .widget { mix-blend-mode: saturation; }
+        .blend-color .widget { mix-blend-mode: color; }
+        .blend-luminosity .widget { mix-blend-mode: luminosity; }
+    </style>
+</head>
+<body>
+    <h1>🎨 Blend Mode Test für H2me Dashboard</h1>
+    
+    <!-- Normal (kein Blend) -->
+    <div class="blend-mode-section">
+        <h2>normal (Standard - kein Blending)</h2>
+        <div class="test-container blend-normal">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Multiply -->
+    <div class="blend-mode-section">
+        <h2>multiply (Dunkler, Farben multiplizieren)</h2>
+        <div class="test-container blend-multiply">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Screen -->
+    <div class="blend-mode-section">
+        <h2>screen (Heller, wie Licht übereinander)</h2>
+        <div class="test-container blend-screen">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="blend-mode-section">
+        <h2>overlay (Kombination multiply & screen)</h2>
+        <div class="test-container blend-overlay">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Darken -->
+    <div class="blend-mode-section">
+        <h2>darken (Dunklere Farbe gewinnt)</h2>
+        <div class="test-container blend-darken">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lighten -->
+    <div class="blend-mode-section">
+        <h2>lighten (Hellere Farbe gewinnt)</h2>
+        <div class="test-container blend-lighten">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color Dodge -->
+    <div class="blend-mode-section">
+        <h2>color-dodge (Sehr hell & intensiv)</h2>
+        <div class="test-container blend-color-dodge">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color Burn -->
+    <div class="blend-mode-section">
+        <h2>color-burn (Sehr dunkel & intensiv)</h2>
+        <div class="test-container blend-color-burn">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hard Light -->
+    <div class="blend-mode-section">
+        <h2>hard-light (Starke Kontraste)</h2>
+        <div class="test-container blend-hard-light">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Soft Light -->
+    <div class="blend-mode-section">
+        <h2>soft-light (Sanfte Mischung) ⭐ Empfohlen</h2>
+        <div class="test-container blend-soft-light">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Difference -->
+    <div class="blend-mode-section">
+        <h2>difference (Invertierte Differenz)</h2>
+        <div class="test-container blend-difference">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exclusion -->
+    <div class="blend-mode-section">
+        <h2>exclusion (Ähnlich wie difference, weicher)</h2>
+        <div class="test-container blend-exclusion">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hue -->
+    <div class="blend-mode-section">
+        <h2>hue (Nur Farbton mischen)</h2>
+        <div class="test-container blend-hue">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Saturation -->
+    <div class="blend-mode-section">
+        <h2>saturation (Nur Sättigung mischen)</h2>
+        <div class="test-container blend-saturation">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Color -->
+    <div class="blend-mode-section">
+        <h2>color (Nur Farbe übertragen, Helligkeit beibehalten) ⭐ Empfohlen</h2>
+        <div class="test-container blend-color">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Luminosity -->
+    <div class="blend-mode-section">
+        <h2>luminosity (Nur Helligkeit übertragen)</h2>
+        <div class="test-container blend-luminosity">
+            <div class="area area-yang">
+                <h3>yang</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-bian">
+                <h3>bian</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-yin">
+                <h3>yin</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+            <div class="area area-fluur">
+                <h3>fluur</h3>
+                <div class="widget-grid">
+                    <div class="widget">gelb</div>
+                    <div class="widget">blau</div>
+                    <div class="widget">rosa</div>
+                    <div class="widget">grau</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

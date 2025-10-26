@@ -1,0 +1,229 @@
+/* ============================================
+   H2me Dashboard Styling
+   4x4 Grid Layout mit YBY + FLUUR Bereichen
+   ============================================ */
+
+:root {
+  /* Seitenstreifen - Volle Sättigung 90%, Helligkeit 65%, volle Deckkraft */
+  --yang-stripe: hsla(50, 90%, 65%, 0.8);    /* Gelb */
+  --bian-stripe: hsla(210, 90%, 65%, 0.8);      /* Blau */
+  --yin-stripe: hsla(330, 90%, 65%, 0.8);       /* Rosa */
+  --fluur-stripe: hsla(0, 0%, 85%, 0.8);     /* Neutral Grau */
+  
+  /* Hauptfelder - Sättigung 90%, Helligkeit 65%, 40% Opacity */
+  --yang-bg: hsla(50, 90%, 65%, 0.3);         /* Gelb */
+  --bian-bg: hsla(210, 90%, 65%, 0.3);        /* Blau */
+  --yin-bg: hsla(330, 90%, 65%, 0.3);         /* Rosa */
+  --fluur-bg: hsla(0, 0%, 85%, 0.3);          /* Neutral Grau */
+  
+  /* Unterfelder - Gelb/Blau/Rosa/Grau, 30% Opacity */
+  --widget-yang: hsla(50, 90%, 65%, 0.3);     /* Gelb */
+  --widget-bian: hsla(210, 90%, 65%, 0.3);    /* Blau */
+  --widget-yin: hsla(330, 90%, 65%, 0.3);     /* Rosa */
+  --widget-fluur: hsla(0, 0%, 85%, 0.30);     /* Grau */
+  
+  /* Widget-Streifen - Gleiche Farben, volle Deckkraft */
+  --widget-yang-stripe: hsla(50, 90%, 65%, 0.8);     /* Gelb */
+  --widget-bian-stripe: hsla(210, 90%, 65%, 0.8);    /* Blau */
+  --widget-yin-stripe: hsla(330, 90%, 65%, 0.8);     /* Rosa */
+  --widget-fluur-stripe: hsla(0, 0%, 85%, 0.8);      /* Grau */
+  
+  /* Spacing - WICHTIG: Fehlten vorher! */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  
+  /* Border Radius - WICHTIG: Fehlten vorher! */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Shadows - WICHTIG: Fehlten vorher! */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Text - WICHTIG: Fehlte vorher! */
+  --text-secondary: hsla(0, 0%, 30%, 1);
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  min-height: 100vh;
+  box-sizing: border-box;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Bereichs-Styling */
+.area {
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid;
+}
+
+.area h2 {
+  margin: 0 0 var(--space-md) 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* yang = Oben Links */
+.area-yang {
+  grid-column: 1;
+  grid-row: 1;
+  background: var(--yang-bg);
+  border-left-color: var(--yang-stripe);
+  font-family: 'Amatic SC', cursive;
+}
+
+/* bian = Oben Rechts */
+.area-bian {
+  grid-column: 2;
+  grid-row: 1;
+  background: var(--bian-bg);
+  border-left-color: var(--bian-stripe);
+  font-family: 'Dancing Script', cursive;
+}
+
+/* yin = Unten Links */
+.area-yin {
+  grid-column: 1;
+  grid-row: 2;
+  background: var(--yin-bg);
+  border-left-color: var(--yin-stripe);
+  font-family: 'Josefin Slab', serif;
+}
+
+/* fluur = Unten Rechts */
+.area-fluur {
+  grid-column: 2;
+  grid-row: 2;
+  background: var(--fluur-bg);
+  border-left-color: var(--fluur-stripe);
+  font-family: 'Josefin Slab', serif;
+}
+
+/* Widget Grid (4 Widgets pro Bereich) */
+.widget-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.widget {
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  border-left: 4px solid;
+}
+
+.widget:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Widget-Farben nach Position (Reihenfolge: Gelb, Blau, Rosa, Grau) */
+
+/* 1. Widget (Oben-Links) = Gelb */
+.widget:nth-child(1) {
+  background: var(--widget-yang);
+  border-left-color: var(--widget-yang-stripe);
+}
+
+/* 2. Widget (Oben-Rechts) = Blau */
+.widget:nth-child(2) {
+  background: var(--widget-bian);
+  border-left-color: var(--widget-bian-stripe);
+}
+
+/* 3. Widget (Unten-Links) = Rosa */
+.widget:nth-child(3) {
+  background: var(--widget-yin);
+  border-left-color: var(--widget-yin-stripe);
+}
+
+/* 4. Widget (Unten-Rechts) = Grau */
+.widget:nth-child(4) {
+  background: var(--widget-fluur);
+  border-left-color: var(--widget-fluur-stripe);
+}
+
+.widget h3 {
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.widget-content {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+/* Task Items Styling */
+.task-item {
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--bg-tertiary);
+  font-size: 0.85rem;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item.done {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
+  
+  .area-yang { grid-column: 1; grid-row: 1; }
+  .area-bian { grid-column: 1; grid-row: 2; }
+  .area-yin { grid-column: 1; grid-row: 3; }
+  .area-fluur { grid-column: 1; grid-row: 4; }
+  
+  .widget-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .area h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Nothing Phone 3 Optimierung */
+@media (max-width: 412px) {
+  .dashboard-container {
+    padding: var(--space-sm);
+  }
+  
+  .area {
+    padding: var(--space-md);
+  }
+  
+  .widget {
+    padding: var(--space-sm);
+  }
+}
