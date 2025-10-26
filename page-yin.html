@@ -11,6 +11,63 @@
   <link rel="stylesheet" href="shared-representation-switcher.css">
   <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    .page-links {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(26, 26, 26, 0.3);
+      border-radius: 8px;
+      border: 1px solid var(--color-yin);
+    }
+    
+    .page-links h3 {
+      color: var(--color-yin);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .page-link {
+      padding: 0.75rem 1rem;
+      background: rgba(26, 26, 26, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .page-link:hover {
+      border-color: var(--color-yin);
+      background: rgba(26, 26, 26, 0.8);
+      transform: translateX(5px);
+      box-shadow: 0 0 15px rgba(26, 26, 26, 0.5);
+    }
+    
+    .page-link i {
+      color: var(--color-yin);
+      font-size: 0.9rem;
+    }
+    
+    .link-category {
+      margin-bottom: 1.5rem;
+    }
+    
+    .link-category h4 {
+      color: var(--color-secondary);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
   <!-- sidebar nav-->
@@ -50,6 +107,95 @@
       <button class="btn-base bian-color" data-switch="svg"><i class="fa-solid fa-image"></i> SVG</button>
       <button class="btn-base yin-color" data-switch="text"><i class="fa-solid fa-font"></i> Text</button>
       <button class="btn-base" data-switch="random" data-color-var="--color-secondary" data-color-var-hover="--color-secondary"><i class="fa-solid fa-shuffle"></i> Zufall</button>
+    </div>
+    
+    <!-- Page Links Section -->
+    <div class="page-links">
+      <h3><i class="fa-solid fa-link"></i> Alle Seiten (Test-Navigation)</h3>
+      
+      <div class="link-category">
+        <h4>Hauptseiten</h4>
+        <div class="links-grid">
+          <a href="index.html" class="page-link">
+            <i class="fa-solid fa-home"></i>
+            <span>Home / Landing</span>
+          </a>
+          <a href="page-yang.html" class="page-link">
+            <i class="fa-solid fa-sun"></i>
+            <span>Yang (Aktiv)</span>
+          </a>
+          <a href="page-bian.html" class="page-link">
+            <i class="fa-solid fa-balance-scale"></i>
+            <span>Bian (Balance)</span>
+          </a>
+          <a href="page-yin.html" class="page-link">
+            <i class="fa-solid fa-moon"></i>
+            <span>Yin (Passiv)</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="link-category">
+        <h4>Visualisierungen</h4>
+        <div class="links-grid">
+          <a href="page-graph.html" class="page-link">
+            <i class="fa-solid fa-project-diagram"></i>
+            <span>Graph View</span>
+          </a>
+          <a href="page-cytoscape.html" class="page-link">
+            <i class="fa-solid fa-network-wired"></i>
+            <span>Cytoscape</span>
+          </a>
+          <a href="page-flsdgrm.html" class="page-link">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>FLSDGRM</span>
+          </a>
+          <a href="page-3dmodel.html" class="page-link">
+            <i class="fa-solid fa-cube"></i>
+            <span>3D Model Viewer</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="link-category">
+        <h4>Features & Prototypen</h4>
+        <div class="links-grid">
+          <a href="page-dashboard.html" class="page-link">
+            <i class="fa-solid fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="page-geonav-poc.html" class="page-link">
+            <i class="fa-solid fa-map-marked-alt"></i>
+            <span>GeoNav POC</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="link-category">
+        <h4>Tests & Experimente</h4>
+        <div class="links-grid">
+          <a href="test-blend-modes.html" class="page-link">
+            <i class="fa-solid fa-flask"></i>
+            <span>Blend Modes</span>
+          </a>
+          <a href="test-blend-modes-all.html" class="page-link">
+            <i class="fa-solid fa-flask"></i>
+            <span>Blend Modes All</span>
+          </a>
+          <a href="test-blend-modes-detailed.html" class="page-link">
+            <i class="fa-solid fa-flask"></i>
+            <span>Blend Modes Detailed</span>
+          </a>
+          <a href="test-blend-modes-interactive.html" class="page-link">
+            <i class="fa-solid fa-flask"></i>
+            <span>Blend Modes Interactive</span>
+          </a>
+          <a href="test-blend-layering.html" class="page-link">
+            <i class="fa-solid fa-flask"></i>
+            <span>Blend Layering</span>
+          </a>
+        </div>
+      </div>
     </div>
     
     <!-- Mini Graph -->
