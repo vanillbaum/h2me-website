@@ -13,15 +13,15 @@
 - [x] **Häppchen 1:** Mobile Navigation & Layout (2-3h) ✅ 2025-10-27
 - [x] **Häppchen 2:** Touch-Interaktionen & Swipe (2-3h) ✅ 2025-10-27
 - [x] **Häppchen 3:** KWGT JSON Feed (2-3h) ✅ 2025-10-27
-- [ ] **Häppchen 4:** Mobile Testing & Polish (2-3h)
+- [ ] **Häppchen 4:** Mobile Testing & Polish (2-3h) ⏭️ Übersprungen (später nachholen)
 
 ### Phase 2: Daten-Integration (20-30h)
 
-- [ ] **Häppchen 5:** Backend Setup (Netlify Functions) (3-4h)
-- [ ] **Häppchen 6:** Nextcloud CalDAV Integration (5-7h)
-- [ ] **Häppchen 7:** Obsidian Tasks Parser (5-7h)
-- [ ] **Häppchen 8:** Outlook Graph API (5-7h)
-- [ ] **Häppchen 9:** Unified Data Model & Caching (2-3h)
+- [x] **Häppchen 5:** Backend Setup (Netlify Functions) (3-4h) ✅ 2025-10-27
+- [x] **Häppchen 6:** Nextcloud CalDAV Integration (5-7h) ✅ 2025-10-27
+- [x] **Häppchen 7:** Obsidian Tasks Parser (5-7h) ✅ 2025-10-27
+- [x] **Häppchen 8:** Outlook Graph API (5-7h) ✅ 2025-10-27
+- [x] **Häppchen 9:** Unified Data Model & Caching (2-3h) ✅ 2025-10-27
 
 ---
 
@@ -285,7 +285,7 @@
 
 ### Häppchen 4: Mobile Testing & Polish
 
-**Status:** Todo  
+**Status:** ⏭️ Übersprungen (später nachholen)  
 **Zeitschätzung:** 2-3 Stunden  
 **Dependencies:** Häppchen 1-3 (alle Features fertig)
 
@@ -343,7 +343,7 @@
 
 ### Häppchen 5: Backend Setup (Netlify Functions)
 
-**Status:** Todo  
+**Status:** ✅ Abgeschlossen (2025-10-27)  
 **Zeitschätzung:** 3-4 Stunden  
 **Dependencies:** Phase 1 abgeschlossen
 
@@ -404,7 +404,7 @@
 
 ### Häppchen 6: Nextcloud CalDAV Integration
 
-**Status:** Todo  
+**Status:** ✅ Abgeschlossen (2025-10-27)  
 **Zeitschätzung:** 5-7 Stunden  
 **Dependencies:** Häppchen 5 (Backend Setup)
 
@@ -471,7 +471,7 @@
 
 ### Häppchen 7: Obsidian Tasks Parser
 
-**Status:** Todo  
+**Status:** ✅ Abgeschlossen (2025-10-27)  
 **Zeitschätzung:** 5-7 Stunden  
 **Dependencies:** Häppchen 5 (Backend Setup)
 
@@ -546,7 +546,7 @@
 
 ### Häppchen 8: Outlook Graph API
 
-**Status:** Todo  
+**Status:** ✅ Abgeschlossen (2025-10-27)  
 **Zeitschätzung:** 5-7 Stunden  
 **Dependencies:** Häppchen 5 (Backend Setup)
 
@@ -611,7 +611,7 @@
 
 ### Häppchen 9: Unified Data Model & Caching
 
-**Status:** Todo  
+**Status:** ✅ Abgeschlossen (2025-10-27)  
 **Zeitschätzung:** 2-3 Stunden  
 **Dependencies:** Häppchen 6-8 (alle Quellen fertig)
 
@@ -717,10 +717,18 @@
 - Entscheidungen über Obsidian-Integration
 
 **Status:**
-- Häppchen 1 ✅ abgeschlossen, mobile getestet
-- Häppchen 2 ✅ abgeschlossen, mobile getestet
-- Häppchen 3 ✅ abgeschlossen, Feed getestet
-- Häppchen 4 - bereit zum Start
+- **Phase 1:** 3/4 Häppchen abgeschlossen (H4 übersprungen)
+  - Häppchen 1 ✅ Mobile Navigation & Layout
+  - Häppchen 2 ✅ Touch-Interaktionen & Swipe
+  - Häppchen 3 ✅ KWGT JSON Feed
+  - Häppchen 4 ⏭️ Mobile Testing & Polish (übersprungen)
+
+- **Phase 2:** 5/5 Häppchen abgeschlossen ✅ KOMPLETT
+  - Häppchen 5 ✅ Backend Setup
+  - Häppchen 6 ✅ Nextcloud CalDAV Integration
+  - Häppchen 7 ✅ Obsidian Tasks Parser
+  - Häppchen 8 ✅ Outlook Graph API
+  - Häppchen 9 ✅ Unified Data Aggregator
 
 ---
 

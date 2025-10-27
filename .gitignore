@@ -1,38 +1,46 @@
-# H2me .gitignore
-# Definiert welche Files NICHT in Git kommen
+# Node modules
+node_modules/
+.npm/
 
-# Betriebssystem
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Netlify
+.netlify/
+.netlify-cache/
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Archives (zu groß für Git, sind Backups)
+# Test files (optional - je nach Bedarf)
+# test-*.html
+
+# Archives (optional - wenn nicht gebraucht)
 archives/
-old_*/
 
-# Logs (ändern sich zu oft, sind lokal)
-logs/doc_log_*.md
-
-# Temporäre Files
-*.tmp
-*.bak
-*~
-*.swp
-
-# Node modules (falls später genutzt)
-node_modules/
-package-lock.json
-
-# Persönliche Notizen (falls du welche erstellst)
-PRIVATE_*.md
-TODO_persoenlich.md
-
-# Editor-spezifisch
-.vscode/
-.idea/
-*.sublime-*
-
-# Build/Output (falls später genutzt)
-dist/
-build/
-.cache/
+# Local dev files
+*.local.js
+*.local.css
+*.local.html
