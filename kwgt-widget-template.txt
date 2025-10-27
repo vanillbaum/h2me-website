@@ -1,0 +1,263 @@
+# KWGT Widget Template für H2me Calendar Feed
+
+## Feed-URL
+
+**Produktion (Netlify):**
+```
+https://h2m.art/.netlify/functions/kwgt-feed
+```
+
+**Optional mit Parametern:**
+```
+https://h2m.art/.netlify/functions/kwgt-feed?limit=5&view=today&source=all
+```
+
+**Lokal (Testing):**
+```
+http://localhost:8888/.netlify/functions/kwgt-feed
+```
+
+---
+
+## URL-Parameter
+
+| Parameter | Werte                                        | Standard  | Beschreibung                           |
+|-----------|----------------------------------------------|-----------|----------------------------------------|
+| `limit`   | Zahl (z.B. 5, 10, 20)                        | 10        | Max. Anzahl der Items                  |
+| `view`    | `today`, `tomorrow`, `upcoming`, `all`       | upcoming  | Zeitfilter                             |
+| `source`  | `all`, `obsidian`, `nextcloud`, `outlook`    | all       | Datenquelle filtern                    |
+
+**Beispiele:**
+- Nur heute: `?view=today&limit=5`
+- Nur Obsidian: `?source=obsidian&limit=10`
+- Nächste 3 Tage: `?view=upcoming&limit=10`
+
+---
+
+## JSON-Struktur
+
+```json
+{
+  "generated": "2025-10-27T14:30:00.000Z",
+  "items": [
+    {
+      "id": "obsidian-1",
+      "title": "Task Titel",
+      "time": "14:00",
+      "duration": "2h",
+      "date": "2025-10-27",
+      "source": "obsidian",
+      "project": "153",
+      "type": "task",
+      "description": "Kurze Beschreibung"
+    }
+  ],
+  "summary": {
+    "today": 3,
+    "tomorrow": 2,
+    "upcoming": 5,
+    "total": 10
+  },
+  "meta": {
+    "limit": 10,
+    "view": "upcoming",
+    "source": "all",
+    "count": 5
+  }
+}
+```
+
+---
+
+## KWGT Widget Setup
+
+### 1. Web Request hinzufügen
+
+**In KWGT:**
+1. Globals → Web Request (URL) hinzufügen
+2. URL: `https://h2m.art/.netlify/functions/kwgt-feed?limit=5`
+3. Update-Intervall: `15` Minuten
+4. Variable Name: `calendar_feed`
+
+### 2. Text-Widget erstellen
+
+**Layout:**
+- Größe: 2x2 oder 3x1 Grid
+- Hintergrund: Transparent oder leicht gefärbt
+
+**Text-Formel für Titel:**
+```
+$wg("calendar_feed", json, .items[0].title)$
+$wg("calendar_feed", json, .items[1].title)$
+$wg("calendar_feed", json, .items[2].title)$
+```
+
+**Text-Formel mit Zeit:**
+```
+$wg("calendar_feed", json, .items[0].time)$ - $wg("calendar_feed", json, .items[0].title)$
+$wg("calendar_feed", json, .items[1].time)$ - $wg("calendar_feed", json, .items[1].title)$
+$wg("calendar_feed", json, .items[2].time)$ - $wg("calendar_feed", json, .items[2].title)$
+```
+
+**Text-Formel mit Source Badge:**
+```
+[$wg("calendar_feed", json, .items[0].source)$] $wg("calendar_feed", json, .items[0].title)$
+```
+
+### 3. Summary-Widget
+
+**Zeige Zusammenfassung:**
+```
+Heute: $wg("calendar_feed", json, .summary.today)$
+Morgen: $wg("calendar_feed", json, .summary.tomorrow)$
+Gesamt: $wg("calendar_feed", json, .summary.total)$
+```
+
+### 4. Conditional Formatting
+
+**Nur wenn Items vorhanden:**
+```
+$if(wg("calendar_feed", json, .meta.count) > 0)$
+  $wg("calendar_feed", json, .items[0].title)$
+$else$
+  Keine Termine heute
+$endif$
+```
+
+**Source-Color:**
+```
+$if(wg("calendar_feed", json, .items[0].source) = "obsidian", #7c3aed,
+   wg("calendar_feed", json, .items[0].source) = "nextcloud", #0082c9,
+   #0078d4)$
+```
+
+---
+
+## Beispiel: Kompaktes 3-Item Widget
+
+**Setup:**
+- Grid: 2x1 oder 3x1
+- Background: #FFFFFF mit 90% Opacity
+- Padding: 8dp
+
+**Text Content:**
+```
+📅 Nächste Aufgaben
+
+⏰ $wg("calendar_feed", json, .items[0].time)$
+   $wg("calendar_feed", json, .items[0].title)$
+
+⏰ $wg("calendar_feed", json, .items[1].time)$
+   $wg("calendar_feed", json, .items[1].title)$
+
+⏰ $wg("calendar_feed", json, .items[2].time)$
+   $wg("calendar_feed", json, .items[2].title)$
+```
+
+**Styling:**
+- Font: Sans-Serif, Size 12sp
+- Color: #333333
+- Line Height: 1.4
+
+---
+
+## Beispiel: Heute + Morgen Split
+
+**Setup:**
+- Grid: 2x2
+- Zwei Text-Widgets nebeneinander
+
+**Widget 1 (Heute):**
+```
+🔸 HEUTE ($wg("calendar_feed", json, .summary.today)$)
+
+$wg("calendar_feed_today", json, .items[0].time)$
+$wg("calendar_feed_today", json, .items[0].title)$
+```
+URL: `?view=today&limit=5`
+
+**Widget 2 (Morgen):**
+```
+🔹 MORGEN ($wg("calendar_feed_tomorrow", json, .summary.tomorrow)$)
+
+$wg("calendar_feed_tomorrow", json, .items[0].time)$
+$wg("calendar_feed_tomorrow", json, .items[0].title)$
+```
+URL: `?view=tomorrow&limit=5`
+
+---
+
+## Icon-Mapping
+
+**Source Icons:**
+- `obsidian` → 📝 oder 🟣
+- `nextcloud` → ☁️ oder 🔵
+- `outlook` → 📧 oder 🟦
+
+**Type Icons:**
+- `task` → ✓ oder ⬜
+- `event` → 📅 oder 🗓️
+- `reminder` → ⏰ oder 🔔
+
+**Beispiel:**
+```
+$if(wg("calendar_feed", json, .items[0].type) = "task", "✓",
+   wg("calendar_feed", json, .items[0].type) = "event", "📅", "⏰")$
+```
+
+---
+
+## Troubleshooting
+
+### Feed lädt nicht
+1. Check URL: Ist sie korrekt?
+2. Prüfe Netlify Deployment
+3. Teste URL im Browser: `https://h2m.art/.netlify/functions/kwgt-feed`
+
+### Keine Daten sichtbar
+1. Check JSON-Pfad: `.items[0].title` (mit Punkt!)
+2. Prüfe ob Feed-Variable korrekt benannt
+3. Test im KWGT-Editor: "Test Web Request"
+
+### Update funktioniert nicht
+1. Update-Intervall erhöhen (min. 15min)
+2. Force-Refresh: Widget löschen + neu hinzufügen
+3. Check Cache-Header (max-age=900)
+
+---
+
+## Testing
+
+**Browser-Console:**
+```javascript
+// Feed anzeigen
+window.logKWGTFeed()
+
+// Feed herunterladen
+window.downloadKWGTFeed()
+
+// Custom Feed generieren
+window.generateKWGTFeed({ limit: 3, view: 'today', source: 'obsidian' })
+```
+
+**cURL:**
+```bash
+curl https://h2m.art/.netlify/functions/kwgt-feed
+curl https://h2m.art/.netlify/functions/kwgt-feed?limit=3&view=today
+```
+
+---
+
+## Phase 2 Erweiterungen
+
+**Geplant:**
+- Real-time Updates via WebSocket
+- Push-Notifications bei neuen Items
+- Geo-based filtering (Termine in der Nähe)
+- Weather integration
+- Calendar sync (bi-directional)
+
+---
+
+_Template für KWGT Widget - H2me Calendar Feed_
+_Version: 1.0 - 2025-10-27_

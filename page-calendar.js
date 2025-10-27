@@ -607,7 +607,121 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPullToRefresh();
 });
 
+// KWGT Feed Generation
+function generateKWGTFeed(options = {}) {
+    const limit = options.limit || 10;
+    const view = options.view || 'upcoming';
+    const source = options.source || 'all';
+
+    // Daten filtern
+    let items = [...testData];
+
+    // Nach Source filtern
+    if (source !== 'all') {
+        items = items.filter(item => item.source === source);
+    }
+
+    // Nach View filtern
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const tomorrow = new Date(today.getTime() + 86400000);
+    const nextWeek = new Date(today.getTime() + 604800000);
+
+    switch(view) {
+        case 'today':
+            items = items.filter(item => isSameDay(item.date, today));
+            break;
+        case 'tomorrow':
+            items = items.filter(item => isSameDay(item.date, tomorrow));
+            break;
+        case 'upcoming':
+            items = items.filter(item => item.date >= today && item.date <= nextWeek);
+            break;
+        case 'all':
+        default:
+            break;
+    }
+
+    // Limitieren
+    items = items.slice(0, limit);
+
+    // In KWGT-Format konvertieren
+    const feedItems = items.map(item => ({
+        id: `${item.source}-${item.id}`,
+        title: item.title,
+        time: item.time || 'ganztägig',
+        duration: item.duration || '',
+        date: item.date.toISOString().split('T')[0],
+        source: item.source,
+        project: item.project,
+        type: item.type,
+        description: item.description || ''
+    }));
+
+    // Summary berechnen
+    const summary = {
+        today: testData.filter(item => isSameDay(item.date, today)).length,
+        tomorrow: testData.filter(item => isSameDay(item.date, tomorrow)).length,
+        upcoming: testData.filter(item => item.date > today && item.date <= nextWeek).length,
+        total: testData.length
+    };
+
+    return {
+        generated: new Date().toISOString(),
+        items: feedItems,
+        summary: summary,
+        meta: {
+            limit: limit,
+            view: view,
+            source: source,
+            count: feedItems.length
+        }
+    };
+}
+
+// KWGT Feed als JSON herunterladen
+function downloadKWGTFeed() {
+    const feed = generateKWGTFeed({
+        limit: 10,
+        view: currentView === 'day' ? 'today' : 'upcoming',
+        source: currentFilters.source
+    });
+
+    const dataStr = JSON.stringify(feed, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `kwgt-feed-${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+    console.log('KWGT Feed heruntergeladen');
+}
+
+// KWGT Feed in Console loggen (für Testing)
+function logKWGTFeed() {
+    const feed = generateKWGTFeed({
+        limit: 5,
+        view: 'upcoming',
+        source: 'all'
+    });
+
+    console.log('=== KWGT Feed Preview ===');
+    console.log(JSON.stringify(feed, null, 2));
+    console.log('=========================');
+
+    return feed;
+}
+
+// Export für globalen Zugriff (für Testing im Browser)
+window.generateKWGTFeed = generateKWGTFeed;
+window.downloadKWGTFeed = downloadKWGTFeed;
+window.logKWGTFeed = logKWGTFeed;
+
 // Debug Info
 console.log('Calendar POC geladen');
 console.log('Test-Daten:', testData.length, 'Einträge');
 console.log('Mobile Navigation aktiviert');
+console.log('KWGT Feed verfügbar: window.logKWGTFeed() oder window.downloadKWGTFeed()');

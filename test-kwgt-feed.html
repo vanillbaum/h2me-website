@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KWGT Feed Test - H2me</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .controls {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .control-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        select, input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #357abd;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .output {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .output h2 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .feed-url {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: #666;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .item-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-obsidian {
+            background: #e9d5ff;
+            color: #7c3aed;
+        }
+
+        .badge-nextcloud {
+            background: #dbeafe;
+            color: #0082c9;
+        }
+
+        .badge-outlook {
+            background: #dbeafe;
+            color: #0078d4;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .summary-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4a90e2;
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 KWGT Feed Test</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Limit:</label>
+                <input type="number" id="limit" value="10" min="1" max="50">
+            </div>
+
+            <div class="control-group">
+                <label>View:</label>
+                <select id="view">
+                    <option value="all">Alle</option>
+                    <option value="today">Heute</option>
+                    <option value="tomorrow">Morgen</option>
+                    <option value="upcoming" selected>Upcoming (7 Tage)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Source:</label>
+                <select id="source">
+                    <option value="all" selected>Alle</option>
+                    <option value="obsidian">Obsidian</option>
+                    <option value="nextcloud">Nextcloud</option>
+                    <option value="outlook">Outlook</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button onclick="loadLocalFeed()">📥 Local Feed laden</button>
+                <button onclick="loadNetlifyFeed()">☁️ Netlify Feed laden</button>
+                <button onclick="downloadFeed()">💾 Feed herunterladen</button>
+            </div>
+        </div>
+
+        <div class="output" id="output">
+            <p class="loading">Klicke auf "Local Feed laden" um zu starten</p>
+        </div>
+    </div>
+
+    <script src="page-calendar.js"></script>
+    <script>
+        function getParams() {
+            return {
+                limit: document.getElementById('limit').value,
+                view: document.getElementById('view').value,
+                source: document.getElementById('source').value
+            };
+        }
+
+        function loadLocalFeed() {
+            const params = getParams();
+            const feed = window.generateKWGTFeed({
+                limit: parseInt(params.limit),
+                view: params.view,
+                source: params.source
+            });
+
+            displayFeed(feed, 'Local (page-calendar.js)');
+        }
+
+        async function loadNetlifyFeed() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<p class="loading">Lade Feed von Netlify...</p>';
+
+            const params = getParams();
+            const url = `/.netlify/functions/kwgt-feed?limit=${params.limit}&view=${params.view}&source=${params.source}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const feed = await response.json();
+                displayFeed(feed, 'Netlify Function', url);
+            } catch (error) {
+                output.innerHTML = `
+                    <div class="error">
+                        <strong>Fehler beim Laden:</strong> ${error.message}<br>
+                        <small>Tipp: Netlify Dev Server starten mit: <code>netlify dev</code></small>
+                    </div>
+                `;
+            }
+        }
+
+        function displayFeed(feed, source, url = '') {
+            const output = document.getElementById('output');
+
+            let html = `
+                <h2>📊 Feed-Daten (${source})</h2>
+            `;
+
+            if (url) {
+                html += `<div class="feed-url">URL: ${url}</div>`;
+            }
+
+            // Summary
+            html += `
+                <div class="summary">
+                    <div class="summary-card">
+                        <div class="summary-number">${feed.summary.today}</div>
+                        <div class="summary-label">Heute</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number">${feed.summary.tomorrow}</div>
+                        <div class="summary-label">Morgen</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number">${feed.summary.upcoming}</div>
+                        <div class="summary-label">Upcoming</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number">${feed.summary.total}</div>
+                        <div class="summary-label">Gesamt</div>
+                    </div>
+                </div>
+            `;
+
+            // Items
+            if (feed.items.length > 0) {
+                html += `<h3 style="margin: 1.5rem 0 1rem 0;">Items (${feed.items.length})</h3>`;
+                feed.items.forEach(item => {
+                    const badgeClass = `badge-${item.source}`;
+                    html += `
+                        <div class="item-card">
+                            <div class="item-title">${item.title}</div>
+                            <div class="item-meta">
+                                <span>${item.time} ${item.duration ? '(' + item.duration + ')' : ''}</span>
+                                <span class="meta-badge ${badgeClass}">${item.source}</span>
+                                <span class="meta-badge">${item.project}</span>
+                                <span class="meta-badge">${item.type}</span>
+                                <span>${item.date}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `<p style="color: #999; padding: 2rem; text-align: center;">Keine Items gefunden</p>`;
+            }
+
+            // JSON
+            html += `
+                <h3 style="margin: 1.5rem 0 1rem 0;">Raw JSON</h3>
+                <pre>${JSON.stringify(feed, null, 2)}</pre>
+            `;
+
+            output.innerHTML = html;
+        }
+
+        function downloadFeed() {
+            const params = getParams();
+            const feed = window.generateKWGTFeed({
+                limit: parseInt(params.limit),
+                view: params.view,
+                source: params.source
+            });
+
+            const dataStr = JSON.stringify(feed, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `kwgt-feed-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+        // Auto-load on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLocalFeed();
+        });
+    </script>
+</body>
+</html>
