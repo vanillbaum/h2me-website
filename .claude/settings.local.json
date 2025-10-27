@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//e/Neuanfang/a_yang/023_bildverwaltung/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

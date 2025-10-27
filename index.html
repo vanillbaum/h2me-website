@@ -8,13 +8,35 @@
   <link rel="stylesheet" href="shared-global.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="shared-nav.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap" rel="stylesheet">
+    <style>
+      .rainbow-text {
+        background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+         /* +30% heller */
+        filter: opacity(0.5);
+          /* Schnürlischrift */
+        font-family: "Playwrite DE SAS", cursive;
+        font-optical-sizing: auto;
+        font-weight: 400; /* 100-400 verfügbar */
+        font-style: normal;
+        
+        font-size: 2rem; /* Anpassen nach Bedarf */
+      }
+    
+
+  </style>
 </head>
 <body>
   <!-- sidebar nav-->
   <div id="navigation-container"></div>
 
   <main class="content-with-sidebar">
-    <h1>...guete morge...</h1>
+    <p class="rainbow-text">...guete morge...</p>
 
     <a href="page-yang.html">
       <img src="images/WEB_a_yang.svg" alt="a_yang" class="shared-icon yang">

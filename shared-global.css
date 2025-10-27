@@ -62,6 +62,13 @@
 }
 
 /* ========================================
+   GOOGLE FONTS - Delicious Handrawn
+   ========================================
+   Handschrift-Font für persönlichen Look
+*/
+@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+
+/* ========================================
    BODY - GRUNDLEGENDES LAYOUT
    ========================================
    Betrifft: Gesamte Seite
@@ -70,7 +77,7 @@
    - Hintergrundfarbe
 */
 body {
-    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-family: "Delicious Handrawn", "Helvetica Neue", Arial, cursive, sans-serif;
     color: var(--text-primary);      /* Textfarbe aus CSS Variables */
     background-color: var(--bg-primary); /* Hintergrund aus CSS Variables */
     margin: 0;                       /* Kein Rand */
