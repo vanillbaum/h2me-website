@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boox Annotation PoC</title>
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- Konva.js -->
+    <script src="https://unpkg.com/konva@9.2.0/konva.min.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a1a; color: #fff; overflow: hidden; }
+        #container { display: flex; flex-direction: column; height: 100vh; }
+        #toolbar { background: #2a2a2a; padding: 12px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #3a3a3a; }
+        .tool-btn { padding: 8px 16px; background: #3a3a3a; border: 1px solid #4a4a4a; border-radius: 4px; color: #fff; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .tool-btn:hover { background: #4a4a4a; }
+        .tool-btn.active { background: #0066ff; border-color: #0066ff; }
+        #file-input { display: none; }
+        .separator { width: 1px; height: 24px; background: #4a4a4a; }
+        #canvas-container { flex: 1; position: relative; overflow: hidden; background: #1a1a1a; }
+        #pdf-canvas { position: absolute; top: 0; left: 0; }
+        #konva-container { position: absolute; top: 0; left: 0; }
+        #annotation-panel { position: fixed; right: -320px; top: 60px; width: 300px; background: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 8px; padding: 16px; transition: right 0.3s; z-index: 1000; }
+        #annotation-panel.open { right: 20px; }
+        #annotation-panel h3 { margin-bottom: 12px; color: #0066ff; }
+        #annotation-panel label { display: block; margin: 12px 0 4px; font-size: 12px; color: #999; }
+        #annotation-panel input, #annotation-panel textarea { width: 100%; padding: 8px; background: #1a1a1a; border: 1px solid #3a3a3a; border-radius: 4px; color: #fff; font-family: inherit; }
+        #annotation-panel textarea { min-height: 80px; resize: vertical; }
+        .btn-group { display: flex; gap: 8px; margin-top: 16px; }
+        .btn-save, .btn-cancel { flex: 1; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .btn-save { background: #0066ff; color: #fff; }
+        .btn-cancel { background: #3a3a3a; color: #fff; }
+        #info { position: fixed; bottom: 20px; left: 20px; background: #2a2a2a; padding: 12px 16px; border-radius: 8px; font-size: 12px; color: #999; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="toolbar">
+            <input type="file" id="file-input" accept=".pdf,image/*">
+            <button class="tool-btn" onclick="document.getElementById('file-input').click()">📁 Datei öffnen</button>
+            <div class="separator"></div>
+            <button class="tool-btn" id="rect-tool" onclick="setTool('rectangle')">⬜ Rechteck</button>
+            <button class="tool-btn" id="circle-tool" onclick="setTool('circle')">⭕ Kreis</button>
+            <button class="tool-btn" id="text-tool" onclick="setTool('text')">T Text</button>
+            <div class="separator"></div>
+            <button class="tool-btn" onclick="saveAnnotations()">💾 Speichern</button>
+            <button class="tool-btn" onclick="loadAnnotations()">📂 Laden</button>
+            <button class="tool-btn" onclick="exportJSON()">📤 Export JSON</button>
+        </div>
+        <div id="canvas-container">
+            <canvas id="pdf-canvas"></canvas>
+            <div id="konva-container"></div>
+        </div>
+    </div>
+    <div id="annotation-panel">
+        <h3>Annotation bearbeiten</h3>
+        <label>Notiz</label>
+        <textarea id="note-input" placeholder="Deine Notizen..."></textarea>
+        <label>Tags (komma-getrennt)</label>
+        <input type="text" id="tags-input" placeholder="wichtig, projekt-x">
+        <label>Datum</label>
+        <input type="date" id="date-input">
+        <div class="btn-group">
+            <button class="btn-save" onclick="saveCurrentAnnotation()">Speichern</button>
+            <button class="btn-cancel" onclick="closeAnnotationPanel()">Abbrechen</button>
+        </div>
+    </div>
+    <div id="info">
+        <strong>PoC: Boox Annotation System</strong><br>
+        1. PDF/Bild öffnen<br>
+        2. Tool wählen (Rechteck/Kreis/Text)<br>
+        3. Auf Canvas zeichnen<br>
+        4. Rechtsklick → Notiz hinzufügen<br>
+        5. Speichern → JSON-Export
+    </div>
+    <script>
+        let stage, layer, currentTool = null, currentShape = null, annotations = [], currentFile = null;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        function initKonva() {
+            const container = document.getElementById('konva-container');
+            const containerRect = container.parentElement.getBoundingClientRect();
+            stage = new Konva.Stage({ container: 'konva-container', width: containerRect.width, height: containerRect.height });
+            layer = new Konva.Layer(); stage.add(layer);
+            stage.on('mousedown', handleMouseDown); stage.on('mousemove', handleMouseMove); stage.on('mouseup', handleMouseUp);
+        }
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0]; if (!file) return; currentFile = file.name;
+            if (file.type === 'application/pdf') { await loadPDF(file); } else { await loadImage(file); }
+        });
+        async function loadPDF(file) {
+            const fileReader = new FileReader();
+            fileReader.onload = async function() {
+                const typedarray = new Uint8Array(this.result);
+                const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                const page = await pdf.getPage(1);
+                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas = document.getElementById('pdf-canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = viewport.width; canvas.height = viewport.height;
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+                stage.width(viewport.width); stage.height(viewport.height);
+            };
+            fileReader.readAsArrayBuffer(file);
+        }
+        async function loadImage(file) {
+            const fileReader = new FileReader();
+            fileReader.onload = function() {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.getElementById('pdf-canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = img.width; canvas.height = img.height;
+                    context.drawImage(img, 0, 0);
+                    stage.width(img.width); stage.height(img.height);
+                };
+                img.src = this.result;
+            };
+            fileReader.readAsDataURL(file);
+        }
+        function setTool(tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+            const toolBtn = document.getElementById(tool + '-tool');
+            if (toolBtn) toolBtn.classList.add('active');
+        }
+        let isDrawing = false, startPos = null;
+        function handleMouseDown(e) {
+            if (!currentTool) return; isDrawing = true; startPos = stage.getPointerPosition();
+            if (currentTool === 'rectangle') {
+                currentShape = new Konva.Rect({ x: startPos.x, y: startPos.y, width: 0, height: 0, stroke: '#0066ff', strokeWidth: 2, fill: 'transparent', draggable: true });
+            } else if (currentTool === 'circle') {
+                currentShape = new Konva.Circle({ x: startPos.x, y: startPos.y, radius: 0, stroke: '#0066ff', strokeWidth: 2, fill: 'transparent', draggable: true });
+            } else if (currentTool === 'text') {
+                const text = prompt('Text eingeben:');
+                if (text) {
+                    currentShape = new Konva.Text({ x: startPos.x, y: startPos.y, text: text, fontSize: 20, fill: '#0066ff', draggable: true });
+                    layer.add(currentShape); layer.draw(); addAnnotationData(currentShape);
+                }
+                isDrawing = false; return;
+            }
+            if (currentShape) { layer.add(currentShape); currentShape.on('contextmenu', function(e) { e.evt.preventDefault(); openAnnotationPanel(this); }); }
+        }
+        function handleMouseMove(e) {
+            if (!isDrawing || !currentShape) return;
+            const pos = stage.getPointerPosition();
+            if (currentTool === 'rectangle') { currentShape.width(pos.x - startPos.x); currentShape.height(pos.y - startPos.y); }
+            else if (currentTool === 'circle') { const radius = Math.sqrt(Math.pow(pos.x - startPos.x, 2) + Math.pow(pos.y - startPos.y, 2)); currentShape.radius(radius); }
+            layer.batchDraw();
+        }
+        function handleMouseUp(e) {
+            if (!isDrawing) return; isDrawing = false;
+            if (currentShape) { addAnnotationData(currentShape); }
+            currentShape = null;
+        }
+        function addAnnotationData(shape) {
+            const id = 'ann_' + Date.now(); shape.setAttr('annotationId', id);
+            annotations.push({ id: id, type: currentTool, bounds: { x: shape.x(), y: shape.y(), width: shape.width ? shape.width() : shape.radius() * 2, height: shape.height ? shape.height() : shape.radius() * 2 }, note: '', tags: [], date: new Date().toISOString().split('T')[0], created: new Date().toISOString() });
+        }
+        let currentEditShape = null;
+        function openAnnotationPanel(shape) {
+            currentEditShape = shape;
+            const annId = shape.getAttr('annotationId');
+            const ann = annotations.find(a => a.id === annId);
+            if (ann) {
+                document.getElementById('note-input').value = ann.note || '';
+                document.getElementById('tags-input').value = ann.tags.join(', ');
+                document.getElementById('date-input').value = ann.date;
+            }
+            document.getElementById('annotation-panel').classList.add('open');
+        }
+        function closeAnnotationPanel() { document.getElementById('annotation-panel').classList.remove('open'); currentEditShape = null; }
+        function saveCurrentAnnotation() {
+            if (!currentEditShape) return;
+            const annId = currentEditShape.getAttr('annotationId');
+            const ann = annotations.find(a => a.id === annId);
+            if (ann) {
+                ann.note = document.getElementById('note-input').value;
+                ann.tags = document.getElementById('tags-input').value.split(',').map(t => t.trim()).filter(t => t);
+                ann.date = document.getElementById('date-input').value;
+                ann.modified = new Date().toISOString();
+            }
+            closeAnnotationPanel(); alert('Annotation gespeichert!');
+        }
+        function saveAnnotations() {
+            const data = { file: currentFile, annotations: annotations, shapes: layer.toJSON() };
+            localStorage.setItem('boox_annotations', JSON.stringify(data));
+            alert('Annotations gespeichert (localStorage)');
+        }
+        function loadAnnotations() {
+            const data = localStorage.getItem('boox_annotations');
+            if (!data) { alert('Keine gespeicherten Annotations gefunden'); return; }
+            const parsed = JSON.parse(data); annotations = parsed.annotations;
+            layer.destroyChildren(); const shapes = Konva.Node.create(parsed.shapes);
+            layer.add(shapes); layer.draw(); alert('Annotations geladen!');
+        }
+        function exportJSON() {
+            const data = { file: currentFile, exported: new Date().toISOString(), annotations: annotations };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob); const a = document.createElement('a');
+            a.href = url; a.download = 'boox_annotations_' + Date.now() + '.json'; a.click();
+        }
+        window.addEventListener('load', () => { initKonva(); });
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('konva-container');
+            const containerRect = container.parentElement.getBoundingClientRect();
+            stage.width(containerRect.width); stage.height(containerRect.height);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+/* Mobile-First Calendar Styles */
+
+/* ============================================
+   Mobile Bottom Navigation
+   ============================================ */
+
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-bottom-nav .nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s, transform 0.1s;
+    min-width: 48px;
+    min-height: 48px;
+    gap: 0.25rem;
+}
+
+.mobile-bottom-nav .nav-btn:active {
+    transform: scale(0.95);
+}
+
+.mobile-bottom-nav .nav-btn.active {
+    color: #4a90e2;
+}
+
+.mobile-bottom-nav .nav-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.mobile-bottom-nav .nav-btn span {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   Mobile Layout Adjustments
+   ============================================ */
+
+/* Container padding für Bottom-Nav */
+.calendar-container {
+    padding-bottom: 80px; /* Platz für Bottom-Nav */
+}
+
+/* ============================================
+   Mobile Header (kompakter)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .calendar-header {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .calendar-header h1 {
+        font-size: 1.5rem;
+        margin: 0 0 0.75rem 0;
+    }
+
+    /* View Switcher als Tabs */
+    .view-switcher {
+        display: flex;
+        gap: 0.25rem;
+        margin-bottom: 0;
+        background: white;
+        border-radius: 6px;
+        padding: 0.25rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .view-btn {
+        flex: 1;
+        padding: 0.6rem 0.5rem;
+        font-size: 0.85rem;
+        border: none;
+        background: transparent;
+    }
+
+    .view-btn.active {
+        background: #333;
+        color: white;
+        border-radius: 4px;
+    }
+
+    /* Filter als Slide-In Panel (versteckt per default) */
+    .filters {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: white;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        z-index: 2000;
+        transition: right 0.3s ease-in-out;
+        overflow-y: auto;
+    }
+
+    .filters.open {
+        right: 0;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .filter-group label {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .filter-btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    /* Filter Overlay */
+    .filter-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .filter-overlay.visible {
+        display: block;
+        opacity: 1;
+    }
+
+    /* Filter Header mit Close-Button */
+    .filters::before {
+        content: 'Filter';
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    /* Close Button für Filter-Panel */
+    .filters .filter-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        color: #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
+        z-index: 10;
+    }
+
+    .filters .filter-close:active {
+        color: #333;
+    }
+
+    .filters .filter-close svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Close Button auf Desktop verstecken */
+@media (min-width: 769px) {
+    .filter-close {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   Mobile Timeline (kompakter)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .timeline-container {
+        padding-left: 1rem;
+    }
+
+    .timeline-day {
+        margin-bottom: 1.5rem;
+    }
+
+    .timeline-day::before {
+        left: -1rem;
+        width: 2px;
+    }
+
+    .day-header {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .day-header::before {
+        left: -1.3rem;
+        width: 8px;
+        height: 8px;
+    }
+
+    .day-header .date-info {
+        display: block;
+        margin-left: 0;
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+    }
+
+    /* Timeline Items */
+    .timeline-items {
+        gap: 0.5rem;
+    }
+
+    .timeline-item {
+        padding: 0.75rem;
+        border-radius: 8px;
+    }
+
+    .timeline-item::before {
+        width: 3px;
+    }
+
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .item-title {
+        font-size: 0.95rem;
+        line-height: 1.3;
+    }
+
+    .item-time {
+        font-size: 0.8rem;
+        color: #999;
+    }
+
+    .item-meta {
+        gap: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .meta-badge {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.7rem;
+    }
+
+    .item-description {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        color: #777;
+    }
+}
+
+/* ============================================
+   Touch Optimization
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Größere Touch-Targets */
+    .view-btn,
+    .filter-btn,
+    .nav-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Smooth Scrolling */
+    .timeline-container {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Scroll Snap für besseres Scrolling */
+    .timeline-container {
+        scroll-snap-type: y proximity;
+    }
+
+    .timeline-day {
+        scroll-snap-align: start;
+    }
+
+    /* Tap Highlight entfernen */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Active States für Touch */
+    .view-btn:active,
+    .filter-btn:active,
+    .timeline-item:active {
+        opacity: 0.7;
+    }
+}
+
+/* ============================================
+   Desktop: Bottom-Nav verstecken
+   ============================================ */
+
+@media (min-width: 769px) {
+    .mobile-bottom-nav {
+        display: none;
+    }
+
+    .calendar-container {
+        padding-bottom: 1rem;
+    }
+
+    /* Filter wieder normal anzeigen */
+    .filters {
+        position: static;
+        width: auto;
+        max-width: none;
+        height: auto;
+        padding: 0;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-overlay {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   Empty State (mobile optimiert)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .empty-state {
+        padding: 2rem 1rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.1rem;
+    }
+
+    .empty-state p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   Footer (mobile optimiert)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .calendar-footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.8rem;
+        margin-bottom: 60px; /* Extra Platz für Bottom-Nav */
+    }
+}
+
+/* ============================================
+   Swipe Animations
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* View-Switcher Container für Swipe */
+    .view-switcher-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Timeline Swipe-Feedback */
+    .timeline-container.swiping {
+        transition: none;
+    }
+
+    .timeline-container.swipe-transition {
+        transition: transform 0.3s ease-out;
+    }
+
+    /* Swipe-Indicator (visuelles Feedback) */
+    .swipe-indicator {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 60px;
+        height: 60px;
+        background: rgba(74, 144, 226, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+        z-index: 100;
+    }
+
+    .swipe-indicator.left {
+        left: 20px;
+    }
+
+    .swipe-indicator.right {
+        right: 20px;
+    }
+
+    .swipe-indicator.visible {
+        opacity: 1;
+    }
+
+    .swipe-indicator svg {
+        width: 30px;
+        height: 30px;
+        stroke: #4a90e2;
+        stroke-width: 2;
+    }
+
+    /* View-Wechsel Animation */
+    .calendar-container.view-changing {
+        position: relative;
+    }
+
+    @keyframes slideInFromRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0.5;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInFromLeft {
+        from {
+            transform: translateX(-100%);
+            opacity: 0.5;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutToRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0.5;
+        }
+    }
+
+    @keyframes slideOutToLeft {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(-100%);
+            opacity: 0.5;
+        }
+    }
+
+    .timeline-container.slide-in-right {
+        animation: slideInFromRight 0.3s ease-out;
+    }
+
+    .timeline-container.slide-in-left {
+        animation: slideInFromLeft 0.3s ease-out;
+    }
+}
+
+/* ============================================
+   Pull-to-Refresh Styles
+   ============================================ */
+
+.pull-refresh-indicator {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    transition: height 0.2s ease-out, opacity 0.2s;
+    opacity: 0;
+}
+
+.pull-refresh-indicator .refresh-spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #e5e5e5;
+    border-top-color: #4a90e2;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.pull-refresh-indicator.ready .refresh-spinner,
+.pull-refresh-indicator.loading .refresh-spinner {
+    opacity: 1;
+}
+
+.pull-refresh-indicator.loading .refresh-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.pull-refresh-indicator .refresh-text {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.pull-refresh-indicator.ready {
+    background: #e8f4fd;
+}
+
+.pull-refresh-indicator.ready .refresh-text {
+    color: #4a90e2;
+}
+
+/* ============================================
+   Performance Optimierungen
+   ============================================ */
+
+/* GPU-Beschleunigung für Animationen */
+.mobile-bottom-nav,
+.filters,
+.filter-overlay,
+.timeline-container,
+.swipe-indicator {
+    will-change: transform;
+}
+
+/* Transitions nur wenn nicht in Bewegung */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
