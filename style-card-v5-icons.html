@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreative Quartett-Karten mit Icons</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .karte-wrapper {
+            text-align: center;
+        }
+
+        .label {
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* === BASIS === */
+        .quartett-karte {
+            width: 360px;
+            height: 540px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* === SVG ICONS === */
+        .icon-container {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-svg {
+            width: 140px;
+            height: 140px;
+            opacity: 0.9;
+        }
+
+        .icon-background-pattern {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            opacity: 0.05;
+            top: -50px;
+            right: -50px;
+            transform: rotate(15deg);
+        }
+
+        /* === BOAT-KARTE: Raketenschiff === */
+        .boat-karte {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .boat-header {
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .boat-floating-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .boat-nummer {
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+
+        .boat-titel {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .boat-subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        .boat-body {
+            background: white;
+            flex: 1;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            margin-top: -12px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+
+        /* === HTML-KARTE: Browser-Fenster === */
+        .html-karte {
+            background: #E63946;
+        }
+
+        .html-header {
+            padding: 16px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .html-window-dots {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .html-body {
+            background: white;
+            flex: 1;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            margin-top: -12px;
+            position: relative;
+        }
+
+        .diagonal-stripe {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, transparent 40%, #E63946 40%, #E63946 60%, transparent 60%);
+            opacity: 0.05;
+        }
+
+        /* === DOT-KARTE: Buch === */
+        .dot-karte {
+            background: white;
+            border: 4px solid #06d6a0;
+        }
+
+        .dot-header {
+            padding: 20px;
+            background: #06d6a0;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            padding-bottom: 30px;
+        }
+
+        .dot-body {
+            padding: 24px;
+            flex: 1;
+        }
+
+        .bookmark {
+            position: absolute;
+            top: 0;
+            right: 30px;
+            width: 40px;
+            height: 60px;
+            background: #06d6a0;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+        }
+
+        /* === LOG-KARTE: Kalender === */
+        .log-karte {
+            background: linear-gradient(135deg, #f7941d 0%, #f15a29 100%);
+        }
+
+        .log-header {
+            padding: 20px;
+            color: white;
+        }
+
+        .log-date-tab {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 12px 12px 0 0;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .log-body {
+            background: white;
+            flex: 1;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            margin-top: -12px;
+        }
+
+        /* === TASK-KARTE: Checkbox === */
+        .task-karte {
+            background: #457b9d;
+            border: 3px solid #1d3557;
+        }
+
+        .task-header {
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .priority-circle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .task-body {
+            background: white;
+            flex: 1;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            margin-top: -12px;
+        }
+
+        /* === WIKI-KARTE: Gehirn === */
+        .wiki-karte {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .wiki-header {
+            padding: 20px;
+            color: white;
+        }
+
+        .wiki-connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+        }
+
+        .wiki-body {
+            background: white;
+            flex: 1;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            margin-top: -12px;
+        }
+
+        /* === SHARED STYLES === */
+        .card-title-big {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .card-nummer {
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        .info-section {
+            margin-bottom: 18px;
+        }
+
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label-small {
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .info-value-huge {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s;
+            border-radius: 5px;
+        }
+
+        .tags-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .tag-item {
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 14px;
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stats-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .stat-mini {
+            text-align: center;
+            padding: 12px 8px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 9px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .connection-mini-boxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .connection-box {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .connection-type {
+            font-size: 9px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .connection-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 1. BOAT: RAKETE -->
+    <div class="karte-wrapper">
+        <div class="label">BOAT • Rakete Icon</div>
+        <div class="quartett-karte boat-karte">
+            <div class="boat-header">
+                <div class="boat-floating-badge">TRÄUMEND</div>
+                <div class="card-nummer">153 • BOAT</div>
+                <div class="card-title-big">Dashboard 3D Nav</div>
+                <div class="card-subtitle">Isometrische Wohnung</div>
+            </div>
+            
+            <div class="icon-container" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <!-- Raketen-Icon -->
+                <svg class="icon-svg" viewBox="0 0 100 100" fill="white">
+                    <path d="M50,10 L60,30 L70,25 L55,50 L60,70 L50,85 L40,70 L45,50 L30,25 L40,30 Z"/>
+                    <circle cx="50" cy="35" r="8"/>
+                    <path d="M35,70 L35,85 L40,80" fill="white" opacity="0.7"/>
+                    <path d="M65,70 L65,85 L60,80" fill="white" opacity="0.7"/>
+                </svg>
+                <svg class="icon-background-pattern" viewBox="0 0 100 100">
+                    <path d="M0,0 L50,50 L0,100 Z" fill="white"/>
+                </svg>
+            </div>
+            
+            <div class="boat-body">
+                <div class="info-section">
+                    <div class="info-label-small">Geschätzte Zeit</div>
+                    <div class="info-value-huge" style="color: #764ba2;">40h</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" style="width: 0%; background: linear-gradient(90deg, #667eea, #764ba2);"></div>
+                    </div>
+                    <div style="font-size: 11px; color: #999; margin-top: 6px;">Noch nicht gestartet</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Status & Bereich</div>
+                    <div class="info-value">a5_traeumend • Yang/Bian</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Technologien</div>
+                    <div class="tags-flex">
+                        <span class="tag-item">Three.js</span>
+                        <span class="tag-item">3D-Modeling</span>
+                        <span class="tag-item">Navigation</span>
+                        <span class="tag-item">Isometric</span>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Verbindungen</div>
+                    <div class="connection-mini-boxes">
+                        <div class="connection-box">
+                            <div class="connection-type">Up::</div>
+                            <div class="connection-name">H2me</div>
+                        </div>
+                        <div class="connection-box">
+                            <div class="connection-type">Sister::</div>
+                            <div class="connection-name">BOAT_151</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. HTML: BROWSER-FENSTER -->
+    <div class="karte-wrapper">
+        <div class="label">HTML • Browser Icon</div>
+        <div class="quartett-karte html-karte">
+            <div class="html-header">
+                <div>
+                    <div class="html-window-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="card-nummer">153 • PAGE</div>
+                    <div class="card-title-big">Cytoscape Graph</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: bold;">LIVE</div>
+            </div>
+            
+            <div class="icon-container" style="background: #E63946;">
+                <!-- Browser-Icon -->
+                <svg class="icon-svg" viewBox="0 0 100 100" fill="white">
+                    <rect x="10" y="20" width="80" height="60" rx="4" fill="none" stroke="white" stroke-width="3"/>
+                    <line x1="10" y1="30" x2="90" y2="30" stroke="white" stroke-width="3"/>
+                    <circle cx="20" cy="25" r="2" fill="white"/>
+                    <circle cx="27" cy="25" r="2" fill="white"/>
+                    <circle cx="34" cy="25" r="2" fill="white"/>
+                    <!-- Graph network inside -->
+                    <circle cx="35" cy="50" r="4" fill="white"/>
+                    <circle cx="65" cy="50" r="4" fill="white"/>
+                    <circle cx="50" cy="65" r="4" fill="white"/>
+                    <line x1="35" y1="50" x2="65" y2="50" stroke="white" stroke-width="2"/>
+                    <line x1="35" y1="50" x2="50" y2="65" stroke="white" stroke-width="2"/>
+                    <line x1="65" y1="50" x2="50" y2="65" stroke="white" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <div class="html-body">
+                <div class="diagonal-stripe"></div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Code Stats</div>
+                    <div class="stats-mini-grid">
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #E63946;">458</div>
+                            <div class="stat-label">Zeilen</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #E63946;">3</div>
+                            <div class="stat-label">Deps</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #E63946;">24KB</div>
+                            <div class="stat-label">Größe</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Technologien</div>
+                    <div class="tags-flex">
+                        <span class="tag-item">Cytoscape.js</span>
+                        <span class="tag-item">Vanilla JS</span>
+                        <span class="tag-item">CSS Grid</span>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Features</div>
+                    <div class="info-value" style="font-size: 12px; line-height: 1.6;">
+                        • Node-Navigation<br>
+                        • Zoom & Pan<br>
+                        • Layouts<br>
+                        • Mobile-optimiert
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Bereich • Aktualisiert</div>
+                    <div class="info-value">Bian • 2025-10-14</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. DOT: BUCH -->
+    <div class="karte-wrapper">
+        <div class="label">DOT • Buch Icon</div>
+        <div class="quartett-karte dot-karte">
+            <div class="bookmark"></div>
+            
+            <div class="dot-header">
+                <div class="card-nummer">310 • DOT</div>
+                <div class="card-title-big">Reinheitsgebot</div>
+                <div class="card-subtitle">Geschichte der Bier-Gesetzgebung</div>
+            </div>
+            
+            <div class="icon-container" style="background: #06d6a0;">
+                <!-- Buch-Icon -->
+                <svg class="icon-svg" viewBox="0 0 100 100" fill="white">
+                    <path d="M25,15 L75,15 L75,85 L25,85 Z" fill="none" stroke="white" stroke-width="3"/>
+                    <path d="M25,15 L25,85" stroke="white" stroke-width="4"/>
+                    <line x1="35" y1="30" x2="65" y2="30" stroke="white" stroke-width="2"/>
+                    <line x1="35" y1="40" x2="65" y2="40" stroke="white" stroke-width="2"/>
+                    <line x1="35" y1="50" x2="65" y2="50" stroke="white" stroke-width="2"/>
+                    <line x1="35" y1="60" x2="55" y2="60" stroke="white" stroke-width="2"/>
+                    <rect x="23" y="13" width="4" height="74" fill="white" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <div class="dot-body">
+                <div class="info-section">
+                    <div class="info-label-small">Umfang</div>
+                    <div class="info-value">1.247 Wörter • ~5 Min Lesezeit</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Quellen (5)</div>
+                    <div style="font-size: 11px; line-height: 1.6; color: #555;">
+                        🟢 Urbock Bier • S.24<br>
+                        🟢 Deutsche Bierkultur<br>
+                        🟡 Wikipedia<br>
+                        🟢 Staatsbibliothek<br>
+                        🟡 Bier-Historie Blog
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Zeitraum</div>
+                    <div class="info-value">12.-16. Jahrhundert</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Verbindungen</div>
+                    <div class="connection-mini-boxes">
+                        <div class="connection-box">
+                            <div class="connection-type">Up::</div>
+                            <div class="connection-name">Bier-Gesch.</div>
+                        </div>
+                        <div class="connection-box">
+                            <div class="connection-type">Sister::</div>
+                            <div class="connection-name">Hopfen</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. LOG: KALENDER -->
+    <div class="karte-wrapper">
+        <div class="label">LOG • Kalender Icon</div>
+        <div class="quartett-karte log-karte">
+            <div class="log-header">
+                <div class="log-date-tab">24-25 OKT 2025</div>
+                <div class="card-nummer">153 • LOG</div>
+                <div class="card-title-big">H2me Sessions</div>
+                <div class="card-subtitle">Dashboard Development</div>
+            </div>
+            
+            <div class="icon-container" style="background: linear-gradient(135deg, #f7941d 0%, #f15a29 100%);">
+                <!-- Kalender-Icon -->
+                <svg class="icon-svg" viewBox="0 0 100 100" fill="white">
+                    <rect x="20" y="25" width="60" height="60" rx="4" fill="none" stroke="white" stroke-width="3"/>
+                    <rect x="20" y="15" width="60" height="15" rx="4" fill="white"/>
+                    <line x1="35" y1="12" x2="35" y2="20" stroke="white" stroke-width="3"/>
+                    <line x1="65" y1="12" x2="65" y2="20" stroke="white" stroke-width="3"/>
+                    <line x1="25" y1="40" x2="75" y2="40" stroke="white" stroke-width="2"/>
+                    <circle cx="35" cy="55" r="3" fill="white"/>
+                    <circle cx="50" cy="55" r="3" fill="white"/>
+                    <circle cx="65" cy="55" r="3" fill="white"/>
+                    <circle cx="35" cy="70" r="3" fill="white"/>
+                    <circle cx="50" cy="70" r="3" fill="white"/>
+                </svg>
+            </div>
+            
+            <div class="log-body">
+                <div class="info-section">
+                    <div class="info-label-small">Aktivität</div>
+                    <div class="stats-mini-grid">
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #f7941d;">12</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #f7941d;">47</div>
+                            <div class="stat-label">Einträge</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #f7941d;">28h</div>
+                            <div class="stat-label">Zeit</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Hauptthemen</div>
+                    <div style="font-size: 11px; line-height: 1.6; color: #555;">
+                        • Dashboard 4x4 Grid<br>
+                        • ThemeManager Integration<br>
+                        • Shared-Nav Refactoring<br>
+                        • Button-System<br>
+                        • Kakano Theme
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Status</div>
+                    <div class="tags-flex">
+                        <span class="tag-item">8 Erledigt</span>
+                        <span class="tag-item">3 In Arbeit</span>
+                        <span class="tag-item">5 Offen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. TASK: CHECKBOX -->
+    <div class="karte-wrapper">
+        <div class="label">TASK • Checkbox Icon</div>
+        <div class="quartett-karte task-karte">
+            <div class="task-header">
+                <div class="priority-circle">🔥</div>
+                <div class="card-nummer">153 • TASK</div>
+                <div class="card-title-big" style="padding-right: 60px;">Navigation Refactoring</div>
+                <div class="card-subtitle">System-wide Update</div>
+            </div>
+            
+            <div class="icon-container" style="background: #457b9d;">
+                <!-- Checkbox-Icon -->
+                <svg class="icon-svg" viewBox="0 0 100 100" fill="white">
+                    <rect x="20" y="20" width="60" height="60" rx="8" fill="none" stroke="white" stroke-width="4"/>
+                    <path d="M35,50 L45,60 L65,35" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="15" y="15" width="25" height="25" rx="4" fill="white" opacity="0.2"/>
+                    <rect x="60" y="60" width="25" height="25" rx="4" fill="white" opacity="0.2"/>
+                </svg>
+            </div>
+            
+            <div class="task-body">
+                <div class="info-section">
+                    <div class="info-label-small">Deadline</div>
+                    <div class="info-value-huge" style="color: #457b9d; font-size: 24px;">31. Okt 2025</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Progress</div>
+                    <div class="stats-mini-grid">
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #457b9d;">12</div>
+                            <div class="stat-label">Subtasks</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #457b9d;">67%</div>
+                            <div class="stat-label">Done</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-number" style="color: #457b9d;">~8h</div>
+                            <div class="stat-label">Übrig</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" style="width: 67%; background: #457b9d;"></div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Priorität & Kategorie</div>
+                    <div class="info-value">a1_jetzt • Hoch</div>
+                    <div class="tags-flex">
+                        <span class="tag-item">Refactoring</span>
+                        <span class="tag-item">Tech Debt</span>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Checklist</div>
+                    <div style="font-size: 11px; line-height: 1.8; color: #555;">
+                        ✓ shared-nav.css<br>
+                        ✓ Mini-Graph<br>
+                        ⧈ Pages updaten<br>
+                        ⧈ Testing
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. WIKI: NEURON/GEHIRN -->
+    <div class="karte-wrapper">
+        <div class="label">WIKI • Gehirn Icon</div>
+        <div class="quartett-karte wiki-karte">
+            <div class="wiki-header">
+                <svg class="wiki-connection-lines" viewBox="0 0 100 100">
+                    <line x1="0" y1="0" x2="100" y2="100" stroke="white" stroke-width="1"/>
+                    <line x1="100" y1="0" x2="0" y2="100" stroke="white" stroke-width="1"/>
+                    <line x1="50" y1="0" x2="50" y2="100" stroke="white" stroke-width="1"/>
+                    <line x1="0" y1="50" x2="100" y2="50" stroke="white" stroke-width="1"/>
+                </svg>
+                <div class="card-nummer">241 • TYP</div>
+                <div class="card-title-big">ASS ADHS AuDHS</div>
+                <div class="card-subtitle">Neurodivergente Spektren</div>
+            </div>
+            
+            <div class="icon-container" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">
+                <!-- Gehirn/Neuron-Icon -->
+                <svg class="icon-svg" viewBox="0 0 100 100" fill="white">
+                    <circle cx="50" cy="40" r="20" fill="none" stroke="white" stroke-width="3"/>
+                    <path d="M30,35 Q20,30 15,40" fill="none" stroke="white" stroke-width="2"/>
+                    <path d="M70,35 Q80,30 85,40" fill="none" stroke="white" stroke-width="2"/>
+                    <path d="M45,60 Q40,75 30,80" fill="none" stroke="white" stroke-width="2"/>
+                    <path d="M55,60 Q60,75 70,80" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="30" cy="80" r="5" fill="white"/>
+                    <circle cx="70" cy="80" r="5" fill="white"/>
+                    <circle cx="15" cy="40" r="5" fill="white"/>
+                    <circle cx="85" cy="40" r="5" fill="white"/>
+                    <path d="M40,25 Q35,15 40,10" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="40" cy="10" r="4" fill="white"/>
+                </svg>
+            </div>
+            
+            <div class="wiki-body">
+                <div class="info-section">
+                    <div class="info-label-small">Nummer • Codewort</div>
+                    <div class="info-value">241 • TYP</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Sammlung • Bereich</div>
+                    <div class="info-value">ii_Wiki • Bian/Yin</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Quelle</div>
+                    <div class="info-value">Instagram • @speechdude</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Tags</div>
+                    <div class="tags-flex">
+                        <span class="tag-item">neurodivergent</span>
+                        <span class="tag-item">autism</span>
+                        <span class="tag-item">adhd</span>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Verbindung</div>
+                    <div class="connection-mini-boxes">
+                        <div class="connection-box" style="grid-column: 1 / -1;">
+                            <div class="connection-type">Sister::</div>
+                            <div class="connection-name">240 • VENN • Neuro Typen</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label-small">Erstellt</div>
+                    <div class="info-value">21. April 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

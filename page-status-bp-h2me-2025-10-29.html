@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status BP • H2me 2025-10-29</title>
+
+    <link rel="stylesheet" href="page-status-bp-template.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
+
+    <style>
+        /* Additional inline styles for embedded data */
+        .loading-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="status-bp-container">
+
+        <!-- HEADER -->
+        <header class="status-header">
+            <h1>H2me • Big Picture Status</h1>
+            <p class="elevator-pitch">H2me als zentraler Knotenpunkt des EntryPoint-Ökosystems – wo Ideen, Konzepte und Projekte sichtbar werden.</p>
+
+            <div class="quick-stats">
+                <div class="stat">
+                    <span class="stat-number">22</span>
+                    <span class="stat-label">BOATs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1492h</span>
+                    <span class="stat-label">Geschätzt</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Cluster</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Projekte</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- TOP IDEAS -->
+        <section class="top-ideas">
+            <h2>Top 7 Ideen nach Vernetzung</h2>
+            <p class="section-intro">Scoring: Up×3 + Sister×2 + Related×1 + AllLinks×0.5 + Hours×0.1</p>
+
+            <div class="ideas-grid">
+
+                <!-- BOAT #1 -->
+                <div class="idea-card" data-boat-id="boat-positiv-newsbot-wissenschaftskommunikation">
+                    <div class="idea-header">
+                        <span class="idea-rank">#1</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">Positiv Newsbot Wissenschaftskommunikation</h3>
+                    <p class="idea-pitch">Keine Beschreibung verfügbar</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">4</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">650h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">74</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- BOAT #2 -->
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <span class="idea-rank">#2</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">Positiv Newsbot Wissenschaftskommunikation</h3>
+                    <p class="idea-pitch"># ii_ursprünglicher Input</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">4</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">400h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">50</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- BOAT #3 -->
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <span class="idea-rank">#3</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">Rhythmen Muster als Kompass</h3>
+                    <p class="idea-pitch"># ii_ursprünglicher Input</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">2</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">40h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">14</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- BOAT #4 -->
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <span class="idea-rank">#4</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">Arbeitsbloecke Gameartig</h3>
+                    <p class="idea-pitch">![[#ii_ursprünglicher Input]]</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">2</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">25h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">13</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- BOAT #5 -->
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <span class="idea-rank">#5</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">Rhythmus Kalender Wellen</h3>
+                    <p class="idea-pitch"># ii_ursprünglicher Input</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">2</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">20h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">13</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- BOAT #6 -->
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <span class="idea-rank">#6</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">Dringlichkeit stufenlos</h3>
+                    <p class="idea-pitch"># ii_ursprünglicher Input</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">2</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">12h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">11</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- BOAT #7 -->
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <span class="idea-rank">#7</span>
+                        <span class="idea-cluster" style="background-color: #666666;">unassigned</span>
+                    </div>
+                    <h3 class="idea-title">nodes nw mit sozialen daten aus vault</h3>
+                    <p class="idea-pitch"># ii_ursprünglicher Input</p>
+                    <div class="idea-meta">
+                        <span class="meta-item">
+                            <span class="meta-label">Links:</span>
+                            <span class="meta-value">2</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Zeit:</span>
+                            <span class="meta-value">35h</span>
+                        </span>
+                        <span class="meta-item">
+                            <span class="meta-label">Score:</span>
+                            <span class="meta-value">11</span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MINDMAP -->
+        <section class="mindmap-section">
+            <h2>Mindmap nach Clustern</h2>
+            <p class="section-intro">Hierarchische Darstellung: Root → Cluster → Top 7 BOATs → Weitere BOATs (+15)</p>
+
+            <div id="mindmap-container" class="graph-container"></div>
+
+            <div class="graph-legend">
+                <h4>Legende</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #666;"></span>
+                        <span class="legend-label">Up (übergeordnet)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #4CAF50;"></span>
+                        <span class="legend-label">Sister (verwandt)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #2196F3;"></span>
+                        <span class="legend-label">Related (thematisch)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NETWORK -->
+        <section class="network-section">
+            <h2>Vollständiges Netzwerk</h2>
+            <p class="section-intro">Alle 22 BOATs und ihre Verbindungen</p>
+
+            <div id="network-container" class="graph-container"></div>
+        </section>
+
+        <!-- DOMAINS -->
+        <section class="domains-section">
+            <h2>7 Farbwelten • YBY System</h2>
+            <p class="section-intro">H2me als Teil des EntryPoint-Ökosystems</p>
+
+            <div class="domains-grid">
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #808080;">
+                        <h3>GRAU</h3>
+                        <span class="domain-subtitle">Datenmanagement</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #F44336;">
+                        <h3>ROT</h3>
+                        <span class="domain-subtitle">Persönliche Projekte</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #4CAF50;">
+                        <h3>GRÜN</h3>
+                        <span class="domain-subtitle">Architektur</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #FF9800;">
+                        <h3>ORANGE</h3>
+                        <span class="domain-subtitle">Sozial/Familie</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #2196F3;">
+                        <h3>BLAU</h3>
+                        <span class="domain-subtitle">Haushalt</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #9C27B0;">
+                        <h3>VIOLETT</h3>
+                        <span class="domain-subtitle">Gesundheit</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+                <div class="domain-card">
+                    <div class="domain-header" style="background-color: #FFEB3B; color: #1a1a1a;">
+                        <h3>GELB</h3>
+                        <span class="domain-subtitle">Bier</span>
+                    </div>
+                    <div class="domain-stats">
+                        <span>0 Projekte</span>
+                        <span>0 BOATs</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- META -->
+        <section class="meta-section">
+            <h2>Meta-Erkenntnisse</h2>
+            <p class="section-intro">Analyse des EntryPoint-Systems</p>
+
+            <div class="meta-insights">
+                <div class="insight-card">
+                    <h4 class="insight-title">22 BOATs erfasst</h4>
+                    <p class="insight-content">Das System hat 22 BOAT-Ideen gesammelt, von denen die meisten noch "unassigned" sind. Ein Cluster-Mapping würde helfen, die Ideen thematisch zu organisieren.</p>
+                    <div class="insight-meta">
+                        <span class="insight-date">2025-10-29</span>
+                        <span class="insight-source">Status-Analyse</span>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h4 class="insight-title">1492 Stunden geschätzt</h4>
+                    <p class="insight-content">Die Gesamtschätzung aller BOATs beträgt ~1492 Stunden. Die größten Projekte sind "Positiv Newsbot" (650h + 400h) und kleinere Features zwischen 5-40h.</p>
+                    <div class="insight-meta">
+                        <span class="insight-date">2025-10-29</span>
+                        <span class="insight-source">Aggregierte Daten</span>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h4 class="insight-title">Vernetzung als Indikator</h4>
+                    <p class="insight-content">Die Top 7 BOATs zeigen: Vernetzung (Up/Sister/Related Links) ist wichtiger als geschätzte Stunden. BOATs mit vielen Links steigen im Ranking trotz geringerer Stundenanzahl.</p>
+                    <div class="insight-meta">
+                        <span class="insight-date">2025-10-29</span>
+                        <span class="insight-source">Scoring-Algorithmus</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Embedded Data
+        const mindmapData = {"nodes":[{"id":"root","label":"EntryPoint","type":"root","level":0},{"id":"cluster-unassigned","label":"unassigned","type":"cluster","level":1,"cluster":"unassigned"},{"id":"boat-positiv-newsbot-wissenschaftskommunikation","label":"Positiv Newsbot Wissenschaftskommunikation","type":"boat","level":2,"cluster":"unassigned","hours":650,"score":73.5},{"id":"boat-positiv-newsbot-wissenschaftskommunikation","label":"Positiv Newsbot Wissenschaftskommunikation","type":"boat","level":2,"cluster":"unassigned","hours":400,"score":50},{"id":"boat-rhythmen-muster-als-kompass","label":"Rhythmen Muster als Kompass","type":"boat","level":2,"cluster":"unassigned","hours":40,"score":14},{"id":"boat-arbeitsbloecke-gameartig","label":"Arbeitsbloecke Gameartig","type":"boat","level":2,"cluster":"unassigned","hours":25,"score":12.5},{"id":"boat-rhythmus-kalender-wellen","label":"Rhythmus Kalender Wellen","type":"boat","level":2,"cluster":"unassigned","hours":20,"score":12.5},{"id":"boat-dringlichkeit-stufenlos","label":"Dringlichkeit stufenlos","type":"boat","level":2,"cluster":"unassigned","hours":12,"score":11.2},{"id":"boat-nodes-nw-mit-sozialen-daten-aus-vault","label":"nodes nw mit sozialen daten aus vault","type":"boat","level":2,"cluster":"unassigned","hours":35,"score":11},{"id":"boats-rest","label":"Weitere BOATs (+15)","type":"group","level":2}],"edges":[{"source":"root","target":"cluster-unassigned"},{"source":"cluster-unassigned","target":"boat-positiv-newsbot-wissenschaftskommunikation"},{"source":"cluster-unassigned","target":"boat-positiv-newsbot-wissenschaftskommunikation"},{"source":"cluster-unassigned","target":"boat-rhythmen-muster-als-kompass"},{"source":"cluster-unassigned","target":"boat-arbeitsbloecke-gameartig"},{"source":"cluster-unassigned","target":"boat-rhythmus-kalender-wellen"},{"source":"cluster-unassigned","target":"boat-dringlichkeit-stufenlos"},{"source":"cluster-unassigned","target":"boat-nodes-nw-mit-sozialen-daten-aus-vault"},{"source":"root","target":"boats-rest"}]};
+
+        const networkData = {"nodes":[{"id":"boat-kategorien-mermaid-visualisierung","label":"Kategorien Mermaid Visualisierung","type":"boat","cluster":"unassigned","hours":8},{"id":"boat-externe-organisation","label":"Externe Organisation","type":"boat","cluster":"unassigned","hours":5},{"id":"boat-arbeitsbloecke-gameartig","label":"Arbeitsbloecke Gameartig","type":"boat","cluster":"unassigned","hours":25},{"id":"boat-dringlichkeit-stufenlos","label":"Dringlichkeit stufenlos","type":"boat","cluster":"unassigned","hours":12},{"id":"boat-mit-vault-zu-twofold","label":"mit Vault zu twofold","type":"boat","cluster":"unassigned","hours":0},{"id":"boat-rhythmen-muster-als-kompass","label":"Rhythmen Muster als Kompass","type":"boat","cluster":"unassigned","hours":40},{"id":"boat-rhythmus-kalender-wellen","label":"Rhythmus Kalender Wellen","type":"boat","cluster":"unassigned","hours":20},{"id":"boat-flaechenzuordnung-system-geometrische-navigation","label":"Flaechenzuordnung System Geometrische Navigation","type":"boat","cluster":"unassigned","hours":8},{"id":"boat-geometrische-navigation-views-als-koerper","label":"Geometrische Navigation Views als Koerper","type":"boat","cluster":"unassigned","hours":25},{"id":"boat-koerperzuordnung-variable-views","label":"Koerperzuordnung variable Views","type":"boat","cluster":"unassigned","hours":12},{"id":"boat-nodes-inputdaten-aus-statistik","label":"nodes inputdaten aus statistik","type":"boat","cluster":"unassigned","hours":20},{"id":"boat-nodes-materialisierung","label":"nodes materialisierung","type":"boat","cluster":"unassigned","hours":25},{"id":"boat-nodes-nw-mit-sozialen-daten-aus-vault","label":"nodes nw mit sozialen daten aus vault","type":"boat","cluster":"unassigned","hours":35},{"id":"boat-pfadbasiertes-styling","label":"Pfadbasiertes Styling","type":"boat","cluster":"unassigned","hours":8},{"id":"boat-hirn-lauft-verschiedenspurig","label":"Hirn lauft verschiedenspurig","type":"boat","cluster":"unassigned","hours":0},{"id":"boat-verschiedene-spuren-müssen-unterhalten-werden","label":"verschiedene Spuren müssen unterhalten werden","type":"boat","cluster":"unassigned","hours":0},{"id":"boat-positiv-newsbot-wissenschaftskommunikation","label":"Positiv Newsbot Wissenschaftskommunikation","type":"boat","cluster":"unassigned","hours":400},{"id":"boat-ai-diff-eigene-checkpoint-krita-ai-scheint-kompliziert-zu-sein","label":"AI Diff eigene Checkpoint krita ai scheint kompliziert zu sein","type":"boat","cluster":"unassigned","hours":0},{"id":"boat-obsidian-dataview-intressante-eventuell-wichtige-dataviewcodes-uber-die-ich-gestolpert-bin","label":"Obsidian Dataview Intressante eventuell wichtige dataviewcodes uber die ich gestolpert bin","type":"boat","cluster":"unassigned","hours":0},{"id":"boat-smartphone-videografie-masterplan","label":"Smartphone Videografie Masterplan","type":"boat","cluster":"unassigned","hours":35},{"id":"boat-positiv-newsbot-wissenschaftskommunikation","label":"Positiv Newsbot Wissenschaftskommunikation","type":"boat","cluster":"unassigned","hours":650},{"id":"boat-metaphern-fuer-darstellung","label":"BOAT Metaphern fuer Darstellung","type":"boat","cluster":"unassigned","hours":10}],"edges":[{"source":"boat-flaechenzuordnung-system-geometrische-navigation","target":"boat-geometrische-navigation-views-als-koerper","type":"up"},{"source":"boat-flaechenzuordnung-system-geometrische-navigation","target":"boat-koerperzuordnung-variable-views","type":"sister"},{"source":"boat-koerperzuordnung-variable-views","target":"boat-geometrische-navigation-views-als-koerper","type":"up"},{"source":"boat-koerperzuordnung-variable-views","target":"boat-flaechenzuordnung-system-geometrische-navigation","type":"sister"},{"source":"boat-nodes-inputdaten-aus-statistik","target":"boat-nodes-nw-mit-sozialen-daten-aus-vault","type":"sister"},{"source":"boat-nodes-materialisierung","target":"boat-nodes-nw-mit-sozialen-daten-aus-vault","type":"sister"},{"source":"boat-nodes-nw-mit-sozialen-daten-aus-vault","target":"boat-nodes-materialisierung","type":"sister"}]};
+
+        // Initialize Mindmap
+        const mindmapCy = cytoscape({
+            container: document.getElementById('mindmap-container'),
+            elements: {
+                nodes: mindmapData.nodes.map(n => ({ data: n })),
+                edges: mindmapData.edges.map(e => ({ data: e }))
+            },
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'label': 'data(label)',
+                        'background-color': '#666',
+                        'width': 60,
+                        'height': 60,
+                        'color': '#fff',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'font-size': 10,
+                        'text-wrap': 'wrap',
+                        'text-max-width': 100
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 2,
+                        'line-color': '#666',
+                        'target-arrow-color': '#666',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier'
+                    }
+                }
+            ],
+            layout: {
+                name: 'breadthfirst',
+                directed: true,
+                spacingFactor: 1.5,
+                animate: true
+            },
+            userZoomingEnabled: true,
+            userPanningEnabled: true
+        });
+
+        // Initialize Network
+        const networkCy = cytoscape({
+            container: document.getElementById('network-container'),
+            elements: {
+                nodes: networkData.nodes.map(n => ({ data: n })),
+                edges: networkData.edges.map(e => ({ data: e }))
+            },
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'label': 'data(label)',
+                        'background-color': '#666',
+                        'width': 50,
+                        'height': 50,
+                        'color': '#fff',
+                        'text-valign': 'bottom',
+                        'text-halign': 'center',
+                        'font-size': 9,
+                        'text-wrap': 'wrap',
+                        'text-max-width': 80
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': function(ele) {
+                            const type = ele.data('type');
+                            const widths = { up: 3, sister: 2, related: 1 };
+                            return widths[type] || 1;
+                        },
+                        'line-color': function(ele) {
+                            const type = ele.data('type');
+                            const colors = {
+                                up: '#666',
+                                sister: '#4CAF50',
+                                related: '#2196F3'
+                            };
+                            return colors[type] || '#666';
+                        },
+                        'target-arrow-color': function(ele) {
+                            const type = ele.data('type');
+                            const colors = {
+                                up: '#666',
+                                sister: '#4CAF50',
+                                related: '#2196F3'
+                            };
+                            return colors[type] || '#666';
+                        },
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier'
+                    }
+                }
+            ],
+            layout: {
+                name: 'cose',
+                animate: true,
+                animationDuration: 1000,
+                nodeRepulsion: 8000,
+                idealEdgeLength: 100
+            },
+            userZoomingEnabled: true,
+            userPanningEnabled: true
+        });
+
+        console.log('✅ Status BP H2me loaded with embedded data');
+    </script>
+
+</body>
+</html>

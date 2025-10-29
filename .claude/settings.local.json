@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Read(//e/Neuanfang/a_yang/023_bildverwaltung/**)"
+      "Read(//e/Neuanfang/a_yang/023_bildverwaltung/**)",
+      "Bash(test:*)",
+      "Read(//e/EntryPoint/b_bian/bi_Logs/**)"
     ],
     "deny": [],
     "ask": []

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,20 +8,353 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="shared-nav.css">
   <link rel="stylesheet" href="shared-graph.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+  <style>
+    .rainbow-text {
+      background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      filter: opacity(0.5);
+      font-family: "Playwrite DE SAS", cursive;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 2rem;
+    }
+
+    /* === GLOW BUTTONS NAVIGATION === */
+    .glow-nav-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin: 60px 0;
+      flex-wrap: wrap;
+      min-height: 240px;
+      position: relative;
+    }
+
+    .btn-glow-nav {
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      color: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-glow-nav::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      filter: blur(30px);
+      opacity: 0.6;
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    .btn-glow-nav:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-glow-nav:hover::before {
+      filter: blur(40px);
+      opacity: 0.8;
+    }
+
+    .btn-glow-nav.active {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-termine {
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, #f87171 0%, #dc2626 100%);
+    }
+
+    .btn-termine::before {
+      background: #f87171;
+    }
+
+    .btn-tasks {
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, #fbbf24 0%, #f59e0b 100%);
+    }
+
+    .btn-tasks::before {
+      background: #fbbf24;
+    }
+
+    .btn-logs {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, #60a5fa 0%, #3b82f6 100%);
+    }
+
+    .btn-logs::before {
+      background: #60a5fa;
+    }
+
+    /* === CONTENT SECTIONS === */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+      padding: 40px 20px;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-align: center;
+      color: var(--bian-primary, #fbbf24);
+    }
+
+    .section-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Termine Styling */
+    .termine-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .termin-item {
+      background: rgba(248, 113, 113, 0.1);
+      border-left: 4px solid #f87171;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .termin-date {
+      font-weight: bold;
+      color: #f87171;
+      margin-bottom: 5px;
+    }
+
+    /* Tasks Styling */
+    .task-item {
+      background: rgba(251, 191, 36, 0.1);
+      border-left: 4px solid #fbbf24;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .task-checkbox {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    /* Logs Styling */
+    .log-entry {
+      background: rgba(96, 165, 250, 0.1);
+      border-left: 4px solid #60a5fa;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .log-timestamp {
+      font-weight: bold;
+      color: #60a5fa;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    /* Back Button */
+    .back-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      font-size: 1.5rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .back-button.visible {
+      display: flex;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    /* Mobile Anpassung */
+    @media (max-width: 768px) {
+      .glow-nav-container {
+        gap: 20px;
+        min-height: auto;
+      }
+
+      .btn-glow-nav {
+        font-size: 0.9rem;
+      }
+
+      .btn-termine {
+        width: 120px;
+        height: 120px;
+      }
+
+      .btn-tasks {
+        width: 160px;
+        height: 160px;
+      }
+
+      .btn-logs {
+        width: 140px;
+        height: 140px;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- sidebar nav-->
-  <div id="navigation-container"> </div>
-
+  <div id="navigation-container"></div>
+  
   <main class="content-with-sidebar">
-    <h2>Page 1</h2>
-    <img src="images/WEB_b_bian.svg" alt="b_bian" class="shared-icon bian">
-    <p>This is the content for yang.</p>
-    <div class="mini-graph-container">
-      <h3>site navigation</h3>
-      <div id="cy-mini"></div>
+    <!-- LANDING VIEW -->
+    <div id="landing-view">
+      <h1 class="rainbow-text">...bian...</h1>
+      <img src="images/WEB_b_bian.svg" alt="b_bian" class="shared-icon bian">
+
+      <!-- GLOW BUTTONS NAVIGATION -->
+      <div class="glow-nav-container">
+        <button class="btn-glow-nav btn-termine" data-section="termine">
+          Termine
+        </button>
+        <button class="btn-glow-nav btn-tasks" data-section="tasks">
+          Tasks
+        </button>
+        <button class="btn-glow-nav btn-logs" data-section="logs">
+          Logs
+        </button>
+      </div>
+
+      <div class="mini-graph-container">
+        <h3>site navigation</h3>
+        <div id="cy-mini"></div>
+      </div>
     </div>
+
+    <!-- TERMINE SECTION -->
+    <div id="termine-section" class="content-section">
+      <h2 class="section-title">Termine</h2>
+      <div class="section-content">
+        <ul class="termine-list">
+          <li class="termin-item">
+            <div class="termin-date"><i class="fas fa-calendar"></i> 15. Nov 2024, 14:00</div>
+            <div>Team Meeting - Projekt Review</div>
+          </li>
+          <li class="termin-item">
+            <div class="termin-date"><i class="fas fa-calendar"></i> 18. Nov 2024, 10:30</div>
+            <div>Design Sprint - Phase 2</div>
+          </li>
+          <li class="termin-item">
+            <div class="termin-date"><i class="fas fa-calendar"></i> 22. Nov 2024, 16:00</div>
+            <div>Client Presentation</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TASKS SECTION -->
+    <div id="tasks-section" class="content-section">
+      <h2 class="section-title">Tasks</h2>
+      <div class="section-content">
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <div>Dashboard Häppchen 3 fertigstellen</div>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <div>Navigation Component refactoren</div>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox" checked>
+          <div>Glow Buttons implementieren</div>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <div>Mobile Layout optimieren</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGS SECTION -->
+    <div id="logs-section" class="content-section">
+      <h2 class="section-title">Logs</h2>
+      <div class="section-content">
+        <div class="log-entry">
+          <div class="log-timestamp"><i class="fas fa-clock"></i> 2024-10-27 14:30</div>
+          <div><strong>GLOW-NAV_</strong> Glow Buttons Navigation implementiert mit Single-Page-System</div>
+        </div>
+        <div class="log-entry">
+          <div class="log-timestamp"><i class="fas fa-clock"></i> 2024-10-26 16:45</div>
+          <div><strong>DASHBOARD_</strong> Häppchen 2 abgeschlossen - Grid Layout funktioniert</div>
+        </div>
+        <div class="log-entry">
+          <div class="log-timestamp"><i class="fas fa-clock"></i> 2024-10-25 11:20</div>
+          <div><strong>REFACTOR_</strong> Button-System zentralisiert in shared-global.css</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <button class="back-button" id="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </button>
   </main>
 
   <script src="shared-theme.js"></script>
@@ -31,10 +363,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       console.log('DOM loaded, initializing...');
-      
+     
       initNavigation('navigation-container', 'sidebar');
-      
-      // Add a small delay to ensure everything is loaded
+     
+      // Initialize mini graph
       setTimeout(() => {
         console.log('Initializing mini graph...');
         try {
@@ -47,6 +379,65 @@
           console.error('Error creating GraphComponent:', error);
         }
       }, 100);
+
+      // === SECTION NAVIGATION ===
+      const landingView = document.getElementById('landing-view');
+      const sections = document.querySelectorAll('.content-section');
+      const navButtons = document.querySelectorAll('.btn-glow-nav');
+      const backButton = document.getElementById('back-button');
+
+      // Button Click Handler
+      navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const sectionId = button.dataset.section;
+          showSection(sectionId);
+        });
+      });
+
+      // Back Button Handler
+      backButton.addEventListener('click', () => {
+        showLanding();
+      });
+
+      // Show specific section
+      function showSection(sectionId) {
+        // Hide landing
+        landingView.style.display = 'none';
+        
+        // Hide all sections
+        sections.forEach(section => {
+          section.classList.remove('active');
+        });
+        
+        // Show selected section
+        const targetSection = document.getElementById(`${sectionId}-section`);
+        if (targetSection) {
+          targetSection.classList.add('active');
+        }
+        
+        // Show back button
+        backButton.classList.add('visible');
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Show landing view
+      function showLanding() {
+        // Hide all sections
+        sections.forEach(section => {
+          section.classList.remove('active');
+        });
+        
+        // Show landing
+        landingView.style.display = 'block';
+        
+        // Hide back button
+        backButton.classList.remove('visible');
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   </script>
 </body>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2me - Status & Übersicht</title>
+    <link rel="stylesheet" href="shared-global.css">
+    <link rel="stylesheet" href="page-status.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">H2me</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#intro">Intro</a>
+                <a href="#live">Live</a>
+                <a href="#wip">In Arbeit</a>
+                <a href="#bigpicture">Big Picture</a>
+                <a href="#vision">Vision</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="status-container">
+        
+        <!-- Intro Section -->
+        <section id="intro" class="status-section">
+            <h1>H2me Status-Übersicht</h1>
+            <p class="intro-text">
+                Eine interaktive Übersicht über den aktuellen Stand von h2m.art - 
+                was existiert, was in Arbeit ist, und wohin die Reise geht.
+            </p>
+            <div class="quick-info">
+                <span class="info-badge">✅ Live auf <a href="https://h2m.art" target="_blank">h2m.art</a></span>
+                <span class="info-badge">🚧 Dashboard in Planung</span>
+                <span class="info-badge">🎨 YBY-Design</span>
+            </div>
+        </section>
+
+        <!-- Section 1: Live & Funktioniert -->
+        <section id="live" class="status-section">
+            <h2 class="section-toggle" data-section="live-content">
+                <span class="toggle-icon">▼</span>
+                Live & Funktioniert
+            </h2>
+            <div id="live-content" class="section-content">
+                <p class="section-intro">Alle Seiten sind live auf h2m.art und voll funktionsfähig.</p>
+                
+                <div class="content-grid">
+                    <!-- Landing Page -->
+                    <div class="content-card yang">
+                        <h3>Landing Page</h3>
+                        <p><a href="https://h2m.art" target="_blank">index.html</a></p>
+                        <ul>
+                            <li>9-Button Navigation (Yang/Bian/Yin Grid)</li>
+                            <li>Representation Buttons (Style-Switcher)</li>
+                            <li>Theme-Switcher (Dark/Light)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Hauptbereiche -->
+                    <div class="content-card yang">
+                        <h3>Yang Seite</h3>
+                        <p><a href="https://h2m.art/page-yang.html" target="_blank">page-yang.html</a></p>
+                        <p>Energie, Aktivität, Projekte</p>
+                    </div>
+
+                    <div class="content-card bian">
+                        <h3>Bian Seite</h3>
+                        <p><a href="https://h2m.art/page-bian.html" target="_blank">page-bian.html</a></p>
+                        <p>Transformation, Prozesse, Entwicklung</p>
+                    </div>
+
+                    <div class="content-card yin">
+                        <h3>Yin Seite</h3>
+                        <p><a href="https://h2m.art/page-yin.html" target="_blank">page-yin.html</a></p>
+                        <p>Reflexion, Wissen, Output</p>
+                    </div>
+
+                    <!-- Graph-Visualisierungen -->
+                    <div class="content-card bian">
+                        <h3>Cytoscape Graph</h3>
+                        <p><a href="https://h2m.art/page-cytoscape.html" target="_blank">page-cytoscape.html</a></p>
+                        <p>Interaktive Graph-Visualisierung mit Cytoscape.js</p>
+                    </div>
+
+                    <div class="content-card bian">
+                        <h3>Graph View</h3>
+                        <p><a href="https://h2m.art/page-graph.html" target="_blank">page-graph.html</a></p>
+                        <p>Alternative Graph-Darstellung</p>
+                    </div>
+
+                    <div class="content-card bian">
+                        <h3>FLSDGRM</h3>
+                        <p><a href="https://h2m.art/page-flsdgrm.html" target="_blank">page-flsdgrm.html</a></p>
+                        <p>Spezielle Diagramm-Visualisierung</p>
+                    </div>
+
+                    <!-- 3D-Viewer -->
+                    <div class="content-card yin">
+                        <h3>3D Model Viewer</h3>
+                        <p><a href="https://h2m.art/page-3dmodel.html" target="_blank">page-3dmodel.html</a></p>
+                        <p>Three.js 3D-Model-Viewer für GLB-Files</p>
+                    </div>
+
+                    <!-- Dashboard -->
+                    <div class="content-card yang">
+                        <h3>Dashboard</h3>
+                        <p><a href="https://h2m.art/page-dashboard.html" target="_blank">page-dashboard.html</a></p>
+                        <p>4x4 Grid Dashboard (Yang/Bian/Yin/FLUUR)</p>
+                    </div>
+                </div>
+
+                <h3>Shared Components</h3>
+                <ul class="features-list">
+                    <li><strong>Navigation:</strong> Konsistente Nav auf allen Seiten (shared-nav.css/js)</li>
+                    <li><strong>Mini-Graph:</strong> Accordion-Button (klappt nach oben auf)</li>
+                    <li><strong>Global Styles:</strong> Basis-Styling mit CSS Variables (shared-global.css)</li>
+                    <li><strong>Theme-System:</strong> Dark/Light Mode mit localStorage-Persistenz</li>
+                    <li><strong>Button-System:</strong> Zentrale .btn-base Klasse mit Yang/Bian/Yin Farben</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Angefangen aber unfertig -->
+        <section id="wip" class="status-section">
+            <h2 class="section-toggle" data-section="wip-content">
+                <span class="toggle-icon">▼</span>
+                Angefangen aber unfertig
+            </h2>
+            <div id="wip-content" class="section-content">
+                
+                <div class="wip-item">
+                    <h3>Dashboard-Integration</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 12.5%"></div>
+                        <span class="progress-text">Häppchen 1/8 (12.5%)</span>
+                    </div>
+                    <p><strong>Ziel:</strong> Dashboard mit Daten aus Obsidian/Nextcloud</p>
+                    <p><strong>Status:</strong> Konzept & Struktur geklärt (Häppchen 1)</p>
+                    <ul>
+                        <li>Tech-Stack: Node.js Static Generator → HTML/CSS/JS</li>
+                        <li>Datenquellen: Obsidian Files + Nextcloud APIs (Kalender, Mail)</li>
+                        <li>Design: Yin/Yang/Bian-Stil, Mobile-first</li>
+                        <li>Navigation: Bottom-Bar Tabs</li>
+                    </ul>
+                    <p><strong>Dokumentation:</strong> doc_dashboard_planung.md, doc_dashboard_roadmap.md</p>
+                </div>
+
+                <div class="wip-item">
+                    <h3>Geometrische Navigation PoC</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                        <span class="progress-text">PoC komplett (100%)</span>
+                    </div>
+                    <p><strong>Ziel:</strong> 3D-Würfel Navigation zwischen Seiten</p>
+                    <p><strong>Status:</strong> Proof of Concept fertig, noch nicht integriert</p>
+                    <ul>
+                        <li>Features: Auto-Rotation, Drag-Interaktion, Raycasting-Klick</li>
+                        <li>Snap-Mechanik zu 90° Drehungen</li>
+                        <li>Navigation zu allen 6 Seiten funktional</li>
+                    </ul>
+                    <p><strong>Nächster Schritt:</strong> Entscheidung zur Integration in Landing-Page</p>
+                </div>
+
+                <div class="wip-item">
+                    <h3>Refactoring & Tech Debt</h3>
+                    <p><strong>Namenskonventionen:</strong></p>
+                    <ul>
+                        <li>Aktuell: <code>page-*.html</code>, <code>shared-*.css</code> (Hyphen)</li>
+                        <li>Geplant: Schrittweise auf <code>_</code> (Underscore) umstellen</li>
+                        <li>Regel: Nur 1-2 Files pro Session (Fehleranfälligkeit)</li>
+                    </ul>
+                    <p><strong>Button-System:</strong></p>
+                    <ul>
+                        <li>✅ Zentralisierung abgeschlossen (shared-global.css)</li>
+                        <li>Weitere Vereinheitlichungen geplant</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Das große Bild -->
+        <section id="bigpicture" class="status-section">
+            <h2 class="section-toggle" data-section="bigpicture-content">
+                <span class="toggle-icon">▼</span>
+                Das große Bild - Inhaltliche Verbindungen
+            </h2>
+            <div id="bigpicture-content" class="section-content">
+                
+                <h3>H2me im Gesamt-System</h3>
+                <p class="section-intro">
+                    H2me ist Teil eines umfassenden persönlichen Datenmanagement-Systems mit 7 Farbkategorien, 
+                    die verschiedene Lebensbereiche abdecken. H2me gehört zur <strong class="color-red">ROT-Kategorie (Stefiprojekte)</strong> 
+                    und bildet das kreative Herz des Systems.
+                </p>
+
+                <h3>Die 7 Farbkategorien</h3>
+                <div class="categories-grid">
+                    <div class="category-card gray">
+                        <h4>⚪ GRAU - Datenmanagement</h4>
+                        <p>Vault PKM, Raumkalender - Organisation & Struktur</p>
+                        <p class="connection">→ Liefert Daten AN H2me (Reviews, Tasks, Logs)</p>
+                    </div>
+
+                    <div class="category-card red">
+                        <h4>🔴 ROT - Stefiprojekte</h4>
+                        <p>H2me, Präsentation, Szenen-Visualisierung, M-KA Website</p>
+                        <p class="connection">→ H2me ist das kreative Herz hier</p>
+                    </div>
+
+                    <div class="category-card green">
+                        <h4>🟢 GRÜN - Making Money</h4>
+                        <p>Architektur (Burega, Böni Rohrer)</p>
+                        <p class="connection">→ Tool-Skills für H2me-Visualisierungen</p>
+                    </div>
+
+                    <div class="category-card orange">
+                        <h4>🟠 ORANGE - Freunde & Familie</h4>
+                        <p>WD40 Hausumbau</p>
+                        <p class="connection">→ Brücke zwischen professionell & privat</p>
+                    </div>
+
+                    <div class="category-card blue">
+                        <h4>🔵 BLAU - Haushalt</h4>
+                        <p>Finanzen, Ricardo, Kochen, Putzen, Alltag</p>
+                        <p class="connection">→ Praktische Organisation</p>
+                    </div>
+
+                    <div class="category-card purple">
+                        <h4>🟣 VIOLETT - Körper</h4>
+                        <p>Gesundheit, Training, Ernährung</p>
+                        <p class="connection">→ Basis für Produktivität</p>
+                    </div>
+
+                    <div class="category-card yellow">
+                        <h4>🟡 GELB - Bierprojekte</h4>
+                        <p>Degustationen, BETO Gruppe, Beer Contest</p>
+                        <p class="connection">→ Visualisierungs-Potenzial (Daten → H2me)</p>
+                    </div>
+                </div>
+
+                <h3>Content-Flow: Von den Daten zu H2me</h3>
+                <div class="flow-diagram">
+                    <div class="flow-box source">
+                        <h4>Datenquellen</h4>
+                        <ul>
+                            <li><strong>EntryPoint (Obsidian)</strong>
+                                <ul>
+                                    <li>a_yang: Projekte, Tasks</li>
+                                    <li>b_bian: Logs, Prozesse</li>
+                                    <li>i_yin: Wissen, Wiki</li>
+                                </ul>
+                            </li>
+                            <li><strong>Neuanfang (Nextcloud)</strong>
+                                <ul>
+                                    <li>Kalender, Mail, Files</li>
+                                </ul>
+                            </li>
+                            <li><strong>Externe (geplant)</strong>
+                                <ul>
+                                    <li>Browser History, App Usage</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <div class="flow-box processing">
+                        <h4>Verarbeitung</h4>
+                        <ul>
+                            <li>Static Generator (Node.js)</li>
+                            <li>Parser (Obsidian Files)</li>
+                            <li>API Clients (Nextcloud)</li>
+                            <li>Aggregation Layer</li>
+                        </ul>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <div class="flow-box output">
+                        <h4>H2me Website (h2m.art)</h4>
+                        <ul>
+                            <li>Landing Page</li>
+                            <li>Yang/Bian/Yin Seiten</li>
+                            <li>Graph-Visualisierungen</li>
+                            <li>3D-Viewer</li>
+                            <li>Dashboard (geplant)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Der Sinn aus meiner Perspektive</h3>
+                <blockquote class="user-perspective">
+                    <p>
+                        Leben mit einem hyperaktiven, hyperchaotischen, hyperstrukturierbedürftigen Hirn ist anstrengend. 
+                        Ich muss viel mehr bewusst erledigen als Neurotypen. Es gibt Unmengen an Tips, Hinweisen und Anleitungen, 
+                        die in relevanten Situationen nicht auffindbar sind.
+                    </p>
+                    <p>
+                        H2me soll diese Tips auffindbar machen - ästhetisch ansprechend, in Netzwerk-Form, 
+                        mit Visualisierungen die zeigen wie mein Kopf funktioniert. 
+                        Denn alle Gedanken in meinem Kopf sind <em>bewegt</em>, niemals statisch.
+                    </p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Section 4: Vision & Geplantes -->
+        <section id="vision" class="status-section">
+            <h2 class="section-toggle" data-section="vision-content">
+                <span class="toggle-icon">▼</span>
+                Vision & Geplantes
+            </h2>
+            <div id="vision-content" class="section-content">
+                
+                <h3>Nicht nur eine Website - Ein Ökosystem</h3>
+                <p class="section-intro">
+                    H2me entwickelt sich von einer Website zu einem umfassenden Dashboard/Ökosystem-System 
+                    für alle Lebensbereiche.
+                </p>
+
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <h4>🎮 Multi-Mode Dashboard</h4>
+                        <ul>
+                            <li><strong>Web:</strong> Switchbar zwischen Spiegel ↔ Gameish</li>
+                            <li><strong>Obsidian:</strong> Control Center + Spiegel</li>
+                            <li>Separate Dashboards für verschiedene Aspekte</li>
+                        </ul>
+                    </div>
+
+                    <div class="vision-card">
+                        <h4>📊 3-Layer Architektur</h4>
+                        <ul>
+                            <li><strong>Layer 1:</strong> Files (Markdown = Master für Content)</li>
+                            <li><strong>Layer 2:</strong> Aggregation (Scripts, App-DB)</li>
+                            <li><strong>Layer 3:</strong> Interfaces (Obsidian + Web)</li>
+                        </ul>
+                    </div>
+
+                    <div class="vision-card">
+                        <h4>🌐 Scope: ALLES</h4>
+                        <ul>
+                            <li>EntryPoint (Obsidian)</li>
+                            <li>Neuanfang (Nextcloud)</li>
+                            <li>Externe Daten (Browser, Apps, System Stats)</li>
+                        </ul>
+                    </div>
+
+                    <div class="vision-card">
+                        <h4>🌱 Organisches Wachstum</h4>
+                        <ul>
+                            <li>Experiment das groß werden kann oder klein bleiben darf</li>
+                            <li>Timeline-Tracking in Obsidian</li>
+                            <li>Roadmap die sich mit Nutzung entwickelt</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Hierarchische Web-Struktur (in Planung)</h3>
+                <p>Neue Namenskonvention für organische Navigation:</p>
+                <div class="structure-example">
+                    <pre>
+page_ya_e001_ac_taskuebersichten.html
+     │   │     │  └─ Funktion: Aktionsseite
+     │   │     └──── Ebene: e001 (Dashboard-Level)
+     │   └────────── Richtung: ya (Yang)
+     └────────────── Typ: page
+
+style_ya_rr.css
+      │   └─ rr = relativ real (Yang-Stil)
+      └───── ya = Yang
+
+style_bi_la.css
+      │   └─ la = lineart (Bian-Stil)
+      └───── bi = Bian
+
+style_yi_wf.css
+      │   └─ wf = wasserfarbe (Yin-Stil)
+      └───── yi = Yin
+                    </pre>
+                </div>
+                <p><strong>Ebenen-System:</strong></p>
+                <ul>
+                    <li><strong>e0_:</strong> Home (Landing Page)</li>
+                    <li><strong>e1_:</strong> Richtung (Yang/Bian/Yin)</li>
+                    <li><strong>e2_:</strong> Aktion (Dashboards, Übersichten)</li>
+                    <li><strong>e3_:</strong> Content (Makros, Details)</li>
+                </ul>
+
+                <h3>Features in der Pipeline</h3>
+                <ul class="features-pipeline">
+                    <li>✨ Style-Switching basierend auf Navigation-Pfad</li>
+                    <li>🎨 Navigation als "Nebel-Bereiche" statt Buttons</li>
+                    <li>📱 Kalender mit Drag & Drop Blöcken</li>
+                    <li>🔍 Suche über Inhalte, Keywords, Verbindungen</li>
+                    <li>🗺️ Graph-View (ähnlich Obsidian, aber gestyled)</li>
+                    <li>🎬 Gamelike Navigation zwischen Pages (3D-Türen)</li>
+                    <li>🌐 Integration externer Websites (Feeds, Mail, Kalender)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: Tech-Info -->
+        <section id="tech" class="status-section">
+            <h2 class="section-toggle" data-section="tech-content">
+                <span class="toggle-icon">▼</span>
+                Tech-Info
+            </h2>
+            <div id="tech-content" class="section-content" style="display: none;">
+                
+                <h3>Tech-Stack</h3>
+                <ul>
+                    <li><strong>Frontend:</strong> Vanilla HTML/CSS/JS (keine Frameworks)</li>
+                    <li><strong>3D:</strong> Three.js für 3D-Visualisierungen</li>
+                    <li><strong>Graphs:</strong> Cytoscape.js für Graph-Visualisierungen</li>
+                    <li><strong>Hosting:</strong> Netlify (kostenlos, Auto-HTTPS, CDN)</li>
+                    <li><strong>Domain:</strong> h2m.art (Namecheap, Netlify DNS)</li>
+                    <li><strong>Deployment:</strong> Manual Drag & Drop (Netlify)</li>
+                </ul>
+
+                <h3>Design-Prinzipien</h3>
+                <ul>
+                    <li><strong>YBY-Philosophie:</strong> Yang/Bian/Yin als Kern-Konzept</li>
+                    <li><strong>Flache Struktur:</strong> Max. 2 Ordner-Ebenen</li>
+                    <li><strong>Mobile-First:</strong> Nothing Phone 3 als primäres Test-Device</li>
+                    <li><strong>Component-basiert:</strong> Shared Components bei 2+ Nutzungen</li>
+                    <li><strong>Experimentell:</strong> Unkonventionelle Navigation erlaubt</li>
+                </ul>
+
+                <h3>File-Struktur</h3>
+                <pre>
+153_H2me/
+├── index.html               # Landing (9-Button-Nav)
+├── page-*.html              # Unterseiten
+├── shared-*.css/js          # Shared Components
+├── page-*.css/js            # Seiten-spezifisch
+├── images/                  # Alle Medien
+├── logs/                    # Session-Logs
+├── archives/                # Backups
+├── claude_projekt.md        # Anweisungen
+└── doc_*.md                 # Dokumentationen
+                </pre>
+
+                <h3>Deployment-Workflow</h3>
+                <ol>
+                    <li>Lokal testen (ALLE betroffenen Seiten)</li>
+                    <li>Netlify → Sites → 153_H2me → Deploys Tab</li>
+                    <li>Drag & Drop ganzen Ordner</li>
+                    <li>Warten (~10-30 Sekunden)</li>
+                    <li>Online testen auf h2m.art</li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="status-footer">
+        <p>H2me - Ein Experiment in organischem Web-Design</p>
+        <p><a href="https://h2m.art" target="_blank">h2m.art</a> | Letzte Aktualisierung: 2025-10-28</p>
+    </footer>
+
+    <script src="page-status.js"></script>
+</body>
+</html>

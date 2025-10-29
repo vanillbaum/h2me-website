@@ -1,0 +1,124 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "label": "EntryPoint",
+      "type": "root",
+      "level": 0
+    },
+    {
+      "id": "cluster-unassigned",
+      "label": "unassigned",
+      "type": "cluster",
+      "level": 1,
+      "cluster": "unassigned"
+    },
+    {
+      "id": "boat-positiv-newsbot-wissenschaftskommunikation",
+      "label": "Positiv Newsbot Wissenschaftskommunikation",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 650,
+      "score": 73.5
+    },
+    {
+      "id": "boat-positiv-newsbot-wissenschaftskommunikation",
+      "label": "Positiv Newsbot Wissenschaftskommunikation",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 400,
+      "score": 50
+    },
+    {
+      "id": "boat-rhythmen-muster-als-kompass",
+      "label": "Rhythmen Muster als Kompass",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 40,
+      "score": 14
+    },
+    {
+      "id": "boat-arbeitsbloecke-gameartig",
+      "label": "Arbeitsbloecke Gameartig",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 25,
+      "score": 12.5
+    },
+    {
+      "id": "boat-rhythmus-kalender-wellen",
+      "label": "Rhythmus Kalender Wellen",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 20,
+      "score": 12.5
+    },
+    {
+      "id": "boat-dringlichkeit-stufenlos",
+      "label": "Dringlichkeit stufenlos",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 12,
+      "score": 11.2
+    },
+    {
+      "id": "boat-nodes-nw-mit-sozialen-daten-aus-vault",
+      "label": "nodes nw mit sozialen daten aus vault",
+      "type": "boat",
+      "level": 2,
+      "cluster": "unassigned",
+      "hours": 35,
+      "score": 11
+    },
+    {
+      "id": "boats-rest",
+      "label": "Weitere BOATs (+15)",
+      "type": "group",
+      "level": 2
+    }
+  ],
+  "edges": [
+    {
+      "source": "root",
+      "target": "cluster-unassigned"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-positiv-newsbot-wissenschaftskommunikation"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-positiv-newsbot-wissenschaftskommunikation"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-rhythmen-muster-als-kompass"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-arbeitsbloecke-gameartig"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-rhythmus-kalender-wellen"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-dringlichkeit-stufenlos"
+    },
+    {
+      "source": "cluster-unassigned",
+      "target": "boat-nodes-nw-mit-sozialen-daten-aus-vault"
+    },
+    {
+      "source": "root",
+      "target": "boats-rest"
+    }
+  ]
+}

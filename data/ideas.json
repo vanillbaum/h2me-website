@@ -1,0 +1,644 @@
+{
+  "elevator_pitch": "H2me als zentraler Knotenpunkt des EntryPoint-Ökosystems – wo Ideen, Konzepte und Projekte sichtbar werden.",
+  "dreams": [
+    {
+      "id": "boat-positiv-newsbot-wissenschaftskommunikation",
+      "filename": "610_BOAT_Positiv_Newsbot_Wissenschaftskommunikation.md",
+      "number": "610",
+      "title": "Positiv Newsbot Wissenschaftskommunikation",
+      "core_idea": "Keine Beschreibung verfügbar",
+      "hours": 650,
+      "up_links": [
+        "000_ANWEISUNGEN_big picture_2025-10-16"
+      ],
+      "sister_links": [],
+      "related_links": [
+        "2025-10-09_THOUGHTS_positiv newsbot",
+        "531_RECHERCHE_obsidian 3d graph add on",
+        "153_PROJEKT_H2me"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "000_ANWEISUNGEN_big picture_2025-10-16",
+        "2025-10-09_THOUGHTS_positiv newsbot",
+        "531_RECHERCHE_obsidian 3d graph add on",
+        "153_PROJEKT_H2me"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 73.5,
+      "linkScore": 8.5,
+      "hoursScore": 65,
+      "rank": 1
+    },
+    {
+      "id": "boat-positiv-newsbot-wissenschaftskommunikation",
+      "filename": "530_BOAT_Positiv_Newsbot_Wissenschaftskommunikation.md",
+      "number": "530",
+      "title": "Positiv Newsbot Wissenschaftskommunikation",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 400,
+      "up_links": [
+        "000_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [
+        "550_ANWEISUNG_claude code allgemein"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "000_MAKRO_big picture",
+        "532_BOAT_AI Diff_eigene Checkpoint krita ai_scheint kompliziert zu sein.md",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "530_BOAT_Obsidian_Dataview_Intressante eventuell wichtige dataviewcodes uber die ich gestolpert bin",
+        "550_ANWEISUNG_claude code allgemein",
+        "550_VERGLEICH_claude code_nutzungen",
+        "2025-10-09_THOUGHTS_positiv newsbot"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 50,
+      "linkScore": 10,
+      "hoursScore": 40,
+      "rank": 2
+    },
+    {
+      "id": "boat-rhythmen-muster-als-kompass",
+      "filename": "116_BOAT_Rhythmen_Muster als Kompass.md",
+      "number": "116",
+      "title": "Rhythmen Muster als Kompass",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 40,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "010_MAKRO_big picture",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "116_BOAT_Dringlichkeit_stufenlos",
+        "116_BOAT_Rhythmus_Kalender_Wellen",
+        "110_BOAT_Externe Organisation"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 14,
+      "linkScore": 10,
+      "hoursScore": 4,
+      "rank": 3
+    },
+    {
+      "id": "boat-arbeitsbloecke-gameartig",
+      "filename": "116_BOAT_Arbeitsbloecke_Gameartig.md",
+      "number": "116",
+      "title": "Arbeitsbloecke Gameartig",
+      "core_idea": "![[#ii_ursprünglicher Input]]",
+      "hours": 25,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#ii_ursprünglicher Input",
+        "010_MAKRO_big picture",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "116_BOAT_Dringlichkeit_stufenlos",
+        "116_BOAT_Rhythmus_Kalender_Wellen",
+        "110_BOAT_Externe Organisation"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 12.5,
+      "linkScore": 10,
+      "hoursScore": 2.5,
+      "rank": 4
+    },
+    {
+      "id": "boat-rhythmus-kalender-wellen",
+      "filename": "116_BOAT_Rhythmus_Kalender_Wellen.md",
+      "number": "116",
+      "title": "Rhythmus Kalender Wellen",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 20,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "715_PH4_Raumkalender",
+        "010_MAKRO_big picture",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "116_BOAT_Dringlichkeit_stufenlos",
+        "116_BOAT_Rhythmus_Kalender_Wellen",
+        "110_BOAT_Externe Organisation"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 12.5,
+      "linkScore": 10.5,
+      "hoursScore": 2,
+      "rank": 5
+    },
+    {
+      "id": "boat-dringlichkeit-stufenlos",
+      "filename": "116_BOAT_Dringlichkeit_stufenlos.md",
+      "number": "116",
+      "title": "Dringlichkeit stufenlos",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 12,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "010_MAKRO_big picture",
+        "2025-10-10_THOUGHTS",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "110_BOAT_Externe Organisation",
+        "BOAT_Metaphern fuer Darstellung"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 11.2,
+      "linkScore": 10,
+      "hoursScore": 1.2000000000000002,
+      "rank": 6
+    },
+    {
+      "id": "boat-nodes-nw-mit-sozialen-daten-aus-vault",
+      "filename": "153_BOAT_nodes_nw mit sozialen daten aus vault.md",
+      "number": "153",
+      "title": "nodes nw mit sozialen daten aus vault",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 35,
+      "up_links": [
+        "000_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_nodes_materialisierung"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "000_MAKRO_big picture",
+        "153_BOAT_nodes_materialisierung",
+        "153_BOAT_nodes_inputdaten aus statistik",
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 11,
+      "linkScore": 7.5,
+      "hoursScore": 3.5,
+      "rank": 7
+    },
+    {
+      "id": "boat-metaphern-fuer-darstellung",
+      "filename": "BOAT_Metaphern fuer Darstellung.md",
+      "number": null,
+      "title": "BOAT Metaphern fuer Darstellung",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 10,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "010_MAKRO_big picture",
+        "110_BOAT_Externe Organisation",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "116_BOAT_Dringlichkeit_stufenlos",
+        "116_BOAT_Rhythmus_Kalender_Wellen"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 11,
+      "linkScore": 10,
+      "hoursScore": 1
+    },
+    {
+      "id": "boat-kategorien-mermaid-visualisierung",
+      "filename": "010_BOAT_Kategorien_Mermaid_Visualisierung.md",
+      "number": "010",
+      "title": "Kategorien Mermaid Visualisierung",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 8,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "010_MAKRO_big picture",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "116_BOAT_Dringlichkeit_stufenlos",
+        "116_BOAT_Rhythmus_Kalender_Wellen",
+        "110_BOAT_Externe Organisation"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 10.8,
+      "linkScore": 10,
+      "hoursScore": 0.8
+    },
+    {
+      "id": "boat-externe-organisation",
+      "filename": "110_BOAT_Externe Organisation.md",
+      "number": "110",
+      "title": "Externe Organisation",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 5,
+      "up_links": [
+        "010_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "116_BOAT_Dringlichkeit_stufenlos",
+        "010_MAKRO_big picture",
+        "116_BOAT_Rhythmus_Kalender_Wellen",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "116_BOAT_Arbeitsbloecke_Gameartig",
+        "116_BOAT_Zeitschaetzung aus Vergangenheit",
+        "010_BOAT_Kategorien_Mermaid_Visualisierung",
+        "116_BOAT_Rhythmen_Muster als Kompass",
+        "110_BOAT_Externe Organisation"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 10.5,
+      "linkScore": 10,
+      "hoursScore": 0.5
+    },
+    {
+      "id": "boat-geometrische-navigation-views-als-koerper",
+      "filename": "153_BOAT_Geometrische Navigation Views als Koerper.md",
+      "number": "153",
+      "title": "Geometrische Navigation Views als Koerper",
+      "core_idea": "Navigation zwischen Website-Views wird als geometrischer Körper visualisiert. Die Anzahl der Views bestimmt die Dimension des Körpers (Punkt → Linie → Ebene → Pyramide → Würfel etc.). Navigation = Rotation des Körpers, wobei jede Fläche eine View repräsentiert.",
+      "hours": 25,
+      "up_links": [
+        "153_MAKRO_H2me"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [
+        "page-3dmodel"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "153_MAKRO_H2me",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "page-3dmodel"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 10.5,
+      "linkScore": 8,
+      "hoursScore": 2.5
+    },
+    {
+      "id": "boat-nodes-inputdaten-aus-statistik",
+      "filename": "153_BOAT_nodes_inputdaten aus statistik.md",
+      "number": "153",
+      "title": "nodes inputdaten aus statistik",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 20,
+      "up_links": [
+        "000_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_nodes_nw mit sozialen daten aus vault"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "000_MAKRO_big picture",
+        "153_BOAT_nodes_nw mit sozialen daten aus vault",
+        "153_BOAT_nodes_materialisierung",
+        "116_BOAT_Rhythmen_Muster als Kompass"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 9.5,
+      "linkScore": 7.5,
+      "hoursScore": 2
+    },
+    {
+      "id": "boat-nodes-materialisierung",
+      "filename": "153_BOAT_nodes_materialisierung.md",
+      "number": "153",
+      "title": "nodes materialisierung",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 25,
+      "up_links": [
+        "000_MAKRO_big picture"
+      ],
+      "sister_links": [
+        "153_BOAT_nodes_nw mit sozialen daten aus vault"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "#zerlegt",
+        "000_MAKRO_big picture",
+        "153_BOAT_nodes_nw mit sozialen daten aus vault",
+        "153_BOAT_nodes_inputdaten aus statistik"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 9.5,
+      "linkScore": 7,
+      "hoursScore": 2.5
+    },
+    {
+      "id": "boat-pfadbasiertes-styling",
+      "filename": "153_BOAT_Pfadbasiertes_Styling.md",
+      "number": "153",
+      "title": "Pfadbasiertes Styling",
+      "core_idea": "### Technische Umsetzung",
+      "hours": 8,
+      "up_links": [
+        "153_MAKRO_H2me"
+      ],
+      "sister_links": [
+        "153_BOAT_Dashboard 3D_Navigation"
+      ],
+      "related_links": [
+        "shared_navigation.js"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "153_MAKRO_H2me",
+        "153_BOAT_Dashboard 3D_Navigation",
+        "shared_navigation.js",
+        "shared_global.css"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 9.3,
+      "linkScore": 8.5,
+      "hoursScore": 0.8
+    },
+    {
+      "id": "boat-koerperzuordnung-variable-views",
+      "filename": "153_BOAT_Koerperzuordnung variable Views.md",
+      "number": "153",
+      "title": "Koerperzuordnung variable Views",
+      "core_idea": "System zur Auswahl des passenden geometrischen Körpers basierend auf der Anzahl der Views. Definiert welcher 3D-Körper bei welcher View-Anzahl verwendet wird und wie zwischen Körpern gewechselt wird (Morphing vs. harte Cuts).",
+      "hours": 12,
+      "up_links": [
+        "153_BOAT_Geometrische Navigation Views als Koerper"
+      ],
+      "sister_links": [
+        "153_BOAT_Flaechenzuordnung System Geometrische Navigation"
+      ],
+      "related_links": [
+        "153_MAKRO_H2me"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "153_BOAT_Geometrische Navigation Views als Koerper",
+        "153_BOAT_Flaechenzuordnung System Geometrische Navigation",
+        "153_MAKRO_H2me"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 9.2,
+      "linkScore": 8,
+      "hoursScore": 1.2000000000000002
+    },
+    {
+      "id": "boat-flaechenzuordnung-system-geometrische-navigation",
+      "filename": "153_BOAT_Flaechenzuordnung System Geometrische Navigation.md",
+      "number": "153",
+      "title": "Flaechenzuordnung System Geometrische Navigation",
+      "core_idea": "System zur intelligenten Zuordnung von Website-Views zu Flächen geometrischer Körper. Definiert welche View auf welcher Fläche liegt und warum, basierend auf thematischer Nähe, Hierarchie oder anderen Ordnungsprinzipien.",
+      "hours": 8,
+      "up_links": [
+        "153_BOAT_Geometrische Navigation Views als Koerper"
+      ],
+      "sister_links": [
+        "153_BOAT_Koerperzuordnung variable Views"
+      ],
+      "related_links": [
+        "153_MAKRO_H2me"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "153_BOAT_Geometrische Navigation Views als Koerper",
+        "153_BOAT_Koerperzuordnung variable Views",
+        "153_MAKRO_H2me"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 8.8,
+      "linkScore": 8,
+      "hoursScore": 0.8
+    },
+    {
+      "id": "boat-ai-diff-eigene-checkpoint-krita-ai-scheint-kompliziert-zu-sein",
+      "filename": "532_BOAT_AI Diff_eigene Checkpoint krita ai_scheint kompliziert zu sein.md",
+      "number": "532",
+      "title": "AI Diff eigene Checkpoint krita ai scheint kompliziert zu sein",
+      "core_idea": "Keine Beschreibung verfügbar",
+      "hours": 0,
+      "up_links": [
+        "532_DOT_Krita_AI Diffusion"
+      ],
+      "sister_links": [
+        "792_MAP_AI Engine Stuff 1"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "532_DOT_Krita_AI Diffusion",
+        "792_MAP_AI Engine Stuff 1",
+        "781_TRY_Krita_AI Diff_250210",
+        "012_BIBLIO_Stefi Classification System_act#File Index",
+        "controlnett",
+        "controllnet ratio"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 8,
+      "linkScore": 8,
+      "hoursScore": 0
+    },
+    {
+      "id": "boat-hirn-lauft-verschiedenspurig",
+      "filename": "240_BOAT_Hirn lauft verschiedenspurig.md",
+      "number": "240",
+      "title": "Hirn lauft verschiedenspurig",
+      "core_idea": "Keine Beschreibung verfügbar",
+      "hours": 0,
+      "up_links": [
+        "i_yin/ii_Dots/011_MAP_Settelkasten|SeKü"
+      ],
+      "sister_links": [
+        "116_BOAT_WhatToWork"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "i_yin/ii_Dots/011_MAP_Settelkasten|SeKü",
+        "116_BOAT_WhatToWork",
+        "25-02-11",
+        "240_BOAT_verschiedene Spuren müssen unterhalten werden",
+        "012_BIBLIO_Stefi Classification System_act#File Index"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 7.5,
+      "linkScore": 7.5,
+      "hoursScore": 0
+    },
+    {
+      "id": "boat-verschiedene-spuren-müssen-unterhalten-werden",
+      "filename": "240_BOAT_verschiedene Spuren müssen unterhalten werden.md",
+      "number": "240",
+      "title": "verschiedene Spuren müssen unterhalten werden",
+      "core_idea": "Keine Beschreibung verfügbar",
+      "hours": 0,
+      "up_links": [
+        "i_yin/ii_Dots/011_MAP_Settelkasten|SeKü"
+      ],
+      "sister_links": [
+        "116_BOAT_WhatToWork"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "i_yin/ii_Dots/011_MAP_Settelkasten|SeKü",
+        "116_BOAT_WhatToWork",
+        "25-02-11",
+        "012_BIBLIO_Stefi Classification System_act#File Index"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 7,
+      "linkScore": 7,
+      "hoursScore": 0
+    },
+    {
+      "id": "boat-mit-vault-zu-twofold",
+      "filename": "116_BOAT_mit Vault zu twofold.md",
+      "number": "116",
+      "title": "mit Vault zu twofold",
+      "core_idea": "Keine Beschreibung verfügbar",
+      "hours": 0,
+      "up_links": [
+        "110_MOC_HowTo"
+      ],
+      "sister_links": [
+        "100_BOAT_Meins machen"
+      ],
+      "related_links": [],
+      "all_wikilinks": [
+        "110_MOC_HowTo",
+        "100_BOAT_Meins machen",
+        "010_PH2_Vault PKM"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 6.5,
+      "linkScore": 6.5,
+      "hoursScore": 0
+    },
+    {
+      "id": "boat-smartphone-videografie-masterplan",
+      "filename": "540_BOAT_Smartphone_Videografie_Masterplan.md",
+      "number": "540",
+      "title": "Smartphone Videografie Masterplan",
+      "core_idea": "# ii_ursprünglicher Input",
+      "hours": 35,
+      "up_links": [],
+      "sister_links": [],
+      "related_links": [
+        "540_WIKI_Smartphone_Video_Kontrast_Raum_Fenster"
+      ],
+      "all_wikilinks": [
+        "#zerlegt",
+        "540_WIKI_Smartphone_Video_Kontrast_Raum_Fenster"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 5.5,
+      "linkScore": 2,
+      "hoursScore": 3.5
+    },
+    {
+      "id": "boat-obsidian-dataview-intressante-eventuell-wichtige-dataviewcodes-uber-die-ich-gestolpert-bin",
+      "filename": "532_BOAT_Obsidian_Dataview_Intressante eventuell wichtige dataviewcodes uber die ich gestolpert bin.md",
+      "number": "532",
+      "title": "Obsidian Dataview Intressante eventuell wichtige dataviewcodes uber die ich gestolpert bin",
+      "core_idea": "Keine Beschreibung verfügbar",
+      "hours": 0,
+      "up_links": [
+        "530_MAP_Programme Plugins Apparate"
+      ],
+      "sister_links": [],
+      "related_links": [],
+      "all_wikilinks": [
+        "530_MAP_Programme Plugins Apparate",
+        "541_ANALYSE_code map of content"
+      ],
+      "cluster": "unassigned",
+      "status": "dream",
+      "score": 4,
+      "linkScore": 4,
+      "hoursScore": 0
+    }
+  ],
+  "concepts": [],
+  "in_development": [],
+  "live": []
+}

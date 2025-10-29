@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki-Quartett - Venn & Verbindungen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .karte-wrapper {
+            text-align: center;
+        }
+
+        .label {
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* === BASIS KARTE (Kochbuch-Stil) === */
+        .quartett-karte {
+            width: 320px;
+            height: 480px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 12px 20px 20px;
+            text-align: center;
+        }
+
+        .mini-kategorie {
+            font-size: 10px;
+            color: #999;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .haupt-titel {
+            font-size: 24px;
+            font-weight: 900;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .sub-titel {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .bild-bereich {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .illustration {
+            font-size: 100px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+        }
+
+        .info-box {
+            padding: 20px;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-box:nth-child(2n) {
+            border-right: none;
+        }
+
+        .info-box:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-wert {
+            font-size: 14px;
+            font-weight: bold;
+            color: #111;
+            text-align: center;
+        }
+
+        /* === MIT VERBINDUNGEN === */
+        .karte-mit-verbindung {
+            position: relative;
+        }
+
+        .verbindungs-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #E63946;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(230, 57, 70, 0.3);
+        }
+
+        .verbindungs-section {
+            background: #f9f9f9;
+            padding: 16px;
+            border-top: 2px solid #E63946;
+        }
+
+        .verbindungs-titel {
+            font-size: 11px;
+            color: #E63946;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .verbindung-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: #111;
+            border: 1px solid #eee;
+        }
+
+        .verbindung-link:last-child {
+            margin-bottom: 0;
+        }
+
+        .link-icon {
+            font-size: 14px;
+        }
+
+        .link-nummer {
+            font-weight: bold;
+            color: #E63946;
+        }
+
+        /* === SIDE BY SIDE === */
+        .side-by-side {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .connector {
+            font-size: 40px;
+            color: #E63946;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* === HINWEIS-BOX === */
+        .hinweis-box {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .hinweis-titel {
+            font-size: 16px;
+            font-weight: bold;
+            color: #E63946;
+            margin-bottom: 12px;
+        }
+
+        .hinweis-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .hinweis-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0 0;
+        }
+
+        .hinweis-list li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .hinweis-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #E63946;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hinweis-box">
+    <div class="hinweis-titel">💡 Vorschlag: Verbindungen visualisieren</div>
+    <div class="hinweis-text">
+        Die beiden Files (240_VENN & 241_TYP) sind inhaltlich verwandt und vom gleichen Tag. 
+        In Quartett-Karten könnten Verbindungen so aussehen:
+    </div>
+    <ul class="hinweis-list">
+        <li>Sister:: Badge auf der Karte (wie hier gezeigt)</li>
+        <li>Prev:: / Next:: Pfeile am unteren Rand</li>
+        <li>Up:: Link zur übergeordneten Sammlung</li>
+        <li>Farbcode zeigt Bereich (Bian = Lila)</li>
+        <li>Nummer zeigt Reihenfolge im System</li>
+    </ul>
+</div>
+
+<div class="container">
+    
+    <!-- KARTE MIT VERBINDUNGEN -->
+    <div class="karte-wrapper">
+        <div class="label">Mit Sister-Verbindung</div>
+        <div class="quartett-karte karte-mit-verbindung">
+            <div class="verbindungs-badge">SISTER</div>
+            
+            <div class="header">
+                <div class="mini-kategorie">WIKI · VENN · BIAN</div>
+                <div class="haupt-titel">Neuro Typen</div>
+                <div class="sub-titel">Überschneidungen & Spektrum</div>
+            </div>
+            
+            <div class="bild-bereich">
+                <div class="illustration">⭕</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="info-box">
+                    <div class="info-icon">📁</div>
+                    <div class="info-label">Nummer</div>
+                    <div class="info-wert">240</div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-icon">🏷️</div>
+                    <div class="info-label">Codewort</div>
+                    <div class="info-wert">VENN</div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-icon">📂</div>
+                    <div class="info-label">Sammlung</div>
+                    <div class="info-wert">ii_Wiki</div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-icon">📅</div>
+                    <div class="info-label">Datum</div>
+                    <div class="info-wert">Apr '25</div>
+                </div>
+            </div>
+            
+            <div class="verbindungs-section">
+                <div class="verbindungs-titel">🔗 Verbunden mit</div>
+                <div class="verbindung-link">
+                    <span class="link-icon">🧠</span>
+                    <span class="link-nummer">241</span>
+                    <span>ASS ADHS AuDHS</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDE BY SIDE KONZEPT -->
+    <div class="karte-wrapper">
+        <div class="label">Zusammen visualisiert</div>
+        <div class="side-by-side">
+            <!-- KARTE 1: VENN -->
+            <div class="quartett-karte" style="width: 240px; height: 360px;">
+                <div class="header" style="padding: 8px 16px 12px;">
+                    <div class="mini-kategorie">240 · VENN</div>
+                    <div class="haupt-titel" style="font-size: 18px;">Neuro Typen</div>
+                </div>
+                
+                <div class="bild-bereich" style="height: 140px;">
+                    <div class="illustration" style="font-size: 70px;">⭕</div>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-box" style="padding: 12px;">
+                        <div class="info-icon" style="font-size: 18px;">🏷️</div>
+                        <div class="info-wert" style="font-size: 12px;">VENN</div>
+                    </div>
+                    
+                    <div class="info-box" style="padding: 12px;">
+                        <div class="info-icon" style="font-size: 18px;">📅</div>
+                        <div class="info-wert" style="font-size: 12px;">Apr '25</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector">⟷</div>
+            
+            <!-- KARTE 2: TYP -->
+            <div class="quartett-karte" style="width: 240px; height: 360px;">
+                <div class="header" style="padding: 8px 16px 12px;">
+                    <div class="mini-kategorie">241 · TYP</div>
+                    <div class="haupt-titel" style="font-size: 18px;">ASS ADHS AuDHS</div>
+                </div>
+                
+                <div class="bild-bereich" style="height: 140px;">
+                    <div class="illustration" style="font-size: 70px;">🧠</div>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-box" style="padding: 12px;">
+                        <div class="info-icon" style="font-size: 18px;">🏷️</div>
+                        <div class="info-wert" style="font-size: 12px;">TYP</div>
+                    </div>
+                    
+                    <div class="info-box" style="padding: 12px;">
+                        <div class="info-icon" style="font-size: 18px;">📅</div>
+                        <div class="info-wert" style="font-size: 12px;">Apr '25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="hinweis-box" style="margin-top: 40px;">
+    <div class="hinweis-titel">🎴 Weitere Möglichkeiten</div>
+    <div class="hinweis-text">
+        Je nach File-Typ könnten unterschiedliche Infos wichtig sein:
+    </div>
+    <ul class="hinweis-list">
+        <li><strong>Wiki-Files:</strong> Codewort, Nummer, Sister-Links, Tags</li>
+        <li><strong>BOAT-Files:</strong> estimated_hours, Status (a1-a5), Bereich</li>
+        <li><strong>HTML-Pages:</strong> Bereich (Yang/Bian/Yin), Technologie, Status</li>
+        <li><strong>MD-Notes:</strong> Tags, Up::, Created/Modified</li>
+    </ul>
+    <div class="hinweis-text" style="margin-top: 12px;">
+        <strong>Frage:</strong> Sollen wir verschiedene Karten-Templates für verschiedene File-Typen machen?
+    </div>
+</div>
+
+</body>
+</html>

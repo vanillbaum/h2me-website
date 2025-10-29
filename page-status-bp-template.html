@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status BP • H2me 2025-10-29</title>
+    
+    <link rel="stylesheet" href="shared-global.css">
+    <link rel="stylesheet" href="shared-nav.css">
+    <link rel="stylesheet" href="page-status-bp-template.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
+</head>
+<body>
+    
+    <nav id="main-nav"></nav>
+    
+    <main class="status-bp-container">
+        
+        <!-- HEADER -->
+        <header class="status-header">
+            <h1>H2me • Big Picture Status</h1>
+            <p class="elevator-pitch" id="elevator-pitch">Loading...</p>
+            
+            <div class="quick-stats">
+                <div class="stat">
+                    <span class="stat-number" id="total-boats">0</span>
+                    <span class="stat-label">BOATs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="total-hours">0h</span>
+                    <span class="stat-label">Geschätzt</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="total-clusters">0</span>
+                    <span class="stat-label">Cluster</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="total-projects">0</span>
+                    <span class="stat-label">Projekte</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- TOP IDEAS -->
+        <section class="top-ideas">
+            <h2>Top 7 Ideen nach Vernetzung</h2>
+            <p class="section-intro">Scoring: Up×3 + Sister×2 + Related×1 + AllLinks×0.5 + Hours×0.1</p>
+            
+            <div class="ideas-grid" id="top-ideas-grid">
+                <!-- Cards werden dynamisch per JS eingefügt -->
+            </div>
+        </section>
+        
+        <!-- MINDMAP -->
+        <section class="mindmap-section">
+            <h2>Mindmap nach Clustern</h2>
+            <p class="section-intro">Hierarchische Darstellung: Cluster → BOATs → Verbindungen</p>
+            
+            <div class="view-controls">
+                <button class="btn-view active" data-view="cluster">Cluster-View</button>
+                <button class="btn-view" data-view="network">Network-View</button>
+            </div>
+            
+            <div id="mindmap-container" class="graph-container"></div>
+            
+            <div class="graph-legend">
+                <h4>Legende</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #666;"></span>
+                        <span class="legend-label">Up (übergeordnet)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #4CAF50;"></span>
+                        <span class="legend-label">Sister (verwandt)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #2196F3;"></span>
+                        <span class="legend-label">Related (thematisch)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NETWORK -->
+        <section class="network-section">
+            <h2>Vollständiges Netzwerk</h2>
+            <p class="section-intro">Alle BOATs, THOUGHTS und ihre Verbindungen</p>
+            
+            <div id="network-container" class="graph-container"></div>
+            
+            <div class="filter-controls">
+                <label><input type="checkbox" checked data-filter="boats"> BOATs</label>
+                <label><input type="checkbox" checked data-filter="thoughts"> THOUGHTS</label>
+                <label><input type="checkbox" checked data-filter="edges-up"> Up Links</label>
+                <label><input type="checkbox" checked data-filter="edges-sister"> Sister Links</label>
+                <label><input type="checkbox" checked data-filter="edges-related"> Related Links</label>
+            </div>
+        </section>
+        
+        <!-- DOMAINS -->
+        <section class="domains-section">
+            <h2>Domains • YBY System</h2>
+            <p class="section-intro">H2me als Teil des EntryPoint-Ökosystems</p>
+            
+            <div class="domains-grid" id="domains-grid">
+                <!-- Domain-Cards werden dynamisch per JS eingefügt -->
+            </div>
+        </section>
+        
+        <!-- META -->
+        <section class="meta-section">
+            <h2>Meta-Erkenntnisse</h2>
+            <p class="section-intro">Aus 000_META_thoughts.md und System-Evolution</p>
+            
+            <div class="meta-insights" id="meta-insights">
+                <!-- Insight-Cards werden dynamisch per JS eingefügt -->
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- MODAL -->
+    <div id="boat-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div id="boat-details">
+                <h2 class="boat-title"></h2>
+                <div class="boat-meta">
+                    <span class="boat-cluster"></span>
+                    <span class="boat-hours"></span>
+                    <span class="boat-score"></span>
+                </div>
+                <div class="boat-section">
+                    <h3>Kern-Idee</h3>
+                    <p class="boat-kernidee"></p>
+                </div>
+                <div class="boat-section">
+                    <h3>Kontext</h3>
+                    <p class="boat-kontext"></p>
+                </div>
+                <div class="boat-section">
+                    <h3>Verbindungen</h3>
+                    <ul class="boat-links"></ul>
+                </div>
+                <div class="boat-section">
+                    <h3>Ursprünglicher Input</h3>
+                    <pre class="boat-original"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="shared-nav.js"></script>
+    <script src="page-status-bp.js"></script>
+    
+</body>
+</html>

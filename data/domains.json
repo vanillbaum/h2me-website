@@ -1,0 +1,74 @@
+{
+  "domains": [
+    {
+      "id": "grau",
+      "label": "GRAU - Datenmanagement",
+      "color": "#808080",
+      "essence": "Datenmanagement",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    },
+    {
+      "id": "grün",
+      "label": "GRÜN - Architektur",
+      "color": "#4CAF50",
+      "essence": "Architektur",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    },
+    {
+      "id": "rot",
+      "label": "ROT - Persönliche Projekte",
+      "color": "#F44336",
+      "essence": "Persönliche Projekte",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    },
+    {
+      "id": "blau",
+      "label": "BLAU - Haushalt",
+      "color": "#2196F3",
+      "essence": "Haushalt",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    },
+    {
+      "id": "violett",
+      "label": "VIOLETT - Gesundheit",
+      "color": "#9C27B0",
+      "essence": "Gesundheit",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    },
+    {
+      "id": "gelb",
+      "label": "GELB - Bier",
+      "color": "#FFEB3B",
+      "essence": "Bier",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    },
+    {
+      "id": "orange",
+      "label": "ORANGE - Sozial/Familie",
+      "color": "#FF9800",
+      "essence": "Sozial/Familie",
+      "active_projects": [],
+      "active_count": 0,
+      "boats": [],
+      "boats_count": 0
+    }
+  ]
+}

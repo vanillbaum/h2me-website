@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quartett Karte - Beispiel</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #2a2a2a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .quartett-karte {
+            width: 280px;
+            height: 400px;
+            background: white;
+            border: 3px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Kopfbereich mit Nummer */
+        .karten-header {
+            background: #e63946;
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Titel der Page */
+        .karten-titel {
+            padding: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            background: #f8f8f8;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Bild/Icon Bereich */
+        .karten-bild {
+            height: 140px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Eigenschaften Bereich */
+        .karten-eigenschaften {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .eigenschaft {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .eigenschaft:last-child {
+            border-bottom: none;
+        }
+
+        .eigenschaft-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 13px;
+        }
+
+        .eigenschaft-wert {
+            color: #e63946;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Spezielle Wert-Badges */
+        .badge {
+            background: #e63946;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .badge.status {
+            background: #06d6a0;
+        }
+
+        .badge.bereich {
+            background: #457b9d;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BEISPIEL KARTE: page-cytoscape -->
+    <div class="quartett-karte">
+        <!-- Karten-Nummer/Kategorie -->
+        <div class="karten-header">GRAPH • G2</div>
+        
+        <!-- Titel der Page -->
+        <div class="karten-titel">Cytoscape Graph</div>
+        
+        <!-- Visueller Bereich -->
+        <div class="karten-bild">
+            🕸️
+        </div>
+        
+        <!-- Eigenschaften wie bei Quartett -->
+        <div class="karten-eigenschaften">
+            <div class="eigenschaft">
+                <span class="eigenschaft-label">Bereich:</span>
+                <span class="badge bereich">BIAN</span>
+            </div>
+            
+            <div class="eigenschaft">
+                <span class="eigenschaft-label">Typ:</span>
+                <span class="eigenschaft-wert">Graph-View</span>
+            </div>
+            
+            <div class="eigenschaft">
+                <span class="eigenschaft-label">Technologie:</span>
+                <span class="eigenschaft-wert">Cytoscape.js</span>
+            </div>
+            
+            <div class="eigenschaft">
+                <span class="eigenschaft-label">Komplexität:</span>
+                <span class="eigenschaft-wert">★★★☆☆</span>
+            </div>
+            
+            <div class="eigenschaft">
+                <span class="eigenschaft-label">Status:</span>
+                <span class="badge status">LIVE</span>
+            </div>
+            
+            <div class="eigenschaft">
+                <span class="eigenschaft-label">Aktualisiert:</span>
+                <span class="eigenschaft-wert">2025-10-14</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

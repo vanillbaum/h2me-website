@@ -1,0 +1,195 @@
+{
+  "nodes": [
+    {
+      "id": "boat-kategorien-mermaid-visualisierung",
+      "label": "Kategorien Mermaid Visualisierung",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 8
+    },
+    {
+      "id": "boat-externe-organisation",
+      "label": "Externe Organisation",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 5
+    },
+    {
+      "id": "boat-arbeitsbloecke-gameartig",
+      "label": "Arbeitsbloecke Gameartig",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 25
+    },
+    {
+      "id": "boat-dringlichkeit-stufenlos",
+      "label": "Dringlichkeit stufenlos",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 12
+    },
+    {
+      "id": "boat-mit-vault-zu-twofold",
+      "label": "mit Vault zu twofold",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 0
+    },
+    {
+      "id": "boat-rhythmen-muster-als-kompass",
+      "label": "Rhythmen Muster als Kompass",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 40
+    },
+    {
+      "id": "boat-rhythmus-kalender-wellen",
+      "label": "Rhythmus Kalender Wellen",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 20
+    },
+    {
+      "id": "boat-flaechenzuordnung-system-geometrische-navigation",
+      "label": "Flaechenzuordnung System Geometrische Navigation",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 8
+    },
+    {
+      "id": "boat-geometrische-navigation-views-als-koerper",
+      "label": "Geometrische Navigation Views als Koerper",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 25
+    },
+    {
+      "id": "boat-koerperzuordnung-variable-views",
+      "label": "Koerperzuordnung variable Views",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 12
+    },
+    {
+      "id": "boat-nodes-inputdaten-aus-statistik",
+      "label": "nodes inputdaten aus statistik",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 20
+    },
+    {
+      "id": "boat-nodes-materialisierung",
+      "label": "nodes materialisierung",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 25
+    },
+    {
+      "id": "boat-nodes-nw-mit-sozialen-daten-aus-vault",
+      "label": "nodes nw mit sozialen daten aus vault",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 35
+    },
+    {
+      "id": "boat-pfadbasiertes-styling",
+      "label": "Pfadbasiertes Styling",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 8
+    },
+    {
+      "id": "boat-hirn-lauft-verschiedenspurig",
+      "label": "Hirn lauft verschiedenspurig",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 0
+    },
+    {
+      "id": "boat-verschiedene-spuren-müssen-unterhalten-werden",
+      "label": "verschiedene Spuren müssen unterhalten werden",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 0
+    },
+    {
+      "id": "boat-positiv-newsbot-wissenschaftskommunikation",
+      "label": "Positiv Newsbot Wissenschaftskommunikation",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 400
+    },
+    {
+      "id": "boat-ai-diff-eigene-checkpoint-krita-ai-scheint-kompliziert-zu-sein",
+      "label": "AI Diff eigene Checkpoint krita ai scheint kompliziert zu sein",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 0
+    },
+    {
+      "id": "boat-obsidian-dataview-intressante-eventuell-wichtige-dataviewcodes-uber-die-ich-gestolpert-bin",
+      "label": "Obsidian Dataview Intressante eventuell wichtige dataviewcodes uber die ich gestolpert bin",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 0
+    },
+    {
+      "id": "boat-smartphone-videografie-masterplan",
+      "label": "Smartphone Videografie Masterplan",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 35
+    },
+    {
+      "id": "boat-positiv-newsbot-wissenschaftskommunikation",
+      "label": "Positiv Newsbot Wissenschaftskommunikation",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 650
+    },
+    {
+      "id": "boat-metaphern-fuer-darstellung",
+      "label": "BOAT Metaphern fuer Darstellung",
+      "type": "boat",
+      "cluster": "unassigned",
+      "hours": 10
+    }
+  ],
+  "edges": [
+    {
+      "source": "boat-flaechenzuordnung-system-geometrische-navigation",
+      "target": "boat-geometrische-navigation-views-als-koerper",
+      "type": "up"
+    },
+    {
+      "source": "boat-flaechenzuordnung-system-geometrische-navigation",
+      "target": "boat-koerperzuordnung-variable-views",
+      "type": "sister"
+    },
+    {
+      "source": "boat-koerperzuordnung-variable-views",
+      "target": "boat-geometrische-navigation-views-als-koerper",
+      "type": "up"
+    },
+    {
+      "source": "boat-koerperzuordnung-variable-views",
+      "target": "boat-flaechenzuordnung-system-geometrische-navigation",
+      "type": "sister"
+    },
+    {
+      "source": "boat-nodes-inputdaten-aus-statistik",
+      "target": "boat-nodes-nw-mit-sozialen-daten-aus-vault",
+      "type": "sister"
+    },
+    {
+      "source": "boat-nodes-materialisierung",
+      "target": "boat-nodes-nw-mit-sozialen-daten-aus-vault",
+      "type": "sister"
+    },
+    {
+      "source": "boat-nodes-nw-mit-sozialen-daten-aus-vault",
+      "target": "boat-nodes-materialisierung",
+      "type": "sister"
+    }
+  ]
+}

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detaillierte Quartett-Karten - Verschiedene File-Typen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .karte-wrapper {
+            text-align: center;
+        }
+
+        .label {
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* === BASIS === */
+        .quartett-karte {
+            width: 360px;
+            height: 540px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* === BOAT-KARTE (a5_traeumend) === */
+        .boat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 20px;
+            position: relative;
+        }
+
+        .boat-nummer {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .boat-titel {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .boat-status-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .boat-untertitel {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .boat-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-gruppe {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .info-wert {
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .info-wert-gross {
+            font-size: 28px;
+            font-weight: 900;
+            color: #764ba2;
+        }
+
+        .fortschritt-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .fortschritt-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .verbindungen-mini {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .verbindung-mini {
+            flex: 1;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .verbindung-mini strong {
+            display: block;
+            font-size: 12px;
+            color: #111;
+            margin-top: 2px;
+        }
+
+        /* === HTML-PAGE KARTE (H2me) === */
+        .html-header {
+            background: #E63946;
+            color: white;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .html-links {
+            flex: 1;
+        }
+
+        .html-nummer {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            opacity: 0.9;
+        }
+
+        .html-titel {
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .html-status {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+
+        .html-screenshot {
+            height: 140px;
+            background: linear-gradient(135deg, #E63946 0%, #a8201a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            position: relative;
+        }
+
+        .tech-badges {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .html-body {
+            padding: 18px;
+            flex: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .stat-zahl {
+            font-size: 20px;
+            font-weight: 900;
+            color: #E63946;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 9px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .features-liste {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features-liste li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .features-liste li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #E63946;
+            font-weight: bold;
+        }
+
+        /* === DOT-FILE KARTE (ii_Dots) === */
+        .dot-header {
+            background: white;
+            padding: 16px 20px;
+            border-bottom: 3px solid #06d6a0;
+        }
+
+        .dot-kategorie {
+            font-size: 11px;
+            color: #06d6a0;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .dot-titel {
+            font-size: 20px;
+            font-weight: 900;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .dot-beschreibung {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .dot-body {
+            padding: 18px;
+            flex: 1;
+        }
+
+        .quellen-box {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .quellen-titel {
+            font-size: 10px;
+            color: #06d6a0;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .quelle-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .quelle-emoji {
+            font-size: 14px;
+        }
+
+        .verbindungen-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .verbindung-box {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .verbindung-typ {
+            font-size: 9px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .verbindung-name {
+            font-size: 11px;
+            color: #111;
+            font-weight: 600;
+        }
+
+        /* === LOG-FILE KARTE (bi_Logs) === */
+        .log-header {
+            background: linear-gradient(135deg, #f7941d 0%, #f15a29 100%);
+            color: white;
+            padding: 16px 20px;
+        }
+
+        .log-kategorie {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .log-titel {
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .log-body {
+            padding: 18px;
+            flex: 1;
+        }
+
+        .zeitraum-box {
+            background: #fff5eb;
+            border-left: 4px solid #f7941d;
+            padding: 12px;
+            margin-bottom: 14px;
+            border-radius: 4px;
+        }
+
+        .zeitraum-label {
+            font-size: 10px;
+            color: #f7941d;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .zeitraum-wert {
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .aktivitaet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .aktivitaet-box {
+            text-align: center;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .aktivitaet-zahl {
+            font-size: 24px;
+            font-weight: 900;
+            color: #f7941d;
+        }
+
+        .aktivitaet-label {
+            font-size: 9px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .themen-liste {
+            font-size: 11px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .themen-liste strong {
+            color: #f7941d;
+        }
+
+        /* === TASK-FILE KARTE (a_yang) === */
+        .task-header {
+            background: #457b9d;
+            color: white;
+            padding: 16px 20px;
+            position: relative;
+        }
+
+        .task-prioritaet {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .task-kategorie {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .task-titel {
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1.2;
+            padding-right: 50px;
+        }
+
+        .task-body {
+            padding: 18px;
+            flex: 1;
+        }
+
+        .deadline-box {
+            background: #e3f2fd;
+            border-left: 4px solid #457b9d;
+            padding: 12px;
+            margin-bottom: 14px;
+            border-radius: 4px;
+        }
+
+        .deadline-label {
+            font-size: 10px;
+            color: #457b9d;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .deadline-wert {
+            font-size: 16px;
+            color: #111;
+            font-weight: 900;
+        }
+
+        .task-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .checklist-preview {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .checklist-item {
+            padding: 4px 0;
+            color: #555;
+        }
+
+        .checklist-item.done {
+            text-decoration: line-through;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 1. BOAT-FILE -->
+    <div class="karte-wrapper">
+        <div class="label">BOAT-File (a5_traeumend)</div>
+        <div class="quartett-karte">
+            <div class="boat-header">
+                <div class="boat-status-badge">TRÄUMEND</div>
+                <div class="boat-nummer">153 • BOAT</div>
+                <div class="boat-titel">Dashboard 3D Navigation</div>
+                <div class="boat-untertitel">Isometrische Wohnung als Interface</div>
+            </div>
+            
+            <div class="boat-body">
+                <div class="info-gruppe">
+                    <div class="info-label">Geschätzte Zeit</div>
+                    <div class="info-wert-gross">40h</div>
+                    <div class="fortschritt-bar">
+                        <div class="fortschritt-fill" style="width: 0%"></div>
+                    </div>
+                    <div style="font-size: 10px; color: #999; margin-top: 4px;">0% abgeschlossen</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Status</div>
+                    <div class="info-wert">a5_traeumend • Noch nicht gestartet</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Bereich</div>
+                    <div class="info-wert">Yang · Bian</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Komplexität</div>
+                    <div class="tags-container">
+                        <span class="tag">Three.js</span>
+                        <span class="tag">3D-Modeling</span>
+                        <span class="tag">Navigation</span>
+                        <span class="tag">Game-Design</span>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Verbindungen</div>
+                    <div class="verbindungen-mini">
+                        <div class="verbindung-mini">
+                            Up::<strong>H2me</strong>
+                        </div>
+                        <div class="verbindung-mini">
+                            Sister::<strong>BOAT_151</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Erstellt</div>
+                    <div class="info-wert">2025-10-24 14:30</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. HTML-PAGE -->
+    <div class="karte-wrapper">
+        <div class="label">HTML-Page (H2me)</div>
+        <div class="quartett-karte">
+            <div class="html-header">
+                <div class="html-links">
+                    <div class="html-nummer">153 • PAGE</div>
+                    <div class="html-titel">Cytoscape Graph</div>
+                </div>
+                <div class="html-status">LIVE</div>
+            </div>
+            
+            <div class="html-screenshot">
+                🕸️
+                <div class="tech-badges">
+                    <span class="tech-badge">Cytoscape.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                </div>
+            </div>
+            
+            <div class="html-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-zahl">458</div>
+                        <div class="stat-label">Zeilen Code</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-zahl">3</div>
+                        <div class="stat-label">Dependencies</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-zahl">24KB</div>
+                        <div class="stat-label">Größe</div>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Bereich</div>
+                    <div class="info-wert">Bian (Verbindungen)</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Features</div>
+                    <ul class="features-liste">
+                        <li>Interaktive Node-Navigation</li>
+                        <li>Zoom & Pan Controls</li>
+                        <li>Layout-Algorithmen</li>
+                        <li>Obsidian-Integration</li>
+                        <li>Mobile-optimiert</li>
+                    </ul>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Zuletzt aktualisiert</div>
+                    <div class="info-wert">2025-10-14</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. DOT-FILE -->
+    <div class="karte-wrapper">
+        <div class="label">DOT-File (ii_Dots)</div>
+        <div class="quartett-karte">
+            <div class="dot-header">
+                <div class="dot-kategorie">310 • DOT • GESCHICHTE</div>
+                <div class="dot-titel">Reinheitsgebot & Hafer</div>
+                <div class="dot-beschreibung">Historische Entwicklung der Bier-Gesetzgebung im Mittelalter</div>
+            </div>
+            
+            <div class="dot-body">
+                <div class="quellen-box">
+                    <div class="quellen-titel">Quellen (5)</div>
+                    <div class="quelle-item">
+                        <span class="quelle-emoji">🟢</span>
+                        <span>Urbock Bier • Seite 24</span>
+                    </div>
+                    <div class="quelle-item">
+                        <span class="quelle-emoji">🟢</span>
+                        <span>Deutsche Bierkultur • Kap. 3</span>
+                    </div>
+                    <div class="quelle-item">
+                        <span class="quelle-emoji">🟡</span>
+                        <span>Wikipedia • Reinheitsgebot</span>
+                    </div>
+                    <div class="quelle-item">
+                        <span class="quelle-emoji">🟢</span>
+                        <span>Staatsbibliothek München</span>
+                    </div>
+                    <div class="quelle-item">
+                        <span class="quelle-emoji">🟡</span>
+                        <span>Bier-Historie Blog</span>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Wortanzahl</div>
+                    <div class="info-wert">1.247 Wörter • ~5 Min Lesezeit</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Zeitraum</div>
+                    <div class="info-wert">Mittelalter (12.-16. Jahrhundert)</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Verbindungen</div>
+                    <div class="verbindungen-box">
+                        <div class="verbindung-box">
+                            <div class="verbindung-typ">Up::</div>
+                            <div class="verbindung-name">Bier-Geschichte</div>
+                        </div>
+                        <div class="verbindung-box">
+                            <div class="verbindung-typ">Sister::</div>
+                            <div class="verbindung-name">Hopfen-Gesetze</div>
+                        </div>
+                        <div class="verbindung-box">
+                            <div class="verbindung-typ">Related::</div>
+                            <div class="verbindung-name">Weizenbier</div>
+                        </div>
+                        <div class="verbindung-box">
+                            <div class="verbindung-typ">Prev::</div>
+                            <div class="verbindung-name">Römisches Bier</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Erstellt</div>
+                    <div class="info-wert">2025-08-15</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. LOG-FILE -->
+    <div class="karte-wrapper">
+        <div class="label">Log-File (bi_Logs)</div>
+        <div class="quartett-karte">
+            <div class="log-header">
+                <div class="log-kategorie">153 • LOG • CLAUDINE</div>
+                <div class="log-titel">H2me Dashboard Sessions</div>
+            </div>
+            
+            <div class="log-body">
+                <div class="zeitraum-box">
+                    <div class="zeitraum-label">Zeitraum</div>
+                    <div class="zeitraum-wert">24. Okt - 25. Okt 2025</div>
+                </div>
+                
+                <div class="aktivitaet-grid">
+                    <div class="aktivitaet-box">
+                        <div class="aktivitaet-zahl">12</div>
+                        <div class="aktivitaet-label">Sessions</div>
+                    </div>
+                    <div class="aktivitaet-box">
+                        <div class="aktivitaet-zahl">47</div>
+                        <div class="aktivitaet-label">Einträge</div>
+                    </div>
+                    <div class="aktivitaet-box">
+                        <div class="aktivitaet-zahl">28h</div>
+                        <div class="aktivitaet-label">Gesamtzeit</div>
+                    </div>
+                    <div class="aktivitaet-box">
+                        <div class="aktivitaet-zahl">23</div>
+                        <div class="aktivitaet-label">Files geändert</div>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Hauptthemen</div>
+                    <div class="themen-liste">
+                        <strong>•</strong> Dashboard 4x4 Grid<br>
+                        <strong>•</strong> ThemeManager Integration<br>
+                        <strong>•</strong> Shared-Nav Refactoring<br>
+                        <strong>•</strong> Kakano Theme Development<br>
+                        <strong>•</strong> Button-System Zentralisierung
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Status</div>
+                    <div class="tags-container">
+                        <span class="tag">8 Tasks erledigt</span>
+                        <span class="tag">3 In Arbeit</span>
+                        <span class="tag">5 Offen</span>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Verbindungen</div>
+                    <div class="info-wert">→ 153_TASKS_h2me.md</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. TASK-FILE -->
+    <div class="karte-wrapper">
+        <div class="label">Task-File (a_yang)</div>
+        <div class="quartett-karte">
+            <div class="task-header">
+                <div class="task-prioritaet">🔥</div>
+                <div class="task-kategorie">153 • TASK • H2ME</div>
+                <div class="task-titel">Navigation System Refactoring</div>
+            </div>
+            
+            <div class="task-body">
+                <div class="deadline-box">
+                    <div class="deadline-label">Deadline</div>
+                    <div class="deadline-wert">31. Oktober 2025</div>
+                </div>
+                
+                <div class="task-stats">
+                    <div class="stat-box">
+                        <div class="stat-zahl">12</div>
+                        <div class="stat-label">Subtasks</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-zahl">67%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-zahl">~8h</div>
+                        <div class="stat-label">Verbleibend</div>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Priorität</div>
+                    <div class="info-wert">a1_jetzt • Hoch</div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Kategorie</div>
+                    <div class="tags-container">
+                        <span class="tag">Refactoring</span>
+                        <span class="tag">Tech Debt</span>
+                        <span class="tag">Navigation</span>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Checklist (Auszug)</div>
+                    <div class="checklist-preview">
+                        <div class="checklist-item done">✓ shared-nav.css erstellen</div>
+                        <div class="checklist-item done">✓ Mini-Graph integrieren</div>
+                        <div class="checklist-item">⧈ Alle Pages updaten</div>
+                        <div class="checklist-item">⧈ Testing & Deploy</div>
+                    </div>
+                </div>
+                
+                <div class="info-gruppe">
+                    <div class="info-label">Verbindungen</div>
+                    <div class="info-wert">→ 153_LOG_h2me.md</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

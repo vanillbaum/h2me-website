@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki-Quartett - Varianten</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .karte-wrapper {
+            text-align: center;
+        }
+
+        .varianten-label {
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* === KARTEN BASIS === */
+        .quartett-karte {
+            width: 320px;
+            height: 480px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* === VARIANTE A: MINIMAL CLEAN === */
+        .karte-a .header {
+            background: white;
+            border-bottom: 3px solid #E63946;
+            padding: 16px;
+        }
+
+        .karte-a .kategorie-oben {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .karte-a .haupt-titel {
+            font-size: 26px;
+            font-weight: 900;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .karte-a .bild-bereich {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+        }
+
+        .karte-a .nummer-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: white;
+            color: #E63946;
+            font-weight: 900;
+            font-size: 20px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .karte-a .eigenschaften {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .karte-a .eigenschaft-zeile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .karte-a .eigenschaft-zeile:last-child {
+            border-bottom: none;
+        }
+
+        .karte-a .label {
+            font-weight: bold;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .karte-a .wert {
+            font-weight: bold;
+            font-size: 14px;
+            color: #111;
+        }
+
+        .karte-a .icon {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        /* === VARIANTE B: KOCHBUCH-STIL === */
+        .karte-b .header {
+            background: white;
+            padding: 12px 20px 20px;
+            text-align: center;
+        }
+
+        .karte-b .mini-kategorie {
+            font-size: 10px;
+            color: #999;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .karte-b .haupt-titel {
+            font-size: 24px;
+            font-weight: 900;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .karte-b .sub-titel {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .karte-b .bild-bereich {
+            height: 180px;
+            background: #764ba2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .karte-b .illustration {
+            font-size: 100px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+        }
+
+        .karte-b .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+        }
+
+        .karte-b .info-box {
+            padding: 20px;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .karte-b .info-box:nth-child(2n) {
+            border-right: none;
+        }
+
+        .karte-b .info-box:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+
+        .karte-b .info-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .karte-b .info-label {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .karte-b .info-wert {
+            font-size: 14px;
+            font-weight: bold;
+            color: #111;
+        }
+
+        /* === VARIANTE C: YANG/BIAN/YIN FARBEN === */
+        .karte-c {
+            border: 3px solid #764ba2;
+        }
+
+        .karte-c .header {
+            background: #764ba2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .karte-c .nummer {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .karte-c .haupt-titel {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .karte-c .bild-bereich {
+            height: 160px;
+            background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            color: white;
+        }
+
+        .karte-c .eigenschaften {
+            padding: 24px;
+            flex: 1;
+        }
+
+        .karte-c .eigenschaft-block {
+            margin-bottom: 16px;
+        }
+
+        .karte-c .eigenschaft-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .karte-c .label {
+            font-size: 11px;
+            color: #764ba2;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .karte-c .wert {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .karte-c .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .karte-c .tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* === VARIANTE D: PHOTO-STYLE === */
+        .karte-d .header {
+            background: #E63946;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .karte-d .codewort {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .karte-d .nummer {
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .karte-d .bild-bereich {
+            height: 200px;
+            background: linear-gradient(135deg, #E63946 0%, #a8201a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            color: white;
+            position: relative;
+        }
+
+        .karte-d .overlay-text {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .karte-d .info-section {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .karte-d .haupt-titel {
+            font-size: 22px;
+            font-weight: 900;
+            color: #111;
+            margin-bottom: 16px;
+            text-align: center;
+            border-bottom: 2px solid #E63946;
+            padding-bottom: 12px;
+        }
+
+        .karte-d .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .karte-d .meta-item {
+            text-align: center;
+        }
+
+        .karte-d .meta-label {
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .karte-d .meta-wert {
+            font-size: 13px;
+            font-weight: bold;
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- VARIANTE A: MINIMAL CLEAN -->
+    <div class="karte-wrapper">
+        <div class="varianten-label">Variante A: Minimal Clean</div>
+        <div class="quartett-karte karte-a">
+            <div class="header">
+                <div class="kategorie-oben">WIKI · TYPEN</div>
+                <div class="haupt-titel">ASS ADHS AuDHS</div>
+            </div>
+            
+            <div class="bild-bereich">
+                <div class="nummer-badge">241</div>
+                🧠
+            </div>
+            
+            <div class="eigenschaften">
+                <div class="eigenschaft-zeile">
+                    <span class="label"><span class="icon">📁</span>Codewort</span>
+                    <span class="wert">TYP</span>
+                </div>
+                
+                <div class="eigenschaft-zeile">
+                    <span class="label"><span class="icon">📂</span>Ordner</span>
+                    <span class="wert">ii_Wiki</span>
+                </div>
+                
+                <div class="eigenschaft-zeile">
+                    <span class="label"><span class="icon">🔗</span>Source</span>
+                    <span class="wert">Instagram</span>
+                </div>
+                
+                <div class="eigenschaft-zeile">
+                    <span class="label"><span class="icon">📅</span>Erstellt</span>
+                    <span class="wert">2025-04-21</span>
+                </div>
+                
+                <div class="eigenschaft-zeile">
+                    <span class="label"><span class="icon">🏷️</span>Tags</span>
+                    <span class="wert">#neurodivergent</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VARIANTE B: KOCHBUCH-STIL -->
+    <div class="karte-wrapper">
+        <div class="varianten-label">Variante B: Kochbuch-Stil</div>
+        <div class="quartett-karte karte-b">
+            <div class="header">
+                <div class="mini-kategorie">WIKI · TYPEN · BIAN</div>
+                <div class="haupt-titel">ASS ADHS AuDHS</div>
+                <div class="sub-titel">Neurodivergente Spektren</div>
+            </div>
+            
+            <div class="bild-bereich">
+                <div class="illustration">🧠</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="info-box">
+                    <div class="info-icon">📁</div>
+                    <div class="info-label">Nummer</div>
+                    <div class="info-wert">241</div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-icon">🏷️</div>
+                    <div class="info-label">Codewort</div>
+                    <div class="info-wert">TYP</div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-icon">📂</div>
+                    <div class="info-label">Sammlung</div>
+                    <div class="info-wert">ii_Wiki</div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-icon">📅</div>
+                    <div class="info-label">Datum</div>
+                    <div class="info-wert">Apr 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VARIANTE C: BIAN FARBE -->
+    <div class="karte-wrapper">
+        <div class="varianten-label">Variante C: Bian-Farbe</div>
+        <div class="quartett-karte karte-c">
+            <div class="header">
+                <div class="nummer">241 · TYP</div>
+                <div class="haupt-titel">ASS ADHS AuDHS</div>
+            </div>
+            
+            <div class="bild-bereich">
+                🧠
+            </div>
+            
+            <div class="eigenschaften">
+                <div class="eigenschaft-block">
+                    <div class="label">Bereich</div>
+                    <div class="wert">Bian · Yin</div>
+                </div>
+                
+                <div class="eigenschaft-block">
+                    <div class="label">Sammlung</div>
+                    <div class="wert">Wiki (ii_Wiki)</div>
+                </div>
+                
+                <div class="eigenschaft-block">
+                    <div class="label">Quelle</div>
+                    <div class="wert">Instagram · @speechdude</div>
+                </div>
+                
+                <div class="eigenschaft-block">
+                    <div class="label">Tags</div>
+                    <div class="tags">
+                        <span class="tag">neurodivergent</span>
+                        <span class="tag">autism</span>
+                        <span class="tag">adhd</span>
+                    </div>
+                </div>
+                
+                <div class="eigenschaft-block">
+                    <div class="label">Erstellt</div>
+                    <div class="wert">21. April 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VARIANTE D: PHOTO STYLE -->
+    <div class="karte-wrapper">
+        <div class="varianten-label">Variante D: Photo Style</div>
+        <div class="quartett-karte karte-d">
+            <div class="header">
+                <span class="codewort">TYP</span>
+                <span class="nummer">241</span>
+            </div>
+            
+            <div class="bild-bereich">
+                🧠
+                <div class="overlay-text">
+                    Neurodivergente Spektren
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <div class="haupt-titel">ASS · ADHS · AuDHS</div>
+                
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <div class="meta-label">Sammlung</div>
+                        <div class="meta-wert">Wiki</div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-label">Bereich</div>
+                        <div class="meta-wert">Bian/Yin</div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-label">Quelle</div>
+                        <div class="meta-wert">Instagram</div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-label">Datum</div>
+                        <div class="meta-wert">Apr '25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

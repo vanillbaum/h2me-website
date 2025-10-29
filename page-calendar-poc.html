@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#FFFFFF">
+    <title>Calendar PoC • H2me</title>
+    <link rel="stylesheet" href="page-calendar-poc.css">
+</head>
+<body>
+
+    <!-- Top-Bar -->
+    <header class="top-bar">
+        <h1 class="week-number" id="weekNumber">Woche 44</h1>
+        <button class="btn-add" id="btnAdd" aria-label="Block hinzufügen">+</button>
+    </header>
+
+    <!-- Mini-Wochenübersicht -->
+    <section class="mini-week" id="miniWeek">
+        <!-- 7 Tage Mo-So, wird via JS generiert -->
+    </section>
+
+    <!-- Detail-View -->
+    <main class="detail-view">
+        <header class="detail-header">
+            <button class="btn-nav" id="btnPrev" aria-label="Vorheriger Tag">◀</button>
+            <h2 class="current-date" id="currentDate">Donnerstag, 31. Oktober</h2>
+            <button class="btn-nav" id="btnNext" aria-label="Nächster Tag">▶</button>
+        </header>
+
+        <div class="timeline-container" id="timelineContainer">
+            <div class="timeline" id="timeline">
+                <!-- Zeitachse 00:00-23:45, wird via JS generiert -->
+            </div>
+            <div class="blocks-container" id="blocksContainer">
+                <!-- Blöcke werden hier via JS eingefügt -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal (Click-to-Add / Edit) -->
+    <div class="modal" id="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Schließen">×</button>
+            <h2 class="modal-title" id="modalTitle">Block hinzufügen</h2>
+            <form class="block-form" id="blockForm">
+                <div class="form-group">
+                    <label for="inputTitle">Titel</label>
+                    <input type="text" id="inputTitle" class="form-input" placeholder="z.B. Meeting" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputStartTime">Startzeit</label>
+                    <input type="time" id="inputStartTime" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputDuration">Dauer (Minuten)</label>
+                    <input type="number" id="inputDuration" class="form-input" placeholder="z.B. 60" step="15" min="15" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputCategory">Kategorie</label>
+                    <select id="inputCategory" class="form-input" required>
+                        <option value="ff">FF (Orange)</option>
+                        <option value="stefi">Stefiprojekte (Rot)</option>
+                        <option value="koerper">Körperzeug (Violett)</option>
+                        <option value="hh">HH (Blau)</option>
+                        <option value="mm">MM (Grün)</option>
+                        <option value="bier">Bier (Gelb)</option>
+                        <option value="undefined">Undefiniert (Grau)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputType">Typ</label>
+                    <select id="inputType" class="form-input" required>
+                        <option value="event">Event 🕐</option>
+                        <option value="task">Task ☐</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Speichern</button>
+                <button type="button" class="btn-delete hidden" id="btnDelete">Löschen</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="page-calendar-poc.js"></script>
+</body>
+</html>
