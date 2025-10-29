@@ -14,10 +14,61 @@
   <style>
     .page-links {
       margin-top: 2rem;
+      margin-bottom: 2rem;
       padding: 1.5rem;
       background: rgba(219, 219, 219, 0.3);
       border-radius: 8px;
       border: 1px solid var(--color-yin);
+    }
+
+    /* Collapsible representation controls */
+    .representation-controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      transform: translateY(calc(100% - 50px));
+      transition: transform 0.3s ease;
+      z-index: 100;
+      border-top: 2px solid var(--color-yin);
+    }
+
+    .representation-controls.expanded {
+      transform: translateY(0);
+    }
+
+    .controls-toggle {
+      position: absolute;
+      top: -40px;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-yin);
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .controls-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .controls-toggle i {
+      transition: transform 0.3s ease;
+    }
+
+    .representation-controls.expanded .controls-toggle i {
+      transform: rotate(180deg);
     }
     
     .page-links h3 {
@@ -100,8 +151,11 @@
       </div>
     </div>
     
-    <!-- Control Buttons - Außerhalb des Representation Containers -->
-    <div class="representation-controls">
+    <!-- Control Buttons - Collapsible Panel -->
+    <div class="representation-controls" id="representationControls">
+      <button class="controls-toggle" id="toggleControls">
+        <i class="fa-solid fa-chevron-up"></i>
+      </button>
       <button class="btn-base" id="toggle-mini-graph" data-color-var="--color-secondary" data-color-var-hover="--color-secondary"><i class="fa-solid fa-network-wired"></i> Navigation</button>
       <button class="btn-base yang-color" data-switch="3d"><i class="fa-solid fa-cube"></i> 3D</button>
       <button class="btn-base bian-color" data-switch="svg"><i class="fa-solid fa-image"></i> SVG</button>
@@ -313,10 +367,21 @@
       // Toggle Mini Graph Button
       const toggleBtn = document.getElementById('toggle-mini-graph');
       const miniGraph = document.querySelector('.mini-graph-container');
-      
+
       if (toggleBtn && miniGraph) {
         toggleBtn.addEventListener('click', () => {
           miniGraph.classList.toggle('expanded');
+        });
+      }
+
+      // Toggle Controls Panel
+      const toggleControls = document.getElementById('toggleControls');
+      const controlsPanel = document.getElementById('representationControls');
+
+      if (toggleControls && controlsPanel) {
+        toggleControls.addEventListener('click', (e) => {
+          e.stopPropagation();
+          controlsPanel.classList.toggle('expanded');
         });
       }
       
